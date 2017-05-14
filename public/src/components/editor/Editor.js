@@ -1,6 +1,6 @@
 import React from "react"
 import wangEditor from 'wangeditor'
-import {simpleMenus, menus} from '../config/editor'
+import {simpleMenus, menus} from '../../config/editor'
 
 export default class Editor extends React.Component {
 
@@ -45,5 +45,9 @@ export default class Editor extends React.Component {
         config.menu = props.simple ? simpleMenus : menus;
         Object.assign(editor.config, config);
         return editor;
+    }
+
+    getEditContent = () =>{
+        return this.editor.$txt.html();
     }
 }

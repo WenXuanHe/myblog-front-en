@@ -1,8 +1,8 @@
 import React from 'react';
 import {render} from 'react-dom';
-import WangEditor from './components/w-editor';
+import route from './routes';
 
 render(
-  <WangEditor />,
+  route,
   document.getElementById('app')
 );
