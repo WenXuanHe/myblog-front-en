@@ -1,4 +1,5 @@
 var webpack = require('webpack');
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require("path");
 module.exports = {
     entry: {
@@ -24,7 +25,11 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: "style!css!"
+                loader: ExtractTextPlugin.extract(['style','css'])
+            },
+            {
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract(['css','sass'])
             }
         ]
     },
@@ -32,7 +37,8 @@ module.exports = {
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
             $:'jquery'
-        })
+        }),
+        new ExtractTextPlugin("./styles/style.css")
     ],
     devtool: 'source-map'
 }

@@ -1,19 +1,14 @@
-import React from 'react';
-import FileEditor from './editor/FileEditor';
-import { Link } from 'react-router-dom'
-export default class Index extends React.Component{
+import React from 'react'
+import FileEditor from './editor/FileEditor'
+import '../styles/index.scss';
 
-    constructor() {
-        super(...arguments);
-    }
+export default class Index extends React.Component{
 
     render(){
         return (
             <div>
                <FileEditor ref='fileEditor' />
                <a href="javascript:void(0);" onClick={this.submit}>提交</a>
-               <br/>
-               <Link to='/hewenxuan' >hewenxuan</Link>
             </div>
         )
     }

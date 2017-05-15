@@ -4,10 +4,6 @@ import FileUpload from '../upload/FileUpload'
 
 export default class FileEditor extends React.Component{
 
-    constructor() {
-        super(...arguments);
-    }
-
     render(){
         return (
             <div>

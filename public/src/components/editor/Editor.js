@@ -2,6 +2,11 @@ import React from "react"
 import wangEditor from 'wangeditor'
 import {simpleMenus, menus} from '../../config/editor'
 
+/**
+ * style:{},
+ * config:{},
+ * simple:boolen
+ */
 export default class Editor extends React.Component {
 
     styles = () => {
@@ -9,14 +14,6 @@ export default class Editor extends React.Component {
             width: '100%',
             height: '200px'
         }
-    }
-    /**
-     * style:{},
-     * config:{},
-     * simple:boolen
-     */
-    constructor() {
-        super(...arguments);
     }
 
     componentWillMount(){
