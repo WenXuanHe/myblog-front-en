@@ -21851,16 +21851,26 @@
 	
 	var _Index2 = _interopRequireDefault(_Index);
 	
+	var _NoMatch = __webpack_require__(240);
+	
+	var _NoMatch2 = _interopRequireDefault(_NoMatch);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	//<Redirect from="*" to="/index" />,
+	//<Route path="/" component={Index} />
 	exports.default = _react2.default.createElement(
 	    _reactRouterDom.BrowserRouter,
 	    null,
 	    _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_reactRouterDom.Route, { path: '/index', component: _Index2.default }),
-	        _react2.default.createElement(_reactRouterDom.Redirect, { from: '*', to: '/index' })
+	        _react2.default.createElement(
+	            _reactRouterDom.Switch,
+	            null,
+	            _react2.default.createElement(_reactRouterDom.Route, { path: '/', exact: true, component: _Index2.default }),
+	            _react2.default.createElement(_reactRouterDom.Route, { component: _NoMatch2.default })
+	        )
 	    )
 	);
 
@@ -25400,10 +25410,11 @@
 	                    { href: 'javascript:void(0);', onClick: this.submit },
 	                    '\u63D0\u4EA4'
 	                ),
+	                _react2.default.createElement('br', null),
 	                _react2.default.createElement(
 	                    _reactRouterDom.Link,
-	                    { to: '/home' },
-	                    'home'
+	                    { to: '/hewenxuan' },
+	                    'hewenxuan'
 	                )
 	            );
 	        }
@@ -44447,6 +44458,70 @@
 	}(_react2.default.Component);
 	
 	exports.default = FileUpload;
+
+/***/ }),
+/* 240 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(2);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	/**
+	 * 处理所有未匹配路由
+	 */
+	var NoMatch = function (_React$Component) {
+	    _inherits(NoMatch, _React$Component);
+	
+	    function NoMatch() {
+	        _classCallCheck(this, NoMatch);
+	
+	        return _possibleConstructorReturn(this, (NoMatch.__proto__ || Object.getPrototypeOf(NoMatch)).apply(this, arguments));
+	    }
+	
+	    _createClass(NoMatch, [{
+	        key: 'componentWillMount',
+	        value: function componentWillMount() {}
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'h3',
+	                    null,
+	                    'No match for ',
+	                    _react2.default.createElement(
+	                        'code',
+	                        null,
+	                        this.props.location.pathname
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return NoMatch;
+	}(_react2.default.Component);
+	
+	exports.default = NoMatch;
 
 /***/ })
 /******/ ]);

@@ -1,13 +1,16 @@
 import React from 'react'
-import { BrowserRouter as Router, Route , Redirect} from 'react-router-dom'
+import { BrowserRouter as Router, Route , Redirect, Link, Switch} from 'react-router-dom'
 import Index from '../components/Index'
-
+import NoMatch from '../components/NoMatch'
+//<Redirect from="*" to="/index" />,
+//<Route path="/" component={Index} />
 export default (
     <Router>
         <div>
-            <Route path="/index" component={Index} />
-
-            <Redirect from="*" to="/index" />
+            <Switch>
+                <Route path="/" exact  component={Index} />
+                <Route component={NoMatch}/>
+            </Switch>
         </div>
     </Router>
 )

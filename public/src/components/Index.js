@@ -12,7 +12,8 @@ export default class Index extends React.Component{
             <div>
                <FileEditor ref='fileEditor' />
                <a href="javascript:void(0);" onClick={this.submit}>提交</a>
-               <Link to='/home' >home</Link>
+               <br/>
+               <Link to='/hewenxuan' >hewenxuan</Link>
             </div>
         )
     }
