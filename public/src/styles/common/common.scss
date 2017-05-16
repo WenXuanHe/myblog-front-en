@@ -7,4 +7,54 @@
  */
 @import 'reset.scss';
 @import 'base.scss';
+@import 'mixin.scss';
 
+button, input, select, textarea,.btn {
+    outline: 0;
+    font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","微软雅黑",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+    color: #374051;
+}
+.flex{
+    @include flex;
+    @while $i >= 0{
+        @if $i == 0 {
+            .col{
+                @include col($i);
+            }
+        }@else{
+            .col-#{$i}{
+                @include col($i);
+            }
+        }
+        $i: $i - 1;
+    }
+}
+
+.btn{
+    display:inline-block;
+    @include h(34px);
+    border-radius:3px;
+    padding: 0 14px;
+    background: #fff;
+    font-size: 14px;
+    margin-right: 10px;
+    cursor: pointer;
+    position: relative;
+    white-space: nowrap;
+    color: #333;
+    &.btn-green{
+        color:$white;
+        background:$green;
+        background-color:$green;
+    }
+    &.btn-red{
+        color:$white;
+        background:$red;
+        background-color:$red;
+    }
+    &.btn-dark{
+        color:$white;
+        background:$dark;
+        background-color:$dark;
+    }
+}

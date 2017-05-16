@@ -1,12 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router, Route , Redirect, Switch} from 'react-router-dom'
+import { HashRouter as Router, Route , Redirect, Switch} from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-
+//BrowserRouter
 import Index from '../components/Index'
 import Writer from '../components/Writer'
 import NoMatch from '../components/NoMatch'
 
-//<Redirect from="*" to="/index" />,
+//
 export default (
     <Router basename='/blog'>
         <div>
@@ -19,6 +19,7 @@ export default (
                         <Route path="/" exact  component={Index} />
                         <Route path="/writer"  component={Writer} />
 
+                        <Redirect from="*" to="/writer" />,
                         <Route component={NoMatch}/>
                 </Switch>
             </ReactCSSTransitionGroup>

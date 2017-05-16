@@ -4,3 +4,33 @@
  */
 
 $white:#ffffff;
+$red:#ff595f;
+$green:#21d376;
+$dark:#8190b5;
+//控制col-x 的数量
+$i:6;
+
+@mixin prefix($name, $value){
+    -webkit-#{$name}:$value;
+    -o-#{$name}:$value;
+    -moz-#{$name}:$value;
+    #{$name}:$value;
+}
+@mixin flex{
+    @include prefix('display', flex);
+}
+
+@mixin just-cont($direct){
+    @include prefix('justify-content', $direct);
+}
+@mixin col($column){
+    @if $column > 0 { width:(100%/$column)}
+    @else {flex:1}
+}
+@mixin h($h){
+    height:$h;
+    line-height:$h;
+}
+
+
+
