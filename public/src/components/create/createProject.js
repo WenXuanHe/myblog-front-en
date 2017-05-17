@@ -1,8 +1,10 @@
 import React from 'react'
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+
 import Submit from '../buttons/submit'
 import Cancle from '../buttons/cancle'
 
-export default class AddFiles extends React.Component{
+export default class CreateProject extends React.Component{
 
     constructor(){
         super(...arguments);
@@ -14,17 +16,26 @@ export default class AddFiles extends React.Component{
     render(){
         return (
             <div className='m-add-files'>
-                <div className='u-create' onClick={this.create}> +新建文集</div>
+                <div className='u-create' onClick={this.create}>
+                    <div className='field'>+新建文集</div>
+                </div>
+                <ReactCSSTransitionGroup
+                    transitionName="example"
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}>
                 {
                 this.state.addFile &&
                     <div className='u-file-name'>
-                        <input type='text' placeholder='请输入文集名' onChange={this.fileNameSync} value={this.state.fileName} />
-                        <div>
+                        <div className='field'>
+                            <input type='text' placeholder='请输入文集名' onChange={this.fileNameSync} value={this.state.fileName} />
+                        </div>
+                        <div className='field form'>
                             <Submit value='提交' func={this.submit} />
                             <Cancle value='取消' func={this.cancle} />
                         </div>
                     </div>
                 }
+                </ReactCSSTransitionGroup>
             </div>
         )
     }

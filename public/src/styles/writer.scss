@@ -1,1 +1,28 @@
+@import './common/mixin.scss';
+.m-add-files{
+    width: 100%;
+    background: #33425B;
+    color:$white;
+    .u-create{
+        @include h(50px);
+        box-sizing:border-box;
+
+        box-shadow: 0 1px 3px rgba(0,0,0,.05);
+        cursor:pointer;
+        &:hover{
+        }
+    }
+    //偏移量分开设置
+    .field{
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+
+    .u-file-name{
+        .form{
+            margin: 14px 0px;
+            padding-bottom: 14px;
+        }
+    }
+}
 

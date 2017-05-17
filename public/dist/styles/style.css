@@ -6,6 +6,40 @@
  * u- 元件
  * z- 状态
  */
+body, div, p {
+  margin: 0;
+  padding: 0; }
+
+body {
+  font-size: 14px;
+  font-family: "Open Sans",Arial,"Hiragino Sans GB","Microsoft YaHei","\5FAE\8F6F\96C5\9ED1",STHeiti,"WenQuanYi Micro Hei",SimSun,sans-serif;
+  color: #374051;
+  background-color: #eff4f5;
+  word-wrap: break-word;
+  word-break: normal;
+  -webkit-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto; }
+
+input, select, button, textarea {
+  font-family: 'Open Sans',Arial,'Hiragino Sans GB','Microsoft YaHei','\5FAE\8F6F\96C5\9ED1',STHeiti,'WenQuanYi Micro Hei',SimSun,sans-serif;
+  color: #374051;
+  outline: 0; }
+
+input {
+  height: 30px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 10px;
+  border: 1px solid #d5d6d9; }
+  input:hover {
+    border-color: #c1c2c5; }
+  input:focus {
+    border-color: #21D376; }
+
+a {
+  text-decoration: none; }
+
 .clear {
   clear: both; }
 
@@ -18,9 +52,6 @@
 
 .clearfix {
   *zoom: 1; }
-
-a {
-  text-decoration: none; }
 
 /**
  * 集合所有mixin
@@ -76,5 +107,26 @@ button, input, select, textarea, .btn {
     color: #ffffff;
     background: #8190b5;
     background-color: #8190b5; }
+@charset "UTF-8";
+/**
+ * 集合所有mixin
+ * 控制全局变量，以$c- 开头
+ */
+.m-add-files {
+  width: 100%;
+  background: #33425B;
+  color: #ffffff; }
+  .m-add-files .u-create {
+    height: 50px;
+    line-height: 50px;
+    box-sizing: border-box;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    cursor: pointer; }
+  .m-add-files .field {
+    padding-left: 20px;
+    padding-right: 20px; }
+  .m-add-files .u-file-name .form {
+    margin: 14px 0px;
+    padding-bottom: 14px; }
 
 /*# sourceMappingURL=style.css.map*/

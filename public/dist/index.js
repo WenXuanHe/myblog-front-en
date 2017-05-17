@@ -46666,15 +46666,15 @@
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
-	__webpack_require__(256);
-	
 	var _react = __webpack_require__(4);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _addProject = __webpack_require__(257);
+	__webpack_require__(256);
 	
-	var _addProject2 = _interopRequireDefault(_addProject);
+	var _createProject = __webpack_require__(261);
+	
+	var _createProject2 = _interopRequireDefault(_createProject);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -46702,7 +46702,7 @@
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'col-5' },
-	                    _react2.default.createElement(_addProject2.default, null)
+	                    _react2.default.createElement(_createProject2.default, null)
 	                ),
 	                _react2.default.createElement('div', { className: 'col-4' }),
 	                _react2.default.createElement('div', { className: 'col' })
@@ -46722,108 +46722,7 @@
 	// removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 257 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(4);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _submit = __webpack_require__(258);
-	
-	var _submit2 = _interopRequireDefault(_submit);
-	
-	var _cancle = __webpack_require__(259);
-	
-	var _cancle2 = _interopRequireDefault(_cancle);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var AddFiles = function (_React$Component) {
-	    _inherits(AddFiles, _React$Component);
-	
-	    function AddFiles() {
-	        _classCallCheck(this, AddFiles);
-	
-	        var _this = _possibleConstructorReturn(this, (AddFiles.__proto__ || Object.getPrototypeOf(AddFiles)).apply(this, arguments));
-	
-	        _this.fileNameSync = function (e) {
-	            var fileName = e.target.value;
-	            _this.setState({
-	                fileName: fileName
-	            });
-	        };
-	
-	        _this.create = function () {
-	            _this.setState({
-	                addFile: true
-	            });
-	        };
-	
-	        _this.submit = function () {
-	            alert('submit');
-	        };
-	
-	        _this.cancle = function () {
-	            _this.setState({
-	                fileName: '',
-	                addFile: false
-	            });
-	        };
-	
-	        _this.state = {
-	            addFile: false,
-	            fileName: ''
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(AddFiles, [{
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { className: 'm-add-files' },
-	                _react2.default.createElement(
-	                    'div',
-	                    { className: 'u-create', onClick: this.create },
-	                    ' +\u65B0\u5EFA\u6587\u96C6'
-	                ),
-	                this.state.addFile && _react2.default.createElement(
-	                    'div',
-	                    { className: 'u-file-name' },
-	                    _react2.default.createElement('input', { type: 'text', placeholder: '\u8BF7\u8F93\u5165\u6587\u96C6\u540D', onChange: this.fileNameSync, value: this.state.fileName }),
-	                    _react2.default.createElement(
-	                        'div',
-	                        null,
-	                        _react2.default.createElement(_submit2.default, { value: '\u63D0\u4EA4', func: this.submit }),
-	                        _react2.default.createElement(_cancle2.default, { value: '\u53D6\u6D88', func: this.cancle })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return AddFiles;
-	}(_react2.default.Component);
-	
-	exports.default = AddFiles;
-
-/***/ }),
+/* 257 */,
 /* 258 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -46992,6 +46891,127 @@
 	}(_react2.default.Component);
 	
 	exports.default = NoMatch;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(4);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _reactAddonsCssTransitionGroup = __webpack_require__(226);
+	
+	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+	
+	var _submit = __webpack_require__(258);
+	
+	var _submit2 = _interopRequireDefault(_submit);
+	
+	var _cancle = __webpack_require__(259);
+	
+	var _cancle2 = _interopRequireDefault(_cancle);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var CreateProject = function (_React$Component) {
+	    _inherits(CreateProject, _React$Component);
+	
+	    function CreateProject() {
+	        _classCallCheck(this, CreateProject);
+	
+	        var _this = _possibleConstructorReturn(this, (CreateProject.__proto__ || Object.getPrototypeOf(CreateProject)).apply(this, arguments));
+	
+	        _this.fileNameSync = function (e) {
+	            var fileName = e.target.value;
+	            _this.setState({
+	                fileName: fileName
+	            });
+	        };
+	
+	        _this.create = function () {
+	            _this.setState({
+	                addFile: true
+	            });
+	        };
+	
+	        _this.submit = function () {
+	            alert('submit');
+	        };
+	
+	        _this.cancle = function () {
+	            _this.setState({
+	                fileName: '',
+	                addFile: false
+	            });
+	        };
+	
+	        _this.state = {
+	            addFile: false,
+	            fileName: ''
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(CreateProject, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'm-add-files' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'u-create', onClick: this.create },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'field' },
+	                        '+\u65B0\u5EFA\u6587\u96C6'
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _reactAddonsCssTransitionGroup2.default,
+	                    {
+	                        transitionName: 'example',
+	                        transitionEnterTimeout: 500,
+	                        transitionLeaveTimeout: 300 },
+	                    this.state.addFile && _react2.default.createElement(
+	                        'div',
+	                        { className: 'u-file-name' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'field' },
+	                            _react2.default.createElement('input', { type: 'text', placeholder: '\u8BF7\u8F93\u5165\u6587\u96C6\u540D', onChange: this.fileNameSync, value: this.state.fileName })
+	                        ),
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'field form' },
+	                            _react2.default.createElement(_submit2.default, { value: '\u63D0\u4EA4', func: this.submit }),
+	                            _react2.default.createElement(_cancle2.default, { value: '\u53D6\u6D88', func: this.cancle })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return CreateProject;
+	}(_react2.default.Component);
+	
+	exports.default = CreateProject;
 
 /***/ })
 /******/ ]);
