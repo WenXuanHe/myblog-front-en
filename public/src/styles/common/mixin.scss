@@ -9,6 +9,9 @@ $green:#21d376;
 $dark:#8190b5;
 //控制col-x 的数量
 $i:6;
+$blue:#52ADE7;
+$colorList:$blue;
+$colorListName:'blue';
 
 @mixin prefix($name, $value){
     -webkit-#{$name}:$value;
@@ -31,3 +34,12 @@ $i:6;
     height:$h;
     line-height:$h;
 }
+@mixin btn-factory($color){
+    color:$color;
+    border:1pc solid $color;
+}
+@mixin btn-factory-active($color){
+    background: $color;
+    color:$white;
+}
+

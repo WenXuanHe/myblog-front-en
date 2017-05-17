@@ -56,5 +56,19 @@ button, input, select, textarea,.btn {
         color:$white;
         background:$dark;
         background-color:$dark;
+
+
+
+.c-btn{
+    width: 30px;
+    height: 20px;
+    border-radius: 5px;
+    @for $i from 1 to length($colorList)+1{
+        &.c-btn-#{nth($colorListName,$i)}{
+            @include btn-factory(nth($colorList,$i));
+        }
+        &.c-btn-#{nth($colorListName,$i)}-active{
+            @include btn-factory-active(nth($colorList,$i));
+        }
     }
 }
