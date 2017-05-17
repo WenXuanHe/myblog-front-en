@@ -2,7 +2,8 @@
 import React from 'react'
 
 import '../styles/writer.scss'
-import CreateProject from './create/createProject'
+import NewWorks from './writer/works/NewWorks'
+import NewArticle from './writer/article/NewArticle'
 
 export default class Writer extends React.Component{
 
@@ -10,10 +11,11 @@ export default class Writer extends React.Component{
         return (
             <div className='g-write flex'>
                 <div className='col-5'>
-                    <CreateProject />
+                    <NewWorks />
 
                 </div>
                 <div className='col-4'>
+                    <NewArticle />
 
                 </div>
                 <div className='col'>

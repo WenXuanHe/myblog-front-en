@@ -6,7 +6,6 @@ import Index from '../components/Index'
 import Writer from '../components/Writer'
 import NoMatch from '../components/NoMatch'
 
-//
 export default (
     <Router basename='/blog'>
         <div>
@@ -16,10 +15,10 @@ export default (
                     transitionLeaveTimeout={3000}
                 >
                 <Switch>
-                        <Route path="/" exact  component={Index} />
-                        <Route path="/writer"  component={Writer} />
+                        <Route path="/index"   component={Index} />
+                        <Route path="/writer" exact  component={Writer} />
 
-                        <Redirect from="*" to="/writer" />,
+                        <Redirect from="/" to="/writer" />
                         <Route component={NoMatch}/>
                 </Switch>
             </ReactCSSTransitionGroup>

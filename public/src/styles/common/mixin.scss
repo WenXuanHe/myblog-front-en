@@ -2,13 +2,13 @@
  * 集合所有mixin
  * 控制全局变量，以$c- 开头
  */
-
+//控制col-x 的数量
+$i:6;
 $white:#ffffff;
 $red:#ff595f;
 $green:#21d376;
 $dark:#8190b5;
-//控制col-x 的数量
-$i:6;
+$block:#374051;
 $blue:#52ADE7;
 $colorList:$blue;
 $colorListName:'blue';
@@ -41,5 +41,10 @@ $colorListName:'blue';
 @mixin btn-factory-active($color){
     background: $color;
     color:$white;
+}
+
+@mixin field($field){
+    padding-left: $field;
+    padding-right: $field;
 }
 

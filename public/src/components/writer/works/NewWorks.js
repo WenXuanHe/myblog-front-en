@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
-import Submit from '../buttons/submit'
-import Cancle from '../buttons/cancle'
+import Submit from '../../buttons/submit'
+import Cancle from '../../buttons/cancle'
 
 export default class CreateProject extends React.Component{
 

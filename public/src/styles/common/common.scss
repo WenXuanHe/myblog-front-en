@@ -5,9 +5,10 @@
  * u- 元件
  * z- 状态
  */
+@import 'mixin.scss';
 @import 'reset.scss';
 @import 'base.scss';
-@import 'mixin.scss';
+
 
 button, input, select, textarea,.btn {
     outline: 0;
@@ -16,17 +17,13 @@ button, input, select, textarea,.btn {
 }
 .flex{
     @include flex;
-    @while $i >= 0{
-        @if $i == 0 {
-            .col{
-                @include col($i);
-            }
-        }@else{
-            .col-#{$i}{
-                @include col($i);
-            }
+    .col{
+        @include col(0);
+    }
+    @for $i from 1 to 7{
+        .col-#{$i}{
+            @include col($i);
         }
-        $i: $i - 1;
     }
 }
 
@@ -56,7 +53,8 @@ button, input, select, textarea,.btn {
         color:$white;
         background:$dark;
         background-color:$dark;
-
+    }
+}
 
 
 .c-btn{
