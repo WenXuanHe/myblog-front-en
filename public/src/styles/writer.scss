@@ -1,13 +1,30 @@
 @import './common/mixin.scss';
 
+.g-write{
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    >div{
+        overflow: hidden;
+    }
+    .m-work{
+        background: #33425B;
+        color:$white;
+    }
+    .m-article{
+        background: $white;
+        color:block;
+    }
+
+}
 //偏移量分开设置
 .field{
     @include field(20, 16);
 }
 .m-add-files{
     width: 100%;
-    background: #33425B;
-    color:$white;
+
+
     .u-file-name{
         .form{
             @include emCalc(margin, (14 0), 16);
@@ -16,9 +33,10 @@
     }
 }
 .m-add-article{
-    background: $white;
-    color:block;
-    .u-article-list{
+    .u-article-active{
+        background: #ECECEC;
+    }
+    .u-article{
         @include emCalc(font-size, 20, 16);
         width: 100%;
         @include h(100, 20);

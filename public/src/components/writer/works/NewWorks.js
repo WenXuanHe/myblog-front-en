@@ -19,11 +19,6 @@ export default class CreateProject extends React.Component{
                 <div className='u-create' onClick={this.create}>
                     <div className='field'>+新建文集</div>
                 </div>
-                <ReactCSSTransitionGroup
-                    transitionName="example"
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={300}>
-                {
                 this.state.addFile &&
                     <div className='u-file-name'>
                         <div className='field'>
@@ -35,7 +30,6 @@ export default class CreateProject extends React.Component{
                         </div>
                     </div>
                 }
-                </ReactCSSTransitionGroup>
             </div>
         )
     }
