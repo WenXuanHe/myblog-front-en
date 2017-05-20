@@ -1,19 +1,47 @@
-import React from 'react'
+import React, { PropTypes } from 'react'
 import cs from 'classnames'
+import {connect} from 'react-redux'
 
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 
-export default class CreateArticle extends React.Component{
+const actions={
+    create:{type:'createNewArticle', payload:''},
+    active:{type:'activeArticle', payload:''}
+}
+
+const mapStateToProps = (state, ownProps) => {
+    return {
+        articleList: state.writer.articleList,//文章列表
+        currentArticle: state.writer.login.currentArticle //用户信息，包含当前文集及当前文章
+    }
+}
+
+const mapDispatchToProps = (dispatch, ownProps) =>{
+    return {
+        create:()=>{dispatch(actions.create)},
+        active:()=>{dispatch(actions.active)}
+    }
+}
+
+class CreateArticle extends React.Component{
+
+    static PropTypes = {
+        articleList: PropTypes.array.isRequired,
+        currentArticle: PropTypes.number.isRequired
+    };
 
     constructor(){
         super(...arguments);
-        this.state={
-            fileList:[],
-            active:0
-        };
+
     }
     render(){
+
+        let {articleList, currentArticle, create, active} = this.props;
+        let styles = {
+            'u-article':true,
+            'u-article-active':false
+        };
         return (
             <div className='m-add-article'>
                 <div className='u-create' onClick={this.create}>
@@ -21,11 +49,9 @@ export default class CreateArticle extends React.Component{
                 </div>
                 <div className='u-article-list'>
                 {
-                    this.state.fileList.map((item, i) => {
-                        let styles = {
-                            'u-article':true,
-                            'u-article-active':(this.state.active===i)
-                        }
+                    articleList.map((item, i) => {
+                        styles['u-article-active'] = currentArticle === i;
+
                         return (
                             <div className={cs(styles)}
                              data-id={item.id} onClick={this.active.bind(this,i)}>
@@ -45,16 +71,14 @@ export default class CreateArticle extends React.Component{
     }
 
     create = () => {
-        let fileList = this.state.fileList;
-        fileList.unshift(this.addArticle(fileList.length));
-        this.setState({
-            fileList:fileList
-        });
+        let {articleList, create} = this.props;
+        actions.create.payload = this.addArticle(articleList.length);
+        create();
     }
     active = (i)=>{
-        this.setState({
-            active: i
-        });
+        let {active} = this.props;
+        actions.active.payload = i;
+        active();
     }
     addArticle = (len)=>{
         return {
@@ -64,3 +88,5 @@ export default class CreateArticle extends React.Component{
     }
 
 }
+
+export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);

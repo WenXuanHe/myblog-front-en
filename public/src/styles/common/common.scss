@@ -27,40 +27,7 @@ button, input, select, textarea,.btn {
     }
 }
 
-@mixin btn($base:$btn-font-size){
-    $btn-font-size:16 !default;
-    @include emCalc(font-size, $base, 16);//基于父元素的font-size
-    display:inline-block;
-    ///基于元素本身的font-size
-    @include h(34, $base);
-    @include emCalc(border-radius, 3, $base);
-    @include emCalc(padding, (0 14), $base);
-    @include emCalc(margin-right, 10, $base);
-    background: #fff;
-    cursor: pointer;
-    position: relative;
-    white-space: nowrap;
-    color: #333;
-    &.btn-green{
-        color:$white;
-        // background:$green linear-gradient(#31c779, $green);
-        background:$green linear-gradient(hsla(0, 0%, 100%, .2), transparent);
-        background-color:$green;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
-    }
-    &.btn-red{
-        color:$white;
-        background:$red linear-gradient(hsla(0, 0%, 100%, .2), transparent);
-        background-color:$red;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
-    }
-    &.btn-dark{
-        color:$white;
-        background: $dark linear-gradient(hsla(0, 0%, 100%, .2), transparent);
-        background-color:$dark;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
-    }
-}
+
 .btn{
     @include btn(14);
 }

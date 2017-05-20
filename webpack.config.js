@@ -33,6 +33,15 @@ module.exports = {
             }
         ]
     },
+    resolve: {
+        extensions: ['', '.js', '.jsx', '.css', '.scss'],
+        alias: {
+            $redux: path.resolve(__dirname, 'public/src/redux'),
+            $components: path.resolve(__dirname, 'public/src/components'),
+            $routes: path.resolve(__dirname, 'public/src/routes'),
+            $styles: path.resolve(__dirname, 'public/src/styles')
+        }
+    },
     plugins:[
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
