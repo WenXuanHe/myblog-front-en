@@ -1,25 +1,27 @@
 import React, { PropTypes } from 'react'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+import cs from 'classnames'
 import {connect} from 'react-redux'
 
+import timestamp from '$helper/timestamp'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 
 const actions = {
-    submit:{type:'createNewWork'}
+    submit:{type:'createNewWork', payload:''},
+    changeActiveWork:{type:'changeActiveWork', payload:''}
 };
 
 const mapStateToProps = (state, ownProps) => {
     return {
         workList:state.writer.workList, //文件夹列表
         currentWork: state.login.currentWork //用户信息，包含当前文集及当前文章
-
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
-        submit:()=>{dispatch(actions.submit)}
+        submit: ()=>{dispatch(actions.submit)}
     }
 }
 
@@ -38,8 +40,11 @@ class CreateProject extends React.Component{
         };
     }
     render(){
-        let {workList, currentWork, submit} = this.props;
-
+        let {workList, currentWork} = this.props;
+        let styles = {
+            'u-article':true,
+            'u-article-active':false
+        };
         return (
             <div className='m-add-files'>
                 <div className='u-create' onClick={this.create}>
@@ -57,19 +62,37 @@ class CreateProject extends React.Component{
                         </div>
                     </div>
                 }
+
+                {
+                    workList.map((item, i) =>{
+                        styles['u-article-active'] = currentWork === i;
+                        return (
+                            <div className={cs(styles)}
+                             data-id={item.id} onClick={this.active.bind(this,i)}>
+                                <div className='field z-unit flex'>
+                                    <span className='z-file-logo'>
+                                        <i className="iconfont">&#xe6f4;</i>
+                                    </span>
+                                    <span className="col z-file-title">{item.title}</span>
+                                </div>
+                            </div>
+                        )
+                    })
+                }
             </div>
         )
     }
 
     fileNameSync = (e) => {
-        let newWorkName = e.target.value;
+
         this.setState({
-            newWorkName
+            newWorkName: e.target.value
         });
     }
 
     create = () => {
         let { addWork } = this.state;
+
         if(!addWork){
              this.setState({
                 addWork:true
@@ -77,8 +100,21 @@ class CreateProject extends React.Component{
         }
     }
 
+    active = (i)=>{
+        let {changeActiveWork} = this.props;
+        actions.changeActiveWork.payload = i;
+        changeActiveArticle();
+    }
+
     submit = () => {
+        let {submit} = this.props;
+        actions.submit.payload = {
+            title: this.state.newWorkName,
+            id:timestamp(),
+            articleList:[],
+        };
         submit();
+        this.reset();
     }
 
     reset = () => {

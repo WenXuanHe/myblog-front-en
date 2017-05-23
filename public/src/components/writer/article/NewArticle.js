@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import cs from 'classnames'
 import {connect} from 'react-redux'
 
+import timestamp from '$helper/timestamp'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 
@@ -12,8 +13,9 @@ const actions={
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        articleList: state.writer.articleList,//文章列表
-        currentArticle: state.login.currentArticle //用户信息，包含当前文集及当前文章
+        workList: state.writer.workList,
+        currentArticle: state.login.currentArticle,
+        number:state.login.number
     }
 }
 
@@ -27,12 +29,15 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
 class CreateArticle extends React.Component{
 
     static PropTypes = {
-        articleList: PropTypes.array.isRequired,
-        currentArticle: PropTypes.number.isRequired
+        currentWork: PropTypes.number.isRequired,
+        currentArticle: PropTypes.number.isRequired,
+        workList: PropTypes.number.isRequired
     }
     render(){
 
-        let {articleList, currentArticle} = this.props;
+        let {workList, currentWork, currentArticle} = this.props;
+        let articleList = (workList.length && workList[currentWork])
+            ? workList[currentWork].articleList : [];
         let styles = {
             'u-article':true,
             'u-article-active':false
@@ -76,7 +81,7 @@ class CreateArticle extends React.Component{
     }
     addArticle = (len)=>{
         return {
-            id:`add-${len}`,
+            id:timestamp(),
             title:'',
             content:'',
             files:''

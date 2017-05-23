@@ -1,10 +1,6 @@
+import data from '../store/data';
 
-const login = {
-    currentArticle:0,
-    currentWork:0
-}
-
-export default (state = login, action) => {
+export default (state = data.login, action) => {
   const type = action.type;
   const payload = action.payload;
   switch (type) {

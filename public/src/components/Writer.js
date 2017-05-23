@@ -14,8 +14,9 @@ let actions = {
 };
 const mapStateToProps = (state, ownProps) => {
     return {
-        articleList: state.writer.articleList,//文章列表
-        currentArticle: state.login.currentArticle //用户信息，包含当前文集及当前文章
+        workList: state.writer.workList,//文章列表
+        currentArticle: state.login.currentArticle, //用户信息，包含当前文集及当前文章
+        currentWork: state.login.currentWork
     }
 }
 
@@ -28,12 +29,15 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
 class Writer extends React.Component {
 
     static PropTypes = {
-        articleList: PropTypes.array.isRequired,
-        currentArticle: PropTypes.number.isRequired
+        workList: PropTypes.array.isRequired,
+        currentArticle: PropTypes.number.isRequired,
+        currentWork: PropTypes.number.isRequired
     };
 
     render() {
-        let {articleList, currentArticle} = this.props;
+        let {workList, currentWork, currentArticle} = this.props;
+        let articleList = (workList.length && workList[currentWork])
+            ? workList[currentWork].articleList : [];
 
         return (
 
@@ -60,10 +64,11 @@ class Writer extends React.Component {
     }
 
     updateTitle = (e)  =>{
-        let {updateTitle, currentArticle} = this.props;
+        let {updateTitle, currentArticle, currentWork} = this.props;
         actions.updateTitle.payload = {
             value:e.target.value,
-            currentArticle:currentArticle
+            currentArticle,
+            currentWork
         };
         updateTitle();
     }

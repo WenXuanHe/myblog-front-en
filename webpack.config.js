@@ -39,7 +39,8 @@ module.exports = {
             $redux: path.resolve(__dirname, 'public/src/redux'),
             $components: path.resolve(__dirname, 'public/src/components'),
             $routes: path.resolve(__dirname, 'public/src/routes'),
-            $styles: path.resolve(__dirname, 'public/src/styles')
+            $styles: path.resolve(__dirname, 'public/src/styles'),
+            $helper: path.resolve(__dirname, 'public/src/helper')
         }
     },
     plugins:[
