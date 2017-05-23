@@ -1,28 +1,26 @@
 
 const writer = {
     articleList:[],
-    workList:[],
-    login:{
-        currentArticle:0,
-        currentWork:0
-    }
+    workList:[]
 }
 
 export default (state = writer, action) => {
-  let {articleList, workList, login} = state;
   const type = action.type;
   const payload = action.payload;
-
+  let articleList = Object.assign([], state.articleList);
   switch (type) {
     case 'createNewWork':
       return state;
+    case 'updateTitle':
+        articleList[payload.currentArticle].title = payload.value;
+        return _.assign({}, state, {
+            articleList
+        });
     case 'createNewArticle':
         articleList.unshift(payload);
-        return {
-            articleList,workList,login
-        };
-    case 'activeArticle':
-        return state;
+        return _.assign({}, state, {
+            articleList
+        });
     default:
       return state;
   }

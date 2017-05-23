@@ -12,7 +12,7 @@ const actions = {
 const mapStateToProps = (state, ownProps) => {
     return {
         workList:state.writer.workList, //文件夹列表
-        currentWork: state.writer.login.currentWork //用户信息，包含当前文集及当前文章
+        currentWork: state.login.currentWork //用户信息，包含当前文集及当前文章
 
     }
 }

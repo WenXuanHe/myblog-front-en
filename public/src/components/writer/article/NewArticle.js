@@ -6,21 +6,21 @@ import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 
 const actions={
-    create:{type:'createNewArticle', payload:''},
-    active:{type:'activeArticle', payload:''}
+    createNewArticle:{type:'createNewArticle', payload:''},
+    changeActiveArticle:{type:'changeActiveArticle', payload:''}
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
         articleList: state.writer.articleList,//文章列表
-        currentArticle: state.writer.login.currentArticle //用户信息，包含当前文集及当前文章
+        currentArticle: state.login.currentArticle //用户信息，包含当前文集及当前文章
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
-        create:()=>{dispatch(actions.create)},
-        active:()=>{dispatch(actions.active)}
+        createNewArticle:()=>{dispatch(actions.createNewArticle)},
+        changeActiveArticle:()=>{dispatch(actions.changeActiveArticle)}
     }
 }
 
@@ -29,15 +29,10 @@ class CreateArticle extends React.Component{
     static PropTypes = {
         articleList: PropTypes.array.isRequired,
         currentArticle: PropTypes.number.isRequired
-    };
-
-    constructor(){
-        super(...arguments);
-
     }
     render(){
 
-        let {articleList, currentArticle, create, active} = this.props;
+        let {articleList, currentArticle} = this.props;
         let styles = {
             'u-article':true,
             'u-article-active':false
@@ -51,7 +46,6 @@ class CreateArticle extends React.Component{
                 {
                     articleList.map((item, i) => {
                         styles['u-article-active'] = currentArticle === i;
-
                         return (
                             <div className={cs(styles)}
                              data-id={item.id} onClick={this.active.bind(this,i)}>
@@ -71,19 +65,21 @@ class CreateArticle extends React.Component{
     }
 
     create = () => {
-        let {articleList, create} = this.props;
-        actions.create.payload = this.addArticle(articleList.length);
-        create();
+        let {articleList, createNewArticle} = this.props;
+        actions.createNewArticle.payload = this.addArticle(articleList.length);
+        createNewArticle();
     }
     active = (i)=>{
-        let {active} = this.props;
-        actions.active.payload = i;
-        active();
+        let {changeActiveArticle} = this.props;
+        actions.changeActiveArticle.payload = i;
+        changeActiveArticle();
     }
     addArticle = (len)=>{
         return {
             id:`add-${len}`,
-            title:''
+            title:'',
+            content:'',
+            files:''
         }
     }
 
