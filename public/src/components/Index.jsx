@@ -1,5 +1,5 @@
 import React from 'react'
-import FileEditor from './editor/FileEditor'
+import FileEditor from './editor/FileEditor.jsx'
 import '../styles/index.scss';
 
 export default class Index extends React.Component{

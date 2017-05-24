@@ -5,6 +5,8 @@ const json = require('koa-json');
 const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
+const render = require('koa-swig');
+const co = require('co');
 
 const index = require('./routes/index');
 const users = require('./routes/users');
@@ -12,6 +14,13 @@ const users = require('./routes/users');
 // error handler
 onerror(app);
 
+app.context.render = co.wrap(render({
+    root: path.join(__dirname, '/views'),
+    autoescape: true,
+    cache: 'memory',
+    ext: 'html',
+    writeBody: true
+}));
 // middlewares
 app.use(bodyparser);
 app.use(json());

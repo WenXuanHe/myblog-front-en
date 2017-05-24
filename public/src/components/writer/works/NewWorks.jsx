@@ -4,8 +4,8 @@ import cs from 'classnames'
 import {connect} from 'react-redux'
 
 import timestamp from '$helper/timestamp'
-import Submit from '../../buttons/submit'
-import Cancle from '../../buttons/cancle'
+import Submit from '../../buttons/submit.jsx'
+import Cancle from '../../buttons/cancle.jsx'
 
 const actions = {
     submit:{type:'createNewWork', payload:''},

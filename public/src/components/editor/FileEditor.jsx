@@ -1,6 +1,6 @@
 import React from "react"
-import Editor from './Editor'
-import FileUpload from '../upload/FileUpload'
+import Editor from './Editor.jsx'
+import FileUpload from '../upload/FileUpload.jsx'
 
 export default class FileEditor extends React.Component{
 

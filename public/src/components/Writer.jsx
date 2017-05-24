@@ -2,9 +2,9 @@ import React, { PropTypes } from 'react'
 import {connect} from 'react-redux'
 
 import './../styles/writer.scss'
-import NewWorks from './writer/works/NewWorks'
-import NewArticle from './writer/article/NewArticle'
-import FileEditor from './editor/FileEditor'
+import NewWorks from './writer/works/NewWorks.jsx'
+import NewArticle from './writer/article/NewArticle.jsx'
+import FileEditor from './editor/FileEditor.jsx'
 
 let actions = {
     updateTitle:{

@@ -19,6 +19,7 @@
     "koa-onerror": "^1.2.1",
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
+    "koa-swig": "^2.2.1",
     "koa-views": "^5.2.1",
     "wangeditor": "^2.1.23",
     "webpack": "^1.13.1"
@@ -35,6 +36,7 @@
     "extract-text-webpack-plugin": "^1.0.1",
     "html-webpack-plugin": "^2.28.0",
     "lodash": "^4.17.4",
+    "node-jsx": "^0.13.3",
     "node-sass": "^4.5.2",
     "nodemon": "^1.8.1",
     "react": "^15.5.4",
