@@ -8,6 +8,7 @@
     "dev": "webpack --watch"
   },
   "dependencies": {
+    "babel-preset-stage-3": "^6.24.1",
     "debug": "^2.6.3",
     "jade": "~1.11.0",
     "koa": "^2.2.0",
@@ -19,8 +20,8 @@
     "koa-router": "^7.0.1",
     "koa-static": "^3.0.0",
     "koa-views": "^5.2.1",
-    "webpack": "^1.13.1",
-    "wangeditor": "^2.1.23"
+    "wangeditor": "^2.1.23",
+    "webpack": "^1.13.1"
   },
   "devDependencies": {
     "babel-core": "^6.24.1",
@@ -48,6 +49,7 @@
     "sass-loader": "^6.0.5",
     "style-loader": "^0.13.1",
     "url-loader": "^0.5.7",
-    "webpack-dev-server": "^1.16.2"
+    "webpack-dev-server": "^1.16.2",
+    "webpack-isomorphic": "^1.4.1"
   }
 }

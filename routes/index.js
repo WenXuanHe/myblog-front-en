@@ -1,11 +1,16 @@
 var router = require('koa-router')();
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
+// var Test = require('../public/src/components/Test.js');
+var HelloBox = React.createElement('h1',null,'HelloBox');
+var cc = React.createElement('div', null, HelloBox );
 
 router.get('/', async function (ctx, next) {
-  ctx.state = {
-    title: 'koa2 title'
-  };
-
+  console.log(cc);
+  console.log(React.createFactory(cc));
   await ctx.render('index', {
+    initialHTML:ReactDOMServer.renderToString(cc),
+    initialData:{name:'hewenxuan'}
   });
 })
 

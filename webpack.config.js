@@ -5,7 +5,10 @@ module.exports = {
     entry: {
         index:[
             path.resolve(__dirname, "public/src/index.js")
-        ]
+        ],
+        // test:[
+        //     path.resolve(__dirname, "public/src/components/Test.js")
+        // ]
     },
     output: {
         path: path.resolve(__dirname, 'public/dist/'),
