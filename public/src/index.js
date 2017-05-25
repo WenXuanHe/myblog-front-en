@@ -13,3 +13,9 @@ render(
   </Provider>,
   document.getElementById('app')
 );
+
+export default ()=>{
+  return <Provider store={store}>
+    {routes}
+  </Provider>
+}

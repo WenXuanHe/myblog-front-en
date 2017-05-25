@@ -1,4 +1,4 @@
-export default{
+export default {
     login : {
         currentArticle:0,
         currentWork:0

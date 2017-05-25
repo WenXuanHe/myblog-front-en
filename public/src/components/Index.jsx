@@ -1,5 +1,4 @@
 import React from 'react'
-import FileEditor from './editor/FileEditor.jsx'
 import '../styles/index.scss';
 
 export default class Index extends React.Component{
@@ -7,7 +6,6 @@ export default class Index extends React.Component{
     render(){
         return (
             <div>
-               <FileEditor ref='fileEditor' />
                <a href="javascript:void(0);" onClick={this.submit}>提交</a>
             </div>
         )
@@ -15,12 +13,8 @@ export default class Index extends React.Component{
 
     //todo
     submit = () => {
-        let files = this.refs.fileEditor.getFiles();
-        let content = this.refs.fileEditor.getEditContent();
-        let result = {
-            files,
-            content
-        };
-        console.log(result);
+        // let files = this.refs.fileEditor.getFiles();
+        // let content = this.refs.fileEditor.getEditContent();
+        
     }
 }

@@ -14,7 +14,7 @@ import thunk from 'redux-thunk'
 import reducer from '../reducers'
 
 ////为ssr做准备
-const initialState = window['_INITIAL_STATE_'] || {}
+const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : {};
 
 const store = createStore(
   reducer,

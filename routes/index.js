@@ -1,19 +1,21 @@
 var router = require('koa-router')();
+var path = require('path');
+var React = require('react');
+var ReactDOMServer = require('react-dom/server');
 require('node-jsx').install({
     extension: '.jsx'
 });
-var React = require('react');
 
-// var ReactDOMServer = require('react-dom/server');
-
-var writer = React.createFactory(require('../public/src/components/Writer.jsx'));
-var initData = require('../public/src/redux/store/data.js');
-// var Test = require('../public/src/components/Test.js');
+// require("babel-core").transform("code", {
+//   plugins: ["syntax-dynamic-import"]
+// });
+// import Test from '../public/src/index.js';
+// var Test = require('../public/src/index.js');
 
 router.get('/', async function (ctx, next) {
   await ctx.render('index', {
-    initialHTML:React.renderToString(writer(initData)),
-    initialData:initData
+    // initialHTML: ReactDOMServer.renderToString(Test),
+    // initialData:{}
   });
 })
 

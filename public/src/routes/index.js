@@ -1,10 +1,23 @@
 import React from 'react'
 import { HashRouter as Router, Route , Redirect, Switch} from 'react-router-dom'
 import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-//BrowserRouter
-import Index from '$components/Index.jsx'
-import Writer from '$components/Writer.jsx'
-import NoMatch from '$components/NoMatch.jsx'
+// //BrowserRouter
+
+const home = (location, cb) =>{
+    require.ensure([], require => {
+        cb(null, require('$components/Index.jsx').default);
+    }, 'home');
+}
+const writer = (location, cb) =>{
+    require.ensure([], require => {
+        cb(null, require('$components/Writer.jsx').default);
+    }, 'writer');
+}
+const noMatch = (location, cb) =>{
+    require.ensure([], require => {
+        cb(null, require('$components/NoMatch.jsx').default);
+    }, 'noMatch');
+}
 
 export default (
     <Router basename='/blog'>
@@ -15,11 +28,11 @@ export default (
                     transitionLeaveTimeout={3000}
                 >
                 <Switch>
-                        <Route path="/index"   component={Index} />
-                        <Route path="/writer" exact  component={Writer} />
+                        <Route path="/index"   getComponent={home} />
+                        <Route path="/writer" exact  getComponent={writer} />
 
-                        <Redirect from="/" to="/writer" />
-                        <Route component={NoMatch}/>
+                        {/*<Redirect from="/" to="/writer" />*/}
+                        <Route getComponent={noMatch}/>
                 </Switch>
             </ReactCSSTransitionGroup>
         </div>
