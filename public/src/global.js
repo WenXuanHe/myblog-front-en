@@ -1,1 +1,3 @@
-import _ from 'lodash';
+// import _ from 'lodash';
+
+let _ = require('lodash');

@@ -1,4 +1,4 @@
-export const menus = [
+ const menus = [
     'source',
     '|',
     'bold',
@@ -34,7 +34,7 @@ export const menus = [
     'fullscreen'
 ];
 
-export const simpleMenus = [
+ const simpleMenus = [
     'source',
     '|',
     'bold',
@@ -45,3 +45,6 @@ export const simpleMenus = [
     'forecolor',
     'bgcolor'
 ];
+module.exports = {
+    menus, simpleMenus
+}

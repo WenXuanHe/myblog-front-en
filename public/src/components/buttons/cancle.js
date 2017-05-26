@@ -1,6 +1,7 @@
-import React from 'react';
+// import React from 'react';
+let React = require('react');
 
-export default class Submit extends React.Component{
+class Cancle extends React.Component{
     constructor(){
         super(...arguments);
         this.value = this.props.value || '取消';
@@ -12,3 +13,7 @@ export default class Submit extends React.Component{
         )
     }
 }
+
+// export default Submit;
+module.exports = Cancle;
+

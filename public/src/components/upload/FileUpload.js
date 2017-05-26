@@ -1,6 +1,8 @@
-import React from "react"
+// import React from "react"
 
-export default class FileUpload extends React.Component{
+let React = require('react');
+
+class FileUpload extends React.Component{
 
     constructor(){
         super(...arguments);
@@ -26,3 +28,5 @@ export default class FileUpload extends React.Component{
         return this.state.files;
     }
 }
+// export default FileUpload;
+module.exports = FileUpload;

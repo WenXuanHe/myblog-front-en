@@ -1,21 +1,13 @@
-import './styles/common/common.scss';
-
-import React from 'react';
-import {render} from 'react-dom';
-import './global';
-import {Provider} from 'react-redux';
-import store from '$redux/store';
-import routes from '$routes';
+//import './styles/common/common.scss';
+// import React from 'react';
+// import {render} from 'react-dom';
+require('./styles/common/common.scss');
+require('./global');
+let React = require('react');
+let render = require('react-dom').render;
+let Provider = require('./redux/index.js');
 
 render(
-  <Provider store={store}>
-    {routes}
-  </Provider>,
+  Provider,
   document.getElementById('app')
 );
-
-export default ()=>{
-  return <Provider store={store}>
-    {routes}
-  </Provider>
-}

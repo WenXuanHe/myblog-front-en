@@ -1,6 +1,7 @@
-import data from '../store/data';
+// import data from '../store/data';
+let data = require('../store/data');
 
-export default (state = data.writer, action) => {
+let reducer = (state = data.writer, action) => {
   const type = action.type;
   const payload = action.payload;
   let workList = Object.assign([], state.workList);
@@ -32,4 +33,7 @@ export default (state = data.writer, action) => {
       return state;
   }
 }
+
+// export default reducer;
+module.exports = reducer;
 

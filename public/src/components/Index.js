@@ -1,7 +1,10 @@
-import React from 'react'
-import '../styles/index.scss';
+// import React from 'react'
+// import '../styles/index.scss';
 
-export default class Index extends React.Component{
+let React = require('react');
+require('../styles/index.scss');
+
+class Index extends React.Component{
 
     render(){
         return (
@@ -18,3 +21,6 @@ export default class Index extends React.Component{
         
     }
 }
+
+// export default Index;
+module.exports = Index;

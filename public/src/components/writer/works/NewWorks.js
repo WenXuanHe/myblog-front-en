@@ -1,11 +1,19 @@
-import React, { PropTypes } from 'react'
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
-import cs from 'classnames'
-import {connect} from 'react-redux'
+// import React, { PropTypes } from 'react'
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
+// import cs from 'classnames'
+// import {connect} from 'react-redux'
 
-import timestamp from '$helper/timestamp'
-import Submit from '../../buttons/submit.jsx'
-import Cancle from '../../buttons/cancle.jsx'
+// import timestamp from '$helper/timestamp'
+// import Submit from '../../buttons/submit.jsx'
+// import Cancle from '../../buttons/cancle.jsx'
+
+let React = require('react');
+let PropTypes = React.PropTypes;
+let connect = require('react-redux').connect;
+let cs = require('classnames');
+let timestamp = require('../../../helper/timestamp');
+let Submit = require('../../buttons/submit.js');
+let Cancle = require('../../buttons/cancle.js');
 
 const actions = {
     submit:{type:'createNewWork', payload:''},
@@ -125,4 +133,5 @@ class CreateProject extends React.Component{
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CreateProject);
+// export default connect(mapStateToProps, mapDispatchToProps)(CreateProject);
+module.exports =  connect(mapStateToProps, mapDispatchToProps)(CreateProject);

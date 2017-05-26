@@ -1,6 +1,7 @@
-import data from '../store/data';
+// import data from '../store/data';
+let data = require('../store/data');
 
-export default (state = data.login, action) => {
+let reducer = (state = data.login, action) => {
   const type = action.type;
   const payload = action.payload;
   switch (type) {
@@ -15,5 +16,8 @@ export default (state = data.login, action) => {
     default:
       return state;
   }
-}
+};
+
+// export default reducer;
+module.exports = reducer;
 

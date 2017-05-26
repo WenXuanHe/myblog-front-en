@@ -1,27 +1,20 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require("path");
-var IsomorphicPlugin = require('webpack-isomorphic/plugin');
-
-new IsomorphicPlugin({
-    extensions: ['jpg', 'png', 'gif', 'css', 'jsx', 'js']
-});
 
 module.exports = {
     entry: {
-        index:[
-            path.resolve(__dirname, "public/src/index.js")
+        index:path.resolve(__dirname, "public/src/index.js"),
+        vendors:[
+            'react',
+            'react-dom',
+            'react-redux',
+            'react-router',
+            'redux',
+            'redux-thunk',
+            'lodash'
         ]
     },
-    vendors: [
-      'react',
-      'react-dom',
-      'react-redux',
-      'react-router',
-      'redux',
-      'redux-thunk',
-      'lodash'
-    ],
     output: {
         path: path.resolve(__dirname, 'public/dist/'),
         filename: "[name].js",
@@ -35,7 +28,15 @@ module.exports = {
                 test: /\.js[x]?$/,
                 loader: 'babel',
                 include: [path.resolve(__dirname, 'public/src')],
-                exclude: /node_modules/
+                exclude: /node_modules/,
+                query: {
+                    "presets":
+                    [
+                        "es2015",
+                        "stage-0",
+                        "react"
+                    ]
+                }
             },
             {
                 test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
@@ -52,6 +53,7 @@ module.exports = {
         ]
     },
     resolve: {
+        // root:path.resolve(__dirname, './public/src'),
         extensions: ['', '.js', '.jsx', '.css', '.scss'],
         alias: {
             $redux: path.resolve(__dirname, 'public/src/redux'),
@@ -62,12 +64,13 @@ module.exports = {
         }
     },
     plugins:[
+        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
             $:'jquery'
         }),
-        new ExtractTextPlugin("./styles/style.css"),
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+        new ExtractTextPlugin("./styles/style.css")
+        
     ],
     devtool: 'source-map'
 }

@@ -1,4 +1,4 @@
-export default {
+let data = {
     login : {
         currentArticle:0,
         currentWork:0
@@ -6,4 +6,6 @@ export default {
     writer: {
         workList:[]
     }
-}
+};
+// export default data;
+module.exports = data;

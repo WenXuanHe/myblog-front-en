@@ -1,10 +1,17 @@
-import React, { PropTypes } from 'react'
-import {connect} from 'react-redux'
+// import React, { PropTypes } from 'react'
+// import {connect} from 'react-redux'
 
-import './../styles/writer.scss'
-import NewWorks from './writer/works/NewWorks.jsx'
-import NewArticle from './writer/article/NewArticle.jsx'
-import FileEditor from './editor/FileEditor.jsx'
+// import './../styles/writer.scss'
+// import NewWorks from './writer/works/NewWorks.jsx'
+// import NewArticle from './writer/article/NewArticle.jsx'
+// import FileEditor from './editor/FileEditor.jsx'
+let React = require('react');
+let PropTypes = React.PropTypes;
+let connect = require('react-redux').connect;
+let NewWorks = require('./writer/works/NewWorks.js');
+let NewArticle = require('./writer/article/NewArticle.js');
+let FileEditor = require('./editor/FileEditor.js');
+require('./../styles/writer.scss');
 
 let actions = {
     updateTitle:{
@@ -74,4 +81,5 @@ class Writer extends React.Component {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Writer);
+// export default connect(mapStateToProps, mapDispatchToProps)(Writer);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(Writer);

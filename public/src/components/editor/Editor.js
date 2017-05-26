@@ -1,13 +1,17 @@
-import React from "react"
-import wangEditor from 'wangeditor'
-import {simpleMenus, menus} from '../../config/editor'
+// import React from "react"
+// import wangEditor from 'wangeditor'
+// import {simpleMenus, menus} from '../../config/editor'
+
+let React = require('react');
+let wangEditor = require('wangeditor');
+let {simpleMenus, menus} = require('../../config/editor');
 
 /**
  * style:{},
  * config:{},
  * simple:boolen
  */
-export default class Editor extends React.Component {
+class Editor extends React.Component {
 
     styles = () => {
         return {
@@ -48,3 +52,6 @@ export default class Editor extends React.Component {
         return this.editor.$txt.html();
     }
 }
+
+// export default Editor;
+module.exports = Editor;

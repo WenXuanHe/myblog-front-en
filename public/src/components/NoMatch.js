@@ -1,9 +1,9 @@
-import React from 'react';
-
+// import React from 'react';
+let React = require('react');
 /**
  * 处理所有未匹配路由
  */
-export default class NoMatch extends React.Component{
+class NoMatch extends React.Component{
 
     componentWillMount(){
 
@@ -16,3 +16,6 @@ export default class NoMatch extends React.Component{
         )
     }
 }
+
+// export default NoMatch;
+module.exports = NoMatch;

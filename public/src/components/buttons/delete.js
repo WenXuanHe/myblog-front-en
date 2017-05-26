@@ -1,6 +1,6 @@
-import React from 'react';
-
-export default class Submit extends React.Component{
+// import React from 'react';
+let React = require('react');
+ class Delete extends React.Component{
     constructor(){
         super(...arguments);
         this.value = this.props.value || '删除';
@@ -12,3 +12,5 @@ export default class Submit extends React.Component{
         )
     }
 }
+// export default Submit;
+module.exports = Delete;
