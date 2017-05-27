@@ -4,20 +4,20 @@
 
 let React = require('react');
 let { HashRouter, Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
-let ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 let Bundle = require('../components/Bundle.js');
-let Home =  require('bundle-loader?lazy&name=home!../components/Home.js');
+// let Home =  require('bundle-loader?lazy&name=home!../components/Home.js');
+let Home = require('../components/Home.js');
 let Writer =  require('bundle-loader?lazy&name=writer!../components/Writer.js');
 let NoMatch =  require('bundle-loader?lazy&name=noMatch!../components/NoMatch.js');
 // //BrowserRouter
-let Router = typeof window === 'undefined' ? StaticRouter : HashRouter;
-const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
+let Router = HashRouter;
+const initialState = window['_INITIAL_STATE_'] || {};
 
-const home = (props) => (
+/*const home = (props) => (
   <Bundle load={Home}>
     {(Component) => <Component {...props}/>}
   </Bundle>
-)
+)*/
 
 const writer = (props) => (
   <Bundle load={Writer}>
@@ -34,20 +34,14 @@ const noMatch = (props) => (
 let router = (
     <Router context={initialState}>
         <div>
-            <ReactCSSTransitionGroup
-                    transitionName="fade"
-                    transitionEnterTimeout={3000}
-                    transitionLeaveTimeout={3000}
-                >
-                <Switch>
-                        {/*<Route path="/index"   getComponent={home} />*/}
-                        <Route path="/index"  exact  component={home} />
-                        <Route path="/writer"  component={writer} />
+            <Switch>
+                {/*<Route path="/index"   getComponent={home} />*/}
+                <Route path="/index"  exact  component={Home} />
+                <Route path="/writer"  component={writer} />
 
-                        <Redirect from="/" to="/writer" />
-                        <Route component={noMatch}/>
-                </Switch>
-            </ReactCSSTransitionGroup>
+                <Redirect from="/" to="/index" />
+                <Route component={noMatch}/>
+            </Switch>
         </div>
     </Router>
 )

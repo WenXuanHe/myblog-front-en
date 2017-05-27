@@ -4,7 +4,13 @@ let data = {
         currentWork:0
     },
     writer: {
-        workList:[]
+        workList: [
+            {
+                title: 'firstflog',
+                id:'11111111',
+                articleList:[]
+            }
+        ]
     }
 };
 // export default data;

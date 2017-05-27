@@ -8,15 +8,14 @@ const logger = require('koa-logger');
 const render = require('koa-swig');
 const co = require('co');
 const path = require('path');
-//定义根路径
-process.ROOT_PATH = __dirname;
+
+require('node-jsx').install(); 
 
 const index = require('./routes/index');
 const users = require('./routes/users');
 
 // error handler
 onerror(app);
-
 
 app.context.render = co.wrap(render({
     root: path.join(__dirname, '/views'),

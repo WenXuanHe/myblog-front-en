@@ -11,4 +11,8 @@ export default <Provider store={store}>
     {routes}
   </Provider>*/
 
-module.exports = (<Provider store={store}>{routes}</Provider>)
+module.exports = (
+  <Provider store={store}>
+    {routes}
+  </Provider>
+)

@@ -4,9 +4,7 @@ let data = require('../store/data');
 let reducer = (state = data.writer, action) => {
   const type = action.type;
   const payload = action.payload;
-  let workList = Object.assign([], state.workList);
-  let work = workList.length && workList[payload.currentWork];
-  let articleList = work && work.articleList || [];
+  let workList = Object.assign([], state.workList), work, articleList;
   switch (type) {
     case 'createNewWork':
         workList.push(payload);
@@ -14,6 +12,9 @@ let reducer = (state = data.writer, action) => {
                 workList
             });
     case 'updateTitle':
+        work = workList.length && workList[payload.currentWork];
+        articleList = work && work.articleList || [];
+
         if(articleList.length && articleList[payload.currentArticle]){
 
             articleList[payload.currentArticle].title = payload.value;
@@ -25,7 +26,10 @@ let reducer = (state = data.writer, action) => {
         return state;
 
     case 'createNewArticle':
+        work = workList.length && workList[payload.currentWork];
+        articleList = work && work.articleList || [];
         articleList.unshift(payload);
+        
         return _.assign({}, state, {
             articleList
         });

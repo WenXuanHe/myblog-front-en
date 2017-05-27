@@ -83,3 +83,4 @@ class Writer extends React.Component {
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
 module.exports = connect(mapStateToProps, mapDispatchToProps)(Writer);
+    
