@@ -1,6 +1,9 @@
 var webpack = require('webpack');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var path = require("path");
+var routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
+
+var publicPath = '/dist/';
 
 module.exports = {
     entry: {
@@ -21,6 +24,8 @@ module.exports = {
         sourceMapFilename: '[file].map',
         //配置按需加载[chunkhash:5]
         chunkFilename: '[name].chunk.js',
+        //给自动引用的生成文件加路径
+        publicPath:publicPath
     },
     module: {
         loaders: [
@@ -37,6 +42,11 @@ module.exports = {
                         "react"
                     ]
                 }
+            },
+            {
+                test: routeComponentRegex,
+                include: path.resolve(__dirname, 'src'),
+                loaders: ['bundle?lazy', 'babel']
             },
             {
                 test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,

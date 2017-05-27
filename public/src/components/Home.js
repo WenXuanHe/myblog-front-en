@@ -2,9 +2,9 @@
 // import '../styles/index.scss';
 
 let React = require('react');
-require('../styles/index.scss');
 
-class Index extends React.Component{
+
+class Home extends React.Component{
 
     render(){
         return (
@@ -23,4 +23,4 @@ class Index extends React.Component{
 }
 
 // export default Index;
-module.exports = Index;
+module.exports = Home;

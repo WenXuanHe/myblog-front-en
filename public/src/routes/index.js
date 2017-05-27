@@ -6,39 +6,30 @@ let React = require('react');
 let { HashRouter, Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
 let ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 let Bundle = require('../components/Bundle.js');
-let Index =  require('../components/Index.js');
-let Writer =  require('../components/Writer.js');
+let Home =  require('bundle-loader?lazy&name=home!../components/Home.js');
+let Writer =  require('bundle-loader?lazy&name=writer!../components/Writer.js');
+let NoMatch =  require('bundle-loader?lazy&name=noMatch!../components/NoMatch.js');
 // //BrowserRouter
 let Router = typeof window === 'undefined' ? StaticRouter : HashRouter;
 const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
-// const home = (location, cb) =>{
-//     return require.ensure([], require => {
-//         let index =  require('../components/Index.jsx');
-//         return <index />;
-//         // cb(null, require('../components/Index.jsx'));
-//     }, 'home');
-// }
-
 
 const home = (props) => (
-  <Bundle load={Index}>
-      {/*//这里只是给this.props.child传一个方法，最后在Bundle的render里面调用*/}
+  <Bundle load={Home}>
     {(Component) => <Component {...props}/>}
   </Bundle>
 )
 
 const writer = (props) => (
   <Bundle load={Writer}>
-      {/*//这里只是给this.props.child传一个方法，最后在Bundle的render里面调用*/}
     {(Component) => <Component {...props}/>}
   </Bundle>
 )
 
-const noMatch = (location, cb) =>{
-    require.ensure([], require => {
-        cb(null, require('../components/NoMatch.js'));
-    }, 'noMatch');
-}
+const noMatch = (props) => (
+  <Bundle load={NoMatch}>
+    {(Component) => <Component {...props}/>}
+  </Bundle>
+)
 
 let router = (
     <Router context={initialState}>

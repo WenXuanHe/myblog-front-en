@@ -11,7 +11,7 @@ let connect = require('react-redux').connect;
 let NewWorks = require('./writer/works/NewWorks.js');
 let NewArticle = require('./writer/article/NewArticle.js');
 let FileEditor = require('./editor/FileEditor.js');
-require('./../styles/writer.scss');
+
 
 let actions = {
     updateTitle:{
