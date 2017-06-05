@@ -4,9 +4,25 @@ let React = require('react');
 let ReactDOMServer = require('react-dom/server');
 let Provider = require('react-redux').Provider;
 let Home = require('../public/src/components/Home');
-process._INITIAL_STATE_ = require('../public/src/redux/store/data');
-let store = require('../public/src/redux/store/index');
+let getStore = require('../public/src/redux/store/index');
 let { StaticRouter } = require('react-router');
+let sqlServer = require('../lib/sql_server');
+
+//todo  登录后 取登录信息
+let login = {
+  currentArticleId:'',
+  currentWorkId:'',
+  userId:'',
+  userName:''
+};
+
+let workList = sql_server.queryWorkListAsync(login.userId, login.currentWorkId);
+let store = getStore({
+  login,
+  writer:{
+    workList
+  }
+});
 
 router.get('/', async function (ctx, next) {
   // console.log(ReactDOMServer.renderToString(Provider));

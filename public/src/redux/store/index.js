@@ -14,16 +14,23 @@ let thunk = require('redux-thunk');
 // import reducer from '../reducers'
 let reducer = require('../reducers');
 ////为ssr做准备
-const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
-console.log(`initialState:${initialState}`);
-const store = createStore(
-  reducer,
-  initialState
-  // applyMiddleware(
-  //   thunk
-  //   // thunk.withExtraArgument(getStore)
-  // )
-)
+// const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
+// console.log(`initialState:${initialState}`);
+// const store = createStore(
+//   reducer,
+//   initialState
+//   // applyMiddleware(
+//   //   thunk
+//   //   // thunk.withExtraArgument(getStore)
+//   // )
+// )
 
 // export default store
-module.exports = store;
+// module.exports = store;
+module.exports = (initialState) => {
+  const store = createStore(
+    reducer,
+    initialState
+  );
+  return store;
+}
