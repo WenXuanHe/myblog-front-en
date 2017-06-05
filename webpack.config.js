@@ -8,6 +8,7 @@ var publicPath = '/dist/';
 module.exports = {
     entry: {
         index:path.resolve(__dirname, "public/src/index.js"),
+        login:path.resolve(__dirname, "public/src/login.js"),
         vendors:[
             'react',
             'react-dom',

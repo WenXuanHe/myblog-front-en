@@ -8,6 +8,8 @@ let getStore = require('../public/src/redux/store/index');
 let { StaticRouter } = require('react-router');
 let sqlServer = require('../lib/sql_server');
 
+router.prefix('/writer');
+
 //todo  登录后 取登录信息
 let login = {
   currentArticleId:'',
@@ -16,7 +18,7 @@ let login = {
   userName:''
 };
 
-let workList = sql_server.queryWorkListAsync(login.userId, login.currentWorkId);
+let workList = sqlServer.queryWorkListAsync(login.userId, login.currentWorkId);
 let store = getStore({
   login,
   writer:{

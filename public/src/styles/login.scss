@@ -1,0 +1,26 @@
+@import './common/common.scss';
+
+.m-login{
+    width: 500px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin: auto;
+    .u-submit{
+        display: flex;
+        justify-content: flex-end;
+        margin-right: 140px;
+    }
+}
+.form-control{
+    padding: 10px 0;
+    label{
+        span{
+                width: 100px;
+                padding: 0 10px;
+                line-height: 30px;
+                box-sizing: border-box;
+        }
+    }
+}

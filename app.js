@@ -15,6 +15,7 @@ require('node-jsx').install();
 
 const index = require('./routes/index');
 const users = require('./routes/users');
+const login = require('./routes/login');
 
 // error handler
 onerror(app);
@@ -53,5 +54,6 @@ app.use(session({
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(users.routes(), users.allowedMethods());
+app.use(login.routes(), login.allowedMethods());
 
 module.exports = app;

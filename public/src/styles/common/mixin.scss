@@ -84,19 +84,19 @@ $base-font-size: 16 !default;
         color:$white;
         background:$green linear-gradient(hsla(0, 0%, 100%, .2), transparent);
         background-color:$green;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
+        // box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
     }
     &.btn-red{
         color:$white;
         background:$red linear-gradient(hsla(0, 0%, 100%, .2), transparent);
         background-color:$red;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
+        // box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
     }
     &.btn-dark{
         color:$white;
         background: $dark linear-gradient(hsla(0, 0%, 100%, .2), transparent);
         background-color:$dark;
-        box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
+        // box-shadow: 0 0.05em 0.25em rgba(0,0,0,.5);
     }
 }
 @mixin field($field, $base){
