@@ -6,9 +6,7 @@ let axios = require('axios');
 class Login extends React.Component{
     constructor(){
         super(...arguments);
-        this.timer = null;
         this.state = {
-            timer:null,
             userName:'',
             password:'',
             tip:{
@@ -47,7 +45,7 @@ class Login extends React.Component{
 
     judgeRepeatThoughtRedis = (userName) =>{
         let _self = this;
-        return axios.post('/judgeRepeat', {
+        return axios.post('/login/judgeRepeat', {
             userName
         }).then(function(result){
             _self.setState({
@@ -65,6 +63,22 @@ class Login extends React.Component{
         })
     }
 
+    /**
+     * 防抖
+     */
+    boundle = ((wait) =>{
+
+        let timer = null;
+
+        return function(callBack){
+            let args = [].slice.call(arguments, 1);
+            clearTimeout(timer);
+
+            timer = setTimeout(() => {
+                callBack(...args);
+            }, wait);
+        }
+    })(1000);
 
     /**
      * 判断是否重复
@@ -72,16 +86,11 @@ class Login extends React.Component{
     judgeRepeat = (e) => {
         //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         let userName = e.target.value;
-        clearTimeout(this.state.timer);
-        var timer = setTimeout(function(){
-            
-        }, 1000);
+        this.setState({userName});
 
-        this.setState({
-            userName,
-            timer
-        });
-        
+        this.boundle((userName)=>{
+            this.judgeRepeatThoughtRedis(userName);
+        }, userName);
     }
 
     login (){
