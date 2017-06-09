@@ -1,9 +1,8 @@
-var webpack = require('webpack');
-var ExtractTextPlugin = require('extract-text-webpack-plugin');
-var path = require("path");
-var routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
-
-var publicPath = '/dist/';
+let webpack = require('webpack');
+let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let path = require("path");
+let routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
+let publicPath = '/dist/';
 
 module.exports = {
     entry: {
@@ -55,11 +54,11 @@ module.exports = {
             },
             {
                 test: /\.css$/,
-                loader: ExtractTextPlugin.extract(['css'])
+                loader: ExtractTextPlugin.extract('style', ['css-loader'])
             },
             {
-                test: /\.scss$/,
-                loader: ExtractTextPlugin.extract(['css','sass'])
+                test: /\.scss$/,//'postcss-loader?parser=postcss-scss'
+                loader: ExtractTextPlugin.extract('style', ['css', 'postcss', 'sass'])
             }
         ]
     },
@@ -80,7 +79,8 @@ module.exports = {
         new webpack.ProvidePlugin({
             $:'jquery'
         }),
-        new ExtractTextPlugin("./styles/style.css")
+        new ExtractTextPlugin("./styles/style.css"),
+        
         
     ],
     devtool: 'source-map'

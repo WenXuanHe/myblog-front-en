@@ -43,7 +43,8 @@ $base-font-size: 16 !default;
     #{$name}:$value;
 }
 @mixin flex{
-    @include prefix('display', flex);
+    display:flex;
+    // @include prefix('display', flex);
 }
 
 @mixin just-cont($direct){
