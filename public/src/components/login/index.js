@@ -1,7 +1,7 @@
-// import React from 'react';
-let React = require('react');
-let Submit = require('../buttons/submit');
-let axios = require('axios');
+import _ from 'lodash';
+import React from 'react';
+import Submit from '../buttons/submit';
+import axios from 'axios';
 
 class Login extends React.Component{
     constructor(){
@@ -15,15 +15,16 @@ class Login extends React.Component{
                 className:''
             }
         };
+        this.cache = {};
     }
     
     render(){
         return (
-            <div className="m-login">
+            <div className="m-login m-login-bc">
                 <div className="u-userName form-control">
                     <label className="flex"> 
                         <span>用户名: </span>
-                        <input type='text' name='userName' placeholder='请输入用户名' className="col-2" value={this.state.userName} onChange={this.judgeRepeat} />
+                        <input type='text' name='userName' placeholder='请输入用户名' className="col-2" value={this.state.userName} onChange={_.bind(this.judgeRepeat, this)} />
                         {
                             this.state.tip.display && 
                             <span className={this.state.tip.className}>{this.state.tip.value}</span>
@@ -33,26 +34,28 @@ class Login extends React.Component{
                 <div className="u-password form-control">
                     <label className="flex">
                         <span>密码: </span>
-                        <input type='text' placeholder='请输入密码' className="col-2" value={this.state.password} />
+                        <input type='password' placeholder='请输入密码' className="col-2" value={this.state.password} onChange={_.bind(this.asynPassword, this)} />
                     </label>
                 </div>
                 <div className="u-submit form-control">
-                    <Submit func={this.login} value='登录'/>
+                    <Submit func={_.bind(this.login, this)} value='登录'/>
                 </div>
             </div>
         )
     }
 
-    judgeRepeatThoughtRedis = (userName) =>{
+    judgeRepeatThoughtRedis (userName) {
         let _self = this;
         return axios.post('/login/judgeRepeat', {
             userName
         }).then(function(result){
-            _self.setState({
-                tip:'该账号还未注册',
-                display:true,
-                className:'notice'
-            });
+            if(result.data.isRepeat){
+                 _self.setState({
+                    tip:'该账号已经注册',
+                    display:true,
+                    className:'notice'
+                });
+            }
         }).catch(function(ex){
              _self.setState({
                 tip:'请求失败，请重试',
@@ -66,7 +69,7 @@ class Login extends React.Component{
     /**
      * 防抖
      */
-    boundle = ((wait) =>{
+    boundle (wait){
 
         let timer = null;
 
@@ -78,24 +81,65 @@ class Login extends React.Component{
                 callBack(...args);
             }, wait);
         }
-    })(1000);
+        
+    }
 
+    asynPassword(e){
+        let password = e.target.value;
+        this.setState({password});
+    }
     /**
      * 判断是否重复
      */
-    judgeRepeat = (e) => {
+    judgeRepeat (e) {
         //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         let userName = e.target.value;
+        let boundle = null;
         this.setState({userName});
+        if(!userName) return;
 
-        this.boundle((userName)=>{
-            this.judgeRepeatThoughtRedis(userName);
+        if(this.cache.boundle){
+            boundle = this.cache.boundle
+        }else{
+            this.cache.boundle = this.boundle(1000);
+            boundle = this.cache.boundle;
+        }
+
+        boundle((userName)=>{
+            _.bind(this.judgeRepeatThoughtRedis, this, userName)();
         }, userName);
     }
 
     login (){
+        let {userName, password} = this.state;
+        if(!userName || !password){
+            alert('用户名或密码错误');
+            return;
+        }
+
+        this.loginRequest(userName, password);
 
     }
+
+    loginRequest (userName, password) {
+        let _self = this;
+        return axios.post('/login/loginRequest', {
+            userName,
+            password
+        }).then(function(result){
+            if(!result.data.loginIn){
+                alert(result.data.result);
+            }
+        }).catch(function(ex){
+             _self.setState({
+                tip:ex,
+                display:true,
+                className:'error'
+            });
+            console.log(ex);
+        })
+    }
+
 }
 
 module.exports = Login;
