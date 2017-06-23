@@ -36,15 +36,8 @@ $base-font-size: 16 !default;
     }
 }
 
-@mixin prefix($name, $value){
-    -webkit-#{$name}:$value;
-    -o-#{$name}:$value;
-    -moz-#{$name}:$value;
-    #{$name}:$value;
-}
 @mixin flex{
     display:flex;
-    // @include prefix('display', flex);
 }
 
 @mixin just-cont($direct){
@@ -60,7 +53,7 @@ $base-font-size: 16 !default;
 }
 @mixin btn-factory($color){
     color:$color;
-    border:1pc solid $color;
+    border:1px solid $color;
 }
 @mixin btn-factory-active($color){
     background: $color;
@@ -105,3 +98,10 @@ $base-font-size: 16 !default;
     @include emCalc(padding-right,$field, $base);
 }
 
+@mixin batWidth($max){
+    @for $i from 1 to $max {
+        .w#{$i*10}{
+            width: #{$i*10}px;
+        }
+    }
+}

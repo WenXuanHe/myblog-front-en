@@ -4,41 +4,50 @@ import Submit from '../buttons/submit';
 import axios from 'axios';
 
 class Login extends React.Component{
+
     constructor(){
         super(...arguments);
         this.state = {
             userName:'',
             password:'',
+            login:true,
             tip:{
-                display:false,
+                isRepeat:false,
                 value:'',
                 className:''
             }
         };
         this.cache = {};
     }
-    
+
     render(){
+        let loginButton = <Submit func={_.bind(this.login , this)} value={'登录'}/>;
+        if(!this.state.login){
+            loginButton = <Submit func={_.bind(this.registor , this)} value={'注册'}/>;
+        }
         return (
             <div className="m-login m-login-bc">
                 <div className="u-userName form-control">
-                    <label className="flex"> 
-                        <span>用户名: </span>
-                        <input type='text' name='userName' placeholder='请输入用户名' className="col-2" value={this.state.userName} onChange={_.bind(this.judgeRepeat, this)} />
-                        {
-                            this.state.tip.display && 
-                            <span className={this.state.tip.className}>{this.state.tip.value}</span>
-                        }
+                    <label className="flex">
+                        <span className="ml2em">用户名: </span>
+                        <input type='text' name='userName' placeholder='请输入用户名'
+                        className="w160" value={this.state.userName} onChange={_.bind(this.judgeRepeat, this)} />
+                        <span className={`col-3 ${this.state.tip.className}`}>{this.state.tip.isRepeat ? this.state.tip.value : ""}</span>
                     </label>
                 </div>
                 <div className="u-password form-control">
                     <label className="flex">
-                        <span>密码: </span>
-                        <input type='password' placeholder='请输入密码' className="col-2" value={this.state.password} onChange={_.bind(this.asynPassword, this)} />
+                        <span className="ml2em">密码: </span>
+                        <input type='password' placeholder='请输入密码'
+                            className="w160" value={this.state.password} onChange={_.bind(this.asynPassword, this)} />
+                        <span className="col-3"></span>
                     </label>
                 </div>
                 <div className="u-submit form-control">
-                    <Submit func={_.bind(this.login, this)} value='登录'/>
+
+                    { loginButton }
+                    <a href="javascript:void(0)" className="switch-registor"
+                    onClick={()=>this.setState({'login': !this.state.login})}>{this.state.login ? "去注册" : "去登录"}</a>
                 </div>
             </div>
         )
@@ -49,19 +58,23 @@ class Login extends React.Component{
         return axios.post('/login/judgeRepeat', {
             userName
         }).then(function(result){
-            if(result.data.isRepeat){
+            if(result.data.result.isRepeat){
                  _self.setState({
-                    tip:'该账号已经注册',
-                    display:true,
-                    className:'notice'
-                });
+                    tip:{
+                        value:'该账号已经注册',
+                        isRepeat:true,
+                        className:'notice'
+                    }
+                 });
             }
         }).catch(function(ex){
              _self.setState({
-                tip:'请求失败，请重试',
-                display:true,
-                className:'error'
-            });
+                tip:{
+                    value:'请求失败，请重试',
+                    isRepeat:true,
+                    className:'error'
+                }
+             });
             console.log(ex);
         })
     }
@@ -81,7 +94,7 @@ class Login extends React.Component{
                 callBack(...args);
             }, wait);
         }
-        
+
     }
 
     asynPassword(e){
@@ -110,25 +123,29 @@ class Login extends React.Component{
         }, userName);
     }
 
-    login (){
-        let {userName, password} = this.state;
+    registor (){
+        let {userName, password, tip} = this.state;
         if(!userName || !password){
-            alert('用户名或密码错误');
+            alert('用户名或密码不能为空');
+            return;
+        }
+        if(tip.isRepeat){
+            alert('该用户名已存在');
             return;
         }
 
-        this.loginRequest(userName, password);
-
+        this.registorRequest(userName, password);
     }
 
-    loginRequest (userName, password) {
+    login (){
+        let {userName, password} = this.state;
         let _self = this;
         return axios.post('/login/loginRequest', {
             userName,
             password
         }).then(function(result){
-            if(!result.data.loginIn){
-                alert(result.data.result);
+            if(!result.data.status){
+                alert(result.data.msg);
             }
         }).catch(function(ex){
              _self.setState({
@@ -140,6 +157,24 @@ class Login extends React.Component{
         })
     }
 
+    registorRequest (userName, password) {
+        let _self = this;
+        return axios.post('/login/registorRequest', {
+            userName,
+            password
+        }).then(function(result){
+            if(!result.data.status){
+                alert(result.data.msg);
+            }
+        }).catch(function(ex){
+             _self.setState({
+                tip:ex,
+                display:true,
+                className:'error'
+            });
+            console.log(ex);
+        })
+    }
 }
 
 module.exports = Login;

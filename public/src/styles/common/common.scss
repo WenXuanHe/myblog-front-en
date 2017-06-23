@@ -10,6 +10,7 @@
 @import 'reset.scss';
 @import 'base.scss';
 
+@include batWidth(20);
 
 button, input, select, textarea,.btn {
     outline: 0;
@@ -48,3 +49,5 @@ button, input, select, textarea,.btn {
         }
     }
 }
+
+
