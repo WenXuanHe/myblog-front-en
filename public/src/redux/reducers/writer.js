@@ -26,11 +26,10 @@ let reducer = (state = data.writer, action) => {
         return state;
 
     case 'createNewArticle':
-        work = workList.length && workList[payload.currentWork];
-        articleList = work && work.articleList || [];
+        work = workList.length && workList[data.login.currentWork];
+        articleList = work &&  _.assign([], work.articleList) || [];
         articleList.unshift(payload);
-        
-        return _.assign({}, state, {
+        return _.assign({}, state.workList, {
             articleList
         });
     default:

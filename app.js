@@ -8,7 +8,9 @@ const logger = require('koa-logger');
 const render = require('koa-swig');
 const co = require('co');
 const path = require('path');
-
+const session = require("koa-session2");
+const Store = require("./lib/session/Store.js");
+////支持jsx语法
 require('node-jsx').install(); 
 
 const index = require('./routes/index');
@@ -41,6 +43,12 @@ app.use(async (ctx, next) => {
   const ms = new Date() - start;
   console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 });
+
+// session模块
+app.use(session({
+  key: "SESSIONID",
+  store: new Store()
+}));
 
 // routes
 app.use(index.routes(), index.allowedMethods());

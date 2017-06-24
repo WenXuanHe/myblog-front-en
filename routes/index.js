@@ -7,12 +7,6 @@ let Home = require('../public/src/components/Home');
 process._INITIAL_STATE_ = require('../public/src/redux/store/data');
 let store = require('../public/src/redux/store/index');
 let { StaticRouter } = require('react-router');
-// React.createFactory(Home)                        
-// require("node-jsx").install();
- 
-// 
-// 
-// var Provider = require('../public/src/redux/index.js');
 
 router.get('/', async function (ctx, next) {
   // console.log(ReactDOMServer.renderToString(Provider));

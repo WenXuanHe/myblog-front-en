@@ -24,7 +24,7 @@ const mapStateToProps = (state, ownProps) => {
     return {
         workList: state.writer.workList,
         currentArticle: state.login.currentArticle,
-        number:state.login.number
+        currentWork: state.login.currentWork
     }
 }
 
@@ -79,7 +79,9 @@ class CreateArticle extends React.Component{
     }
 
     create = () => {
-        let {articleList, createNewArticle} = this.props;
+        let {workList, currentWork, createNewArticle} = this.props;
+        let articleList = (workList.length && workList[currentWork])
+            ? workList[currentWork].articleList : [];
         actions.createNewArticle.payload = this.addArticle(articleList.length);
         createNewArticle();
     }
