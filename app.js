@@ -9,12 +9,11 @@ const render = require('koa-swig');
 const co = require('co');
 const path = require('path');
 const session = require("koa-session2");
-const Store = require("./lib/session/Store.js");
+const Store = require("./lib/session/RedisStore.js");
 ////支持jsx语法
-require('node-jsx').install(); 
+require('node-jsx').install();
 
 const index = require('./routes/index');
-const users = require('./routes/users');
 const login = require('./routes/login');
 
 // error handler
@@ -53,7 +52,6 @@ app.use(session({
 
 // routes
 app.use(index.routes(), index.allowedMethods());
-app.use(users.routes(), users.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
 
 module.exports = app;

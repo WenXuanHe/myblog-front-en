@@ -21,10 +21,7 @@ class Login extends React.Component{
     }
 
     render(){
-        let loginButton = <Submit func={_.bind(this.login , this)} value={'登录'}/>;
-        if(!this.state.login){
-            loginButton = <Submit func={_.bind(this.registor , this)} value={'注册'}/>;
-        }
+
         return (
             <div className="m-login m-login-bc">
                 <div className="u-userName form-control">
@@ -44,8 +41,12 @@ class Login extends React.Component{
                     </label>
                 </div>
                 <div className="u-submit form-control">
-
-                    { loginButton }
+                    {
+                        this.state.login && <Submit func={_.bind(this.login , this)} value={'登录'}/>
+                    }
+                    {
+                        !this.state.login && <Submit func={_.bind(this.registor , this)} value={'注册'}/>
+                    }
                     <a href="javascript:void(0)" className="switch-registor"
                     onClick={()=>this.setState({'login': !this.state.login})}>{this.state.login ? "去注册" : "去登录"}</a>
                 </div>

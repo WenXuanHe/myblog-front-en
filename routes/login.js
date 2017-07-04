@@ -6,7 +6,11 @@ router.prefix('/login');
 router.post('/registorRequest', async function(ctx, next){
     try{
         let {userName, password} = ctx.request.body;
-        ctx.body = await loginServer.registor(userName, password);
+        //存mysql数据库
+        let result = await loginServer.registor(userName, password);
+        if(result.status){
+            //存redis，sessionInfo， 设置session过期时间，得到sessionID
+        }
     }catch(e){
         ctx.body = getReturnPattern(false, ex);
     }
@@ -15,7 +19,7 @@ router.post('/registorRequest', async function(ctx, next){
 router.post('/loginRequest', async function(ctx, next){
     try{
         let {userName, password} = ctx.request.body;
-        ctx.body = await loginServer.login(userName, password);
+        let result = await loginServer.login(userName, password);
     }catch(e){
         ctx.body = getReturnPattern(false, ex);
     }
