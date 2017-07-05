@@ -80,8 +80,8 @@ module.exports = {
             $:'jquery'
         }),
         new ExtractTextPlugin("./styles/style.css"),
-        
-        
+
+
     ],
     devtool: 'source-map'
 }

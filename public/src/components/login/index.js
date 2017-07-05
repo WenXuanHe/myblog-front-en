@@ -2,6 +2,62 @@ import _ from 'lodash';
 import React from 'react';
 import Submit from '../buttons/submit';
 import axios from 'axios';
+import boundleFunc from '$helper/boundle';
+
+//1默认一秒防抖
+let boundle = boundleFunc(2000);
+
+/**
+ * 用户名输入组件
+ * @param  {[object]} props [description]
+ * {props.judgeRepeat} 判断重复
+ * {props.tip} 是否重复的信息
+ * {userName} 用户名
+ * @return {[type]}       [description]
+ */
+const FromControlUserName = (props) => {
+    let {judgeRepeat, tip, userName, that} = props;
+    return (
+        <div className="u-userName form-control">
+            <label className="flex">
+                <span className="ml2em">用户名: </span>
+                <input type='text' name='userName' placeholder='请输入用户名'
+                className="w160" value={userName} onChange={_.bind(judgeRepeat, that)} />
+                <span className={`col-3 ${tip.className}`}>{tip.isRepeat ? tip.value : ""}</span>
+            </label>
+        </div>
+    )
+}
+
+const FromControlPassword = (props) => {
+    let {password, handleChange, that} = props;
+    return (
+        <div className="u-password form-control">
+            <label className="flex">
+                <span className="ml2em">密码: </span>
+                <input type='password' placeholder='请输入密码'
+                    className="w160" value={password} onChange={_.bind(handleChange, that)} />
+                <span className="col-3"></span>
+            </label>
+        </div>
+    )
+}
+
+const FromControlSubmit = (props) => {
+
+    let { login, loginFunc, registorFunc, that } = props;
+
+    let submitButton = login ?
+        <Submit func={_.bind(loginFunc , that)} isLogin={login} value={'登录'}/> :
+        <Submit func={_.bind(registorFunc , that)} isLogin={login} value={'注册'}/> ;
+    return (
+        <div className="u-submit form-control">
+            {submitButton}
+            <a href="javascript:void(0)" className="switch-registor"
+            onClick={()=>that.setState({'login': !login})}>{login ? "去注册" : "去登录"}</a>
+        </div>
+    )
+}
 
 class Login extends React.Component{
 
@@ -17,39 +73,30 @@ class Login extends React.Component{
                 className:''
             }
         };
-        this.cache = {};
     }
 
     render(){
 
         return (
             <div className="m-login m-login-bc">
-                <div className="u-userName form-control">
-                    <label className="flex">
-                        <span className="ml2em">用户名: </span>
-                        <input type='text' name='userName' placeholder='请输入用户名'
-                        className="w160" value={this.state.userName} onChange={_.bind(this.judgeRepeat, this)} />
-                        <span className={`col-3 ${this.state.tip.className}`}>{this.state.tip.isRepeat ? this.state.tip.value : ""}</span>
-                    </label>
-                </div>
-                <div className="u-password form-control">
-                    <label className="flex">
-                        <span className="ml2em">密码: </span>
-                        <input type='password' placeholder='请输入密码'
-                            className="w160" value={this.state.password} onChange={_.bind(this.asynPassword, this)} />
-                        <span className="col-3"></span>
-                    </label>
-                </div>
-                <div className="u-submit form-control">
-                    {
-                        this.state.login && <Submit func={_.bind(this.login , this)} value={'登录'}/>
-                    }
-                    {
-                        !this.state.login && <Submit func={_.bind(this.registor , this)} value={'注册'}/>
-                    }
-                    <a href="javascript:void(0)" className="switch-registor"
-                    onClick={()=>this.setState({'login': !this.state.login})}>{this.state.login ? "去注册" : "去登录"}</a>
-                </div>
+
+                <FromControlUserName
+                    judgeRepeat={this.judgeRepeat}
+                    tip={this.state.tip}
+                    userName={this.state.userName}
+                    that={this}/>
+
+                <FromControlPassword
+                    password={this.state.password}
+                    handleChange={this.handleChangePassword}
+                    that={this} />
+
+                <FromControlSubmit
+                    login={this.state.login}
+                    loginFunc={this.login}
+                    registorFunc={this.registor}
+                    that={this}/>
+
             </div>
         )
     }
@@ -80,45 +127,20 @@ class Login extends React.Component{
         })
     }
 
-    /**
-     * 防抖
-     */
-    boundle (wait){
-
-        let timer = null;
-
-        return function(callBack){
-            let args = [].slice.call(arguments, 1);
-            clearTimeout(timer);
-
-            timer = setTimeout(() => {
-                callBack(...args);
-            }, wait);
-        }
-
+    handleChangePassword(e){
+        this.setState({e.target.value});
     }
 
-    asynPassword(e){
-        let password = e.target.value;
-        this.setState({password});
-    }
     /**
      * 判断是否重复
      */
     judgeRepeat (e) {
-        //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         let userName = e.target.value;
-        let boundle = null;
         this.setState({userName});
+
         if(!userName) return;
 
-        if(this.cache.boundle){
-            boundle = this.cache.boundle
-        }else{
-            this.cache.boundle = this.boundle(1000);
-            boundle = this.cache.boundle;
-        }
-
+        //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         boundle((userName)=>{
             _.bind(this.judgeRepeatThoughtRedis, this, userName)();
         }, userName);
