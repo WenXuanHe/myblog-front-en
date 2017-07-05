@@ -3,27 +3,32 @@ let loginServer = require('../lib/sql/login');
 let getReturnPattern = require('../lib/model/return');
 
 router.prefix('/login');
+
+router.get('/', async function(ctx, next){
+     await ctx.render('login', {});
+});
+
 router.post('/registorRequest', async function(ctx, next){
     try{
         let {userName, password} = ctx.request.body;
-        let result;
+        let userID;
         //先判断姓名是否重复
         let users = await loginServer.judgeExitByName(userName, 'count(*) as count');
         if(!users[0].count){
             let {salt, hash} = await loginServer.hashPassword(password);
             //存mysql数据库
-            result = await loginServer.registor(userName, hash, salt);
-            if(result){
+            userID = await loginServer.registor(userName, hash, salt);
+            if(userID){
                 ctx.session.sessionInfo = {
-                    userName: userName,
-                    salt: salt,
-                    hash: hash
+                    userName,
+                    userID,
+                    salt,
+                    hash,
                 };
-                //跳转博客页面
-                ctx.res.redirect('/writer');
             }
+            ctx.body = getReturnPattern(true);
         }else{
-            ctx.body = getReturnPattern(true, '该账户名已存在,请重新输入');
+            ctx.body = getReturnPattern(false, '该账户名已存在,请重新输入');
         }
 
     }catch(e){
@@ -39,15 +44,13 @@ router.post('/loginRequest', async function(ctx, next){
             //登录成功
             let {salt, hash} = res.result;
             ctx.session.sessionInfo = {
-                userName: userName,
-                salt: salt,
-                hash: hash
+                userName,
+                salt,
+                hash,
+                userID: res.result.userID
             };
-            ////跳转博客页面
-            ctx.res.redirect('/writer');
-        }else{
-            ctx.body = res;
         }
+        ctx.body = res;
     }catch(e){
         ctx.body = getReturnPattern(false, e);
     }

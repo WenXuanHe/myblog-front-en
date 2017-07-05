@@ -1,7 +1,12 @@
 var router = require('koa-router')();
 
 router.get('/', async function (ctx, next) {
-   await ctx.render('login', {});
+  if(ctx.session.sessionInfo){
+    ctx.redirect('/writer');
+  }else{
+    ctx.redirect('/login');
+  }
+  
   //  ctx.res.redirect('/login');
 });
 

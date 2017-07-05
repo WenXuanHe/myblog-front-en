@@ -127,8 +127,9 @@ class Login extends React.Component{
         })
     }
 
+
     handleChangePassword(e){
-        this.setState({e.target.value});
+        this.setState({password: e.target.value});
     }
 
     /**
@@ -139,6 +140,7 @@ class Login extends React.Component{
         this.setState({userName});
 
         if(!userName) return;
+        if(this.state.login) return;
 
         //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         boundle((userName)=>{
@@ -169,6 +171,8 @@ class Login extends React.Component{
         }).then(function(result){
             if(!result.data.status){
                 alert(result.data.msg);
+            }else{
+                window.location.href='/writer';
             }
         }).catch(function(ex){
              _self.setState({
@@ -188,6 +192,8 @@ class Login extends React.Component{
         }).then(function(result){
             if(!result.data.status){
                 alert(result.data.msg);
+            }else{
+                window.location.href='/writer';
             }
         }).catch(function(ex){
              _self.setState({

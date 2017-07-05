@@ -16,6 +16,7 @@ require('node-jsx').install();
 
 const index = require('./routes/index');
 const login = require('./routes/login');
+const writer = require('./routes/writer');
 
 // error handler
 onerror(app);
@@ -52,8 +53,20 @@ app.use(session({
   expires: getExpires(30)
 }));
 
+//验证用户是否过期
+app.use(async function (ctx, next) {
+  let session = ctx.session.sessionInfo;
+  console.log(session);
+  if(ctx.originalUrl === '/' || ctx.originalUrl.indexOf('/login') > -1 || session){
+    await next();
+  }else{
+    ctx.redirect('/');
+  }
+});
+
 // routes
 app.use(index.routes(), index.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
+app.use(writer.routes(), writer.allowedMethods());
 
 module.exports = app;

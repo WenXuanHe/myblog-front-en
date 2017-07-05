@@ -79,9 +79,7 @@ module.exports = {
         new webpack.ProvidePlugin({
             $:'jquery'
         }),
-        new ExtractTextPlugin("./styles/style.css"),
-
-
+        new ExtractTextPlugin("./styles/[name].css"),
     ],
     devtool: 'source-map'
 }
