@@ -6,22 +6,49 @@ router.prefix('/login');
 router.post('/registorRequest', async function(ctx, next){
     try{
         let {userName, password} = ctx.request.body;
-        //存mysql数据库
-        let result = await loginServer.registor(userName, password);
-        if(result.status){
-            //存redis，sessionInfo， 设置session过期时间，得到sessionID
+        let result;
+        //先判断姓名是否重复
+        let users = await loginServer.judgeExitByName(userName);
+        if(!users.length){
+            let {salt, hash} = await loginServer.hashPassword(password);
+            //存mysql数据库
+            result = await loginServer.registor(userName, hash, salt);
+            if(result){
+                ctx.session.sessionInfo = {
+                    userName: userName,
+                    salt: salt,
+                    hash: hash
+                };
+            }
+        }else{
+            ctx.body = getReturnPattern(true, '该账户名已存在,请重新输入');
         }
+        
     }catch(e){
-        ctx.body = getReturnPattern(false, ex);
+        ctx.body = getReturnPattern(false, e);
     }
 });
 
 router.post('/loginRequest', async function(ctx, next){
     try{
         let {userName, password} = ctx.request.body;
-        let result = await loginServer.login(userName, password);
+        let res = await loginServer.login(userName, password);
+        if(res.status){
+            //登录成功
+            let {salt, hash} = res.result;
+            ctx.session.sessionInfo = {
+                userName: userName,
+                salt: salt,
+                hash: hash
+            };
+            //跳转
+            
+        }else{
+
+            return result;
+        }
     }catch(e){
-        ctx.body = getReturnPattern(false, ex);
+        ctx.body = getReturnPattern(false, e);
     }
 });
 

@@ -9,7 +9,8 @@ const render = require('koa-swig');
 const co = require('co');
 const path = require('path');
 const session = require("koa-session2");
-const Store = require("./lib/session/RedisStore.js");
+const getExpires = require("./lib/session/expires");
+const Store = require("./lib/session/Store");
 ////支持jsx语法
 require('node-jsx').install();
 
@@ -47,7 +48,8 @@ app.use(async (ctx, next) => {
 // session模块
 app.use(session({
   key: "SESSIONID",
-  store: new Store()
+  store: new Store(),
+  expires: getExpires(30)
 }));
 
 // routes
