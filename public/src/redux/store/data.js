@@ -4,17 +4,18 @@ let data = {
         userName:'',
     },
     writer: {
+        // {
+        //     title: 'firstflog',
+        //     userId:'5455446464664',
+        //     userName:'hewenxuan',
+        //     id:'11111111',
+        //     articleList:[]
+        // }
         workList: [
-            // {
-            //     title: 'firstflog',
-            //     userId:'5455446464664',
-            //     userName:'hewenxuan',
-            //     id:'11111111',
-            //     articleList:[]
-            // }
+           
         ],
-        currentArticle:0,
-        currentWork:0
+        currentArticle:-1,
+        currentWork:-1
     }
 };
 // export default data;

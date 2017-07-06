@@ -8,7 +8,7 @@
 let {createStore, applyMiddleware} = require('redux');
 //允许store.dispatch传递函数
 // import thunk from 'redux-thunk'
-let thunk = require('redux-thunk');
+let thunk = require('redux-thunk').default;
 // Reducer->传入一个state  ， 生成一个新的state
 // 调用方式  createStore(reducer);
 // import reducer from '../reducers'
@@ -24,13 +24,15 @@ let reducer = require('../reducers');
 //   //   // thunk.withExtraArgument(getStore)
 //   // )
 // )
-
 // export default store
 // module.exports = store;
 module.exports = (initialState) => {
   const store = createStore(
     reducer,
-    initialState
+    initialState,
+    applyMiddleware(
+      thunk
+    )
   );
   return store;
 }

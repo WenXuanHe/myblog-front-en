@@ -62,7 +62,7 @@ class CreateArticle extends React.Component{
                         styles['u-article-active'] = currentArticle === i;
                         return (
                             <div className={cs(styles)}
-                             data-id={item.id} onClick={this.active.bind(this,i)}>
+                             data-id={item.workID} onClick={this.active.bind(this,i)}>
                                 <div className='field z-unit flex'>
                                     <span className='z-file-logo'>
                                         <i className="iconfont">&#xe6f4;</i>

@@ -6,7 +6,7 @@ let reducer = (state = data.writer, action) => {
   const payload = action.payload;
   let workList = Object.assign([], state.workList), work, articleList;
   switch (type) {
-    case 'createNewWork':
+    case 'CREATE_NEW_WORK':
         workList.push(payload);
         return _.assign({}, state, {
                 workList
@@ -25,7 +25,7 @@ let reducer = (state = data.writer, action) => {
 
         return state;
 
-    case 'createNewArticle':
+    case 'CREATE_NEW_ARTICLE':
         work = workList.length && workList[data.login.currentWork];
         articleList = work &&  _.assign([], work.articleList) || [];
         articleList.unshift(payload);

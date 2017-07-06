@@ -50,7 +50,7 @@ app.use(async (ctx, next) => {
 app.use(session({
   key: "SESSIONID",
   store: new Store(),
-  expires: getExpires(30)
+  expires: getExpires(30, 'h')
 }));
 
 //验证用户是否过期

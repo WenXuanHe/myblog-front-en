@@ -20,7 +20,7 @@ router.get('/', async function (ctx, next) {
     if(workList.length){
       // 查询第一个文集下的文章列表
       articleList = await sqlServer.queryArticlesByworkId(workList[0].id);
-      workList[0].articleList = articleList;
+      workList[0].articleList = articleList || [];
     }
 
   }catch(e){
@@ -48,6 +48,22 @@ router.get('/', async function (ctx, next) {
     initialHTML: html,
     initialData:JSON.stringify(initData)
   });
-})
+});
 
+
+router.post('/createNewWork', async function(ctx, next){
+  try{
+    let { title } = ctx.request.body;
+    let {userID, userName} = ctx.session.sessionInfo;
+    let workID = await sqlServer.addNewWork({title, userID});
+    ctx.body = getReturnPattern(true, '',  {
+      title,
+      userID,
+      id: workID,
+      articleList:[]
+    });
+  }catch(e){
+    return ctx.body = getReturnPattern(false, e);
+  }
+});
 module.exports = router;

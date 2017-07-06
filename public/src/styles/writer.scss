@@ -23,7 +23,14 @@
 }
 .m-add-files{
     width: 100%;
-
+    .u-work{
+        height: 40px;
+        line-height: 40px;
+        border-bottom: 1px solid #9d5a5a;
+    }
+    .u-work-active{
+        
+    }
 
     .u-file-name{
         .form{

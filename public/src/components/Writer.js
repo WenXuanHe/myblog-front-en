@@ -14,16 +14,15 @@ let FileEditor = require('./editor/FileEditor.js');
 
 
 let actions = {
-    updateTitle:{
-        type:'updateTitle',
-        payload:''
-    }
+    updateTitle:{type:'updateTitle',payload:''}
 };
+
 const mapStateToProps = (state, ownProps) => {
+    let {workList, currentArticle, currentWork} = state.writer;
     return {
-        workList: state.writer.workList,//文章列表
-        currentArticle: state.login.currentArticle, //用户信息，包含当前文集及当前文章
-        currentWork: state.login.currentWork
+        workList,//文章列表
+        currentArticle, //用户信息，包含当前文集及当前文章
+        currentWork
     }
 }
 
@@ -42,9 +41,15 @@ class Writer extends React.Component {
     };
 
     render() {
+
         let {workList, currentWork, currentArticle} = this.props;
-        let articleList = (workList.length && workList[currentWork])
-            ? workList[currentWork].articleList : [];
+        if(currentWork !== -1){
+            currentWork = workList.length ? workList[0].id : -1;
+        }
+        let articleList = workList[currentWork] || [];
+        if(currentArticle !== -1){
+            currentArticle = articleList.length ? articleList[0].id : -1;
+        }
 
         return (
 
@@ -69,7 +74,9 @@ class Writer extends React.Component {
 
         )
     }
-
+    /**
+     * 一个articleID即可
+     */
     updateTitle = (e)  =>{
         let {updateTitle, currentArticle, currentWork} = this.props;
         actions.updateTitle.payload = {

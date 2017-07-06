@@ -1,0 +1,380 @@
+[1mdiff --git a/public/src/components/login/index.js b/public/src/components/login/index.js[m
+[1mindex 97cb1a5..72ae58a 100644[m
+[1m--- a/public/src/components/login/index.js[m
+[1m+++ b/public/src/components/login/index.js[m
+[36m@@ -16,21 +16,21 @@[m [mlet boundle = boundleFunc(2000);[m
+  * @return {[type]}       [description][m
+  */[m
+ const FromControlUserName = (props) => {[m
+[31m-    let {judgeRepeat, tip, userName, that} = props;[m
+[32m+[m
+[32m+[m[32m    let { judgeRepeat, tip, userName, that } = props;[m
+     return ([m
+         <div className="u-userName form-control">[m
+             <label className="flex">[m
+                 <span className="ml2em">用户名: </span>[m
+                 <input type='text' name='userName' placeholder='请输入用户名'[m
+[31m-                className="w160" value={userName} onChange={_.bind(judgeRepeat, that)} />[m
+[32m+[m[32m                    className="w160" value={userName} onChange={_.bind(judgeRepeat, that)} />[m
+                 <span className={`col-3 ${tip.className}`}>{tip.isRepeat ? tip.value : ""}</span>[m
+             </label>[m
+[31m-        </div>[m
+[31m-    )[m
+[32m+[m[32m        </div>)[m
+ }[m
+ [m
+ const FromControlPassword = (props) => {[m
+[31m-    let {password, handleChange, that} = props;[m
+[32m+[m[32m    let { password, handleChange, that } = props;[m
+     return ([m
+         <div className="u-password form-control">[m
+             <label className="flex">[m
+[36m@@ -48,34 +48,36 @@[m [mconst FromControlSubmit = (props) => {[m
+     let { login, loginFunc, registorFunc, that } = props;[m
+ [m
+     let submitButton = login ?[m
+[31m-        <Submit func={_.bind(loginFunc , that)} isLogin={login} value={'登录'}/> :[m
+[31m-        <Submit func={_.bind(registorFunc , that)} isLogin={login} value={'注册'}/> ;[m
+[32m+[m[32m        <Submit func={_.bind(loginFunc, that)} isLogin={login} value={'登录'} /> :[m
+[32m+[m[32m        <Submit func={_.bind(registorFunc, that)} isLogin={login} value={'注册'} />;[m
+     return ([m
+         <div className="u-submit form-control">[m
+             {submitButton}[m
+             <a href="javascript:void(0)" className="switch-registor"[m
+[31m-            onClick={()=>that.setState({'login': !login})}>{login ? "去注册" : "去登录"}</a>[m
+[32m+[m[32m                onClick={() => that.setState({[m
+[32m+[m[32m                    'login': !login[m
+[32m+[m[32m                })}>{login ? "去注册" : "去登录"}</a>[m
+         </div>[m
+     )[m
+ }[m
+ [m
+[31m-class Login extends React.Component{[m
+[32m+[m[32mclass Login extends React.Component {[m
+ [m
+[31m-    constructor(){[m
+[32m+[m[32m    constructor() {[m
+         super(...arguments);[m
+         this.state = {[m
+[31m-            userName:'',[m
+[31m-            password:'',[m
+[31m-            login:true,[m
+[31m-            tip:{[m
+[31m-                isRepeat:false,[m
+[31m-                value:'',[m
+[31m-                className:''[m
+[32m+[m[32m            userName: '',[m
+[32m+[m[32m            password: '',[m
+[32m+[m[32m            login: true,[m
+[32m+[m[32m            tip: {[m
+[32m+[m[32m                isRepeat: false,[m
+[32m+[m[32m                value: '',[m
+[32m+[m[32m                className: ''[m
+             }[m
+         };[m
+     }[m
+ [m
+[31m-    render(){[m
+[32m+[m[32m    render() {[m
+ [m
+         return ([m
+             <div className="m-login m-login-bc">[m
+[36m@@ -84,7 +86,7 @@[m [mclass Login extends React.Component{[m
+                     judgeRepeat={this.judgeRepeat}[m
+                     tip={this.state.tip}[m
+                     userName={this.state.userName}[m
+[31m-                    that={this}/>[m
+[32m+[m[32m                    that={this} />[m
+ [m
+                 <FromControlPassword[m
+                     password={this.state.password}[m
+[36m@@ -95,66 +97,69 @@[m [mclass Login extends React.Component{[m
+                     login={this.state.login}[m
+                     loginFunc={this.login}[m
+                     registorFunc={this.registor}[m
+[31m-                    that={this}/>[m
+[31m-[m
+[32m+[m[32m                    that={this} />[m
+             </div>[m
+         )[m
+     }[m
+ [m
+[31m-    judgeRepeatThoughtRedis (userName) {[m
+[32m+[m[32m    judgeRepeatThoughtRedis(userName) {[m
+         let _self = this;[m
+         return axios.post('/login/judgeRepeat', {[m
+             userName[m
+[31m-        }).then(function(result){[m
+[31m-            if(result.data.result.isRepeat){[m
+[31m-                 _self.setState({[m
+[31m-                    tip:{[m
+[31m-                        value:'该账号已经注册',[m
+[31m-                        isRepeat:true,[m
+[31m-                        className:'notice'[m
+[32m+[m[32m        }).then(function (result) {[m
+[32m+[m[32m            if (result.data.result.isRepeat) {[m
+[32m+[m[32m                _self.setState({[m
+[32m+[m[32m                    tip: {[m
+[32m+[m[32m                        value: '该账号已经注册',[m
+[32m+[m[32m                        isRepeat: true,[m
+[32m+[m[32m                        className: 'notice'[m
+                     }[m
+[31m-                 });[m
+[32m+[m[32m                });[m
+             }[m
+[31m-        }).catch(function(ex){[m
+[31m-             _self.setState({[m
+[31m-                tip:{[m
+[31m-                    value:'请求失败，请重试',[m
+[31m-                    isRepeat:true,[m
+[31m-                    className:'error'[m
+[32m+[m[32m        }).catch(function (ex) {[m
+[32m+[m[32m            _self.setState({[m
+[32m+[m[32m                tip: {[m
+[32m+[m[32m                    value: '请求失败，请重试',[m
+[32m+[m[32m                    isRepeat: true,[m
+[32m+[m[32m                    className: 'error'[m
+                 }[m
+[31m-             });[m
+[32m+[m[32m            });[m
+             console.log(ex);[m
+         })[m
+     }[m
+ [m
+ [m
+[31m-    handleChangePassword(e){[m
+[31m-        this.setState({password: e.target.value});[m
+[32m+[m[32m    handleChangePassword(e) {[m
+[32m+[m[32m        this.setState({[m
+[32m+[m[32m            password: e.target.value[m
+[32m+[m[32m        });[m
+     }[m
+ [m
+     /**[m
+      * 判断是否重复[m
+      */[m
+[31m-    judgeRepeat (e) {[m
+[32m+[m[32m    judgeRepeat(e) {[m
+         let userName = e.target.value;[m
+[31m-        this.setState({userName});[m
+[32m+[m[32m        this.setState({[m
+[32m+[m[32m            userName[m
+[32m+[m[32m        });[m
+ [m
+[31m-        if(!userName) return;[m
+[31m-        if(this.state.login) return;[m
+[32m+[m[32m        if (!userName) return;[m
+[32m+[m[32m        if (this.state.login) return;[m
+ [m
+         //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行[m
+[31m-        boundle((userName)=>{[m
+[32m+[m[32m        boundle((userName) => {[m
+             _.bind(this.judgeRepeatThoughtRedis, this, userName)();[m
+         }, userName);[m
+     }[m
+ [m
+[31m-    registor (){[m
+[31m-        let {userName, password, tip} = this.state;[m
+[31m-        if(!userName || !password){[m
+[32m+[m[32m    registor() {[m
+[32m+[m[32m        let { userName, password, tip } = this.state;[m
+[32m+[m[32m        if (!userName || !password) {[m
+             alert('用户名或密码不能为空');[m
+             return;[m
+         }[m
+[31m-        if(tip.isRepeat){[m
+[32m+[m[32m        if (tip.isRepeat) {[m
+             alert('该用户名已存在');[m
+             return;[m
+         }[m
+[36m@@ -162,44 +167,44 @@[m [mclass Login extends React.Component{[m
+         this.registorRequest(userName, password);[m
+     }[m
+ [m
+[31m-    login (){[m
+[31m-        let {userName, password} = this.state;[m
+[32m+[m[32m    login() {[m
+[32m+[m[32m        let { userName, password } = this.state;[m
+         let _self = this;[m
+         return axios.post('/login/loginRequest', {[m
+             userName,[m
+             password[m
+[31m-        }).then(function(result){[m
+[31m-            if(!result.data.status){[m
+[32m+[m[32m        }).then(function (result) {[m
+[32m+[m[32m            if (!result.data.status) {[m
+                 alert(result.data.msg);[m
+[31m-            }else{[m
+[31m-                window.location.href='/writer';[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m                window.location.href = '/writer';[m
+             }[m
+[31m-        }).catch(function(ex){[m
+[31m-             _self.setState({[m
+[31m-                tip:ex,[m
+[31m-                display:true,[m
+[31m-                className:'error'[m
+[32m+[m[32m        }).catch(function (ex) {[m
+[32m+[m[32m            _self.setState({[m
+[32m+[m[32m                tip: ex,[m
+[32m+[m[32m                display: true,[m
+[32m+[m[32m                className: 'error'[m
+             });[m
+             console.log(ex);[m
+         })[m
+     }[m
+ [m
+[31m-    registorRequest (userName, password) {[m
+[32m+[m[32m    registorRequest(userName, password) {[m
+         let _self = this;[m
+         return axios.post('/login/registorRequest', {[m
+             userName,[m
+             password[m
+[31m-        }).then(function(result){[m
+[31m-            if(!result.data.status){[m
+[32m+[m[32m        }).then(function (result) {[m
+[32m+[m[32m            if (!result.data.status) {[m
+                 alert(result.data.msg);[m
+[31m-            }else{[m
+[31m-                window.location.href='/writer';[m
+[32m+[m[32m            } else {[m
+[32m+[m[32m                window.location.href = '/writer';[m
+             }[m
+[31m-        }).catch(function(ex){[m
+[31m-             _self.setState({[m
+[31m-                tip:ex,[m
+[31m-                display:true,[m
+[31m-                className:'error'[m
+[32m+[m[32m        }).catch(function (ex) {[m
+[32m+[m[32m            _self.setState({[m
+[32m+[m[32m                tip: ex,[m
+[32m+[m[32m                display: true,[m
+[32m+[m[32m                className: 'error'[m
+             });[m
+             console.log(ex);[m
+         })[m
+[36m@@ -207,4 +212,3 @@[m [mclass Login extends React.Component{[m
+ }[m
+ [m
+ module.exports = Login;[m
+[31m-[m
+[1mdiff --git a/routes/index.js b/routes/index.js[m
+[1mindex b4263ad..e182da4 100644[m
+[1m--- a/routes/index.js[m
+[1m+++ b/routes/index.js[m
+[36m@@ -1,13 +1,13 @@[m
+ var router = require('koa-router')();[m
+ [m
+ router.get('/', async function (ctx, next) {[m
+[31m-  if(ctx.session.sessionInfo){[m
+[31m-    ctx.redirect('/writer');[m
+[31m-  }else{[m
+[31m-    ctx.redirect('/login');[m
+[31m-  }[m
+[31m-  [m
+[31m-  //  ctx.res.redirect('/login');[m
+[32m+[m[32m    if (ctx.session.sessionInfo) {[m
+[32m+[m[32m        ctx.redirect('/writer');[m
+[32m+[m[32m    } else {[m
+[32m+[m[32m        ctx.redirect('/login');[m
+[32m+[m[32m    }[m
+[32m+[m
+[32m+[m[32m//  ctx.res.redirect('/login');[m
+ });[m
+ [m
+ module.exports = router;[m
+[1mdiff --git a/routes/login.js b/routes/login.js[m
+[1mindex 7938c9d..8279daf 100644[m
+[1m--- a/routes/login.js[m
+[1m+++ b/routes/login.js[m
+[36m@@ -4,21 +4,21 @@[m [mlet getReturnPattern = require('../lib/model/return');[m
+ [m
+ router.prefix('/login');[m
+ [m
+[31m-router.get('/', async function(ctx, next){[m
+[31m-     await ctx.render('login', {});[m
+[32m+[m[32mrouter.get('/', async function(ctx, next) {[m
+[32m+[m[32m    await ctx.render('login', {});[m
+ });[m
+ [m
+[31m-router.post('/registorRequest', async function(ctx, next){[m
+[31m-    try{[m
+[32m+[m[32mrouter.post('/registorRequest', async function(ctx, next) {[m
+[32m+[m[32m    try {[m
+         let {userName, password} = ctx.request.body;[m
+         let userID;[m
+         //先判断姓名是否重复[m
+         let users = await loginServer.judgeExitByName(userName, 'count(*) as count');[m
+[31m-        if(!users[0].count){[m
+[32m+[m[32m        if (!users[0].count) {[m
+             let {salt, hash} = await loginServer.hashPassword(password);[m
+             //存mysql数据库[m
+             userID = await loginServer.registor(userName, hash, salt);[m
+[31m-            if(userID){[m
+[32m+[m[32m            if (userID) {[m
+                 ctx.session.sessionInfo = {[m
+                     userName,[m
+                     userID,[m
+[36m@@ -27,20 +27,20 @@[m [mrouter.post('/registorRequest', async function(ctx, next){[m
+                 };[m
+             }[m
+             ctx.body = getReturnPattern(true);[m
+[31m-        }else{[m
+[32m+[m[32m        } else {[m
+             ctx.body = getReturnPattern(false, '该账户名已存在,请重新输入');[m
+         }[m
+ [m
+[31m-    }catch(e){[m
+[32m+[m[32m    } catch ( e ) {[m
+         ctx.body = getReturnPattern(false, e);[m
+     }[m
+ });[m
+ [m
+[31m-router.post('/loginRequest', async function(ctx, next){[m
+[31m-    try{[m
+[32m+[m[32mrouter.post('/loginRequest', async function(ctx, next) {[m
+[32m+[m[32m    try {[m
+         let {userName, password} = ctx.request.body;[m
+         let res = await loginServer.login(userName, password);[m
+[31m-        if(res.status){[m
+[32m+[m[32m        if (res.status) {[m
+             //登录成功[m
+             let {salt, hash} = res.result;[m
+             ctx.session.sessionInfo = {[m
+[36m@@ -51,24 +51,28 @@[m [mrouter.post('/loginRequest', async function(ctx, next){[m
+             };[m
+         }[m
+         ctx.body = res;[m
+[31m-    }catch(e){[m
+[32m+[m[32m    } catch ( e ) {[m
+         ctx.body = getReturnPattern(false, e);[m
+     }[m
+ });[m
+ [m
+[31m-router.post('/judgeRepeat', async function(ctx, next){[m
+[31m-    try{[m
+[32m+[m[32mrouter.post('/judgeRepeat', async function(ctx, next) {[m
+[32m+[m[32m    try {[m
+         //GET请求在this.query里，POST在this.request.body里[m
+         let {userName} = ctx.request.body;[m
+         let result = await loginServer.judgeExitByName(userName, 'count(*) as count');[m
+         let isRepeat = result[0];[m
+         //未重复[m
+[31m-        if(isRepeat.count === 0){[m
+[31m-            ctx.body = getReturnPattern(true, '', {isRepeat:false});[m
+[31m-        }else{[m
+[31m-            ctx.body = getReturnPattern(true, '', {isRepeat:true});[m
+[32m+[m[32m        if (isRepeat.count === 0) {[m
+[32m+[m[32m            ctx.body = getReturnPattern(true, '', {[m
+[32m+[m[32m                isRepeat: false[m
+[32m+[m[32m            });[m
+[32m+[m[32m        } else {[m
+[32m+[m[32m            ctx.body = getReturnPattern(true, '', {[m
+[32m+[m[32m                isRepeat: true[m
+[32m+[m[32m            });[m
+         }[m
+[31m-    }catch(ex){[m
+[32m+[m[32m    } catch ( ex ) {[m
+         ctx.body = getReturnPattern(false, ex);[m
+     }[m
+ [m
