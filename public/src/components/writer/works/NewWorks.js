@@ -31,19 +31,33 @@ const fetchCreateNewWork = (actions, title) => (dispatch)=>{
     })
 }
 
+/**
+ * 通过workID拉取文章列表
+ * @param {*workID} workID 
+ */
+const fetchArticlesByworkID = (workID) => {
+    return axios.get('/base/queryArticlesByworkId', {
+        workID:workID
+    });
+}
+
+/**
+ * 改变文件，拉取当前文集下的所有文章
+ * @param {*} actions 
+ * @param {*} workID 
+ */
 const fetchChangeActiveWork = (actions, workID) => (dispatch) => {
 
     dispatch(actions.changeActiveWork({}));
-    return axios.post('/writer/changeActiveWork', {
-        workID:workID
-    }).then(function(res){
+
+    fetchArticlesByworkID(workID).then(function(res){
         let result = res.data.result;
-        dispatch(actions.createNewWork({
+        dispatch(actions.changeActiveWork({
             status:'success',
             payload:result
         }));
     }).catch(function(e){
-         dispatch(actions.createNewWork({
+         dispatch(actions.changeActiveWork({
             status:'error',
             payload:e
         }));
@@ -99,8 +113,8 @@ class Works extends React.Component{
                             value={this.state.newWorkName} />
                         </div>
                         <div className='field form'>
-                            <Submit value='提交' func={_.bind(this.submit, this)} />
-                            <Cancle value='取消' func={_.bind(this.reset, this)} />
+                            <Submit value='提交' key='Submit-01' func={_.bind(this.submit, this)} />
+                            <Cancle value='取消' key='Cancle-01' func={_.bind(this.reset, this)} />
                         </div>
                     </div>
                 }
@@ -108,7 +122,7 @@ class Works extends React.Component{
                     workList.map((item) =>{
                         styles['u-work-active'] = currentWork === item.id;
                         return (
-                            <div className={cs(styles)} data-id={item.id} onClick={this.changeActiveWork.bind(this,i)}>
+                            <div className={cs(styles)} data-id={item.id} onClick={this.changeActiveWork.bind(this,item.id)}>
                                 <div className='field z-unit flex'>
                                     <span className='z-file-logo'>
                                         <i className="iconfont">&#xe6f4;</i>
@@ -135,7 +149,7 @@ class Works extends React.Component{
      * todo: currentWork存放在浏览器缓存里
      */
     changeActiveWork (i) {
-        //
+        
         let {changeActiveWork} = this.props;
         changeActiveWork();
     }

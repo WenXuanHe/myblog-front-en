@@ -50,12 +50,11 @@ router.get('/', async function (ctx, next) {
   });
 });
 
-
 router.post('/createNewWork', async function(ctx, next){
   try{
     let { title } = ctx.request.body;
-    let {userID, userName} = ctx.session.sessionInfo;
-    let workID = await sqlServer.addNewWork({title, userID});
+    let {userID} = ctx.session.sessionInfo;
+    let workID = await sqlServer.createNewWork({title, userID});
     ctx.body = getReturnPattern(true, '',  {
       title,
       userID,
@@ -66,4 +65,22 @@ router.post('/createNewWork', async function(ctx, next){
     return ctx.body = getReturnPattern(false, e);
   }
 });
+
+router.post('/createNewArticle', async function(ctx, next){
+  try{
+    let { workID } = ctx.request.body;
+    let { userID } = ctx.session.sessionInfo;
+    let articleID = await sqlServer.createNewArticle({workID, userID});
+    ctx.body = getReturnPattern(true, '',  {
+      workID,
+      userID,
+      id: articleID,
+      title:'',
+      content:''
+    });
+  }catch(e){
+    return ctx.body = getReturnPattern(false, e);
+  }
+});
+
 module.exports = router;

@@ -14,6 +14,7 @@ const Store = require("./lib/session/Store");
 ////支持jsx语法
 require('node-jsx').install();
 
+const base = require('./routes/base');
 const index = require('./routes/index');
 const login = require('./routes/login');
 const writer = require('./routes/writer');
@@ -65,6 +66,7 @@ app.use(async function (ctx, next) {
 });
 
 // routes
+app.use(base.routes(), base.allowedMethods());
 app.use(index.routes(), index.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
 app.use(writer.routes(), writer.allowedMethods());

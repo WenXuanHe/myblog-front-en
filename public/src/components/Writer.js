@@ -8,9 +8,9 @@
 let React = require('react');
 let PropTypes = React.PropTypes;
 let connect = require('react-redux').connect;
-let NewWorks = require('./writer/works/NewWorks.js');
-let NewArticle = require('./writer/article/NewArticle.js');
-let FileEditor = require('./editor/FileEditor.js');
+let NewWorks = require('./writer/works/NewWorks').default;
+let NewArticle = require('./writer/article/NewArticle');
+let FileEditor = require('./editor/FileEditor');
 
 
 let actions = {
@@ -32,7 +32,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
     }
 }
 
-class Writer extends React.Component {
+class MyProject extends React.Component {
 
     static PropTypes = {
         workList: PropTypes.array.isRequired,
@@ -55,10 +55,10 @@ class Writer extends React.Component {
 
                 <div className = 'g-write flex'>
                     <div className = 'col-5 m-work'>
-                        <NewWorks />
+                        <NewWorks key='NewWorks-01' />
                     </div>
                     <div className = 'col-4 m-article'>
-                        <NewArticle />
+                        <NewArticle key='NewArticle-01' />
                     </div>
                     {
                         articleList.length ?
@@ -66,7 +66,7 @@ class Writer extends React.Component {
                                 <header>
                                     <input type = 'text' value = {articleList[currentArticle].title} onChange={this.updateTitle}/>
                                 </header>
-                                < FileEditor ref = 'fileEditor' />
+                                {/*< FileEditor ref = 'fileEditor' />*/}
                             </div>)
                             : (<br/>)
                     }
@@ -89,5 +89,5 @@ class Writer extends React.Component {
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Writer);
+module.exports = connect(mapStateToProps, mapDispatchToProps)(MyProject);
     

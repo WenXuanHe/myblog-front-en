@@ -1,37 +1,41 @@
-// import React, { PropTypes } from 'react'
-// import cs from 'classnames'
-// import {connect} from 'react-redux'
+import React, { PropTypes } from 'react'
+import {connect} from 'react-redux'
+import axios from 'axios'
+import cs from 'classnames'
+import Submit from '../../buttons/submit'
+import Cancle from '../../buttons/cancle'
+import actions from '$redux/actions/write'
+import commonFetch from '$redux/actions/commonFetch'
 
-// import timestamp from '$helper/timestamp'
-// import Submit from '../../buttons/submit.jsx'
-// import Cancle from '../../buttons/cancle.jsx'
 
-
-let React = require('react');
-let PropTypes = React.PropTypes;
-let connect = require('react-redux').connect;
-let cs = require('classnames');
-let timestamp = require('../../../helper/timestamp');
-let Submit = require('../../buttons/submit.js');
-let Cancle = require('../../buttons/cancle.js');
-
-const actions={
-    createNewArticle:{type:'createNewArticle', payload:''},
-    changeActiveArticle:{type:'changeActiveArticle', payload:''}
+const setCurrentWorkInfo = function(){
+    //todo 做成存到localstoage里面，后面直接取缓存的数据
+}
+const setCurrentArticleInfo = function(){
+    //todo 做成存到localstoage里面，后面直接取缓存的数据
+}
+const getCurrentWorkInfo = function(workList, workID){
+    
+    return workList.find((item) => item.id === workID);
+}
+const getCurrentArticleList = function(articleList, articleID){
+    return articleList.find((item) => item.id === articleID);
 }
 
 const mapStateToProps = (state, ownProps) => {
     return {
         workList: state.writer.workList,
-        currentArticle: state.login.currentArticle,
-        currentWork: state.login.currentWork
+        currentArticle: state.writer.currentArticle,
+        currentWork: state.writer.currentWork
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
-        createNewArticle:()=>{dispatch(actions.createNewArticle)},
-        changeActiveArticle:()=>{dispatch(actions.changeActiveArticle)}
+        
+        createNewArticle:(data)=>{dispatch(commonFetch(actions.createNewArticle, data))},
+        //非异步
+        changeActiveArticle:(data)=>{dispatch(actions.changeActiveArticle({payload:data}))}
     }
 }
 
@@ -45,24 +49,25 @@ class CreateArticle extends React.Component{
     render(){
 
         let {workList, currentWork, currentArticle} = this.props;
-        let articleList = (workList.length && workList[currentWork])
-            ? workList[currentWork].articleList : [];
+        let workInfo = getCurrentWorkInfo(workList, currentWork);
+        let articleList = workInfo.articleList;
+
         let styles = {
             'u-article':true,
             'u-article-active':false
         };
         return (
             <div className='m-add-article'>
-                <div className='u-create' onClick={this.create}>
+                <div className='u-create' onClick={this.createArticle}>
                     <div className='field'>+新建文章</div>
                 </div>
                 <div className='u-article-list'>
                 {
-                    articleList.map((item, i) => {
-                        styles['u-article-active'] = currentArticle === i;
+                    articleList.map((item) => {
+                        styles['u-article-active'] = currentArticle === item.id;
                         return (
                             <div className={cs(styles)}
-                             data-id={item.workID} onClick={this.active.bind(this,i)}>
+                             data-id={item.workID} onClick={this.changeActiveArticle.bind(this, item.id)}>
                                 <div className='field z-unit flex'>
                                     <span className='z-file-logo'>
                                         <i className="iconfont">&#xe6f4;</i>
@@ -78,25 +83,22 @@ class CreateArticle extends React.Component{
         )
     }
 
-    create = () => {
-        let {workList, currentWork, createNewArticle} = this.props;
-        let articleList = (workList.length && workList[currentWork])
-            ? workList[currentWork].articleList : [];
-        actions.createNewArticle.payload = this.addArticle(articleList.length);
-        createNewArticle();
+    createArticle = () => {
+        let {currentWork, createNewArticle} = this.props;
+        createNewArticle({
+            url:'write/createNewArticle',
+            fetchData: {
+                workID: currentWork
+            }
+        });
     }
-    active = (i)=>{
-        let {changeActiveArticle} = this.props;
-        actions.changeActiveArticle.payload = i;
-        changeActiveArticle();
-    }
-    addArticle = (len)=>{
-        return {
-            id:timestamp(),
-            title:'',
-            content:'',
-            files:''
-        }
+    
+    changeActiveArticle = (articleID)=>{
+        let {currentWork, changeActiveArticle} = this.props;
+        changeActiveArticle({
+            workID: currentWork,
+            articleID
+        });
     }
 
 }

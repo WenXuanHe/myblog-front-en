@@ -6,8 +6,6 @@ router.get('/', async function (ctx, next) {
   }else{
     ctx.redirect('/login');
   }
-  
-  //  ctx.res.redirect('/login');
 });
 
 module.exports = router;
