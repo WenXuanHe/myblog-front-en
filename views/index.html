@@ -9,6 +9,15 @@
     <script>
         var initialData = '{% autoescape %}{{initialData}}{% endautoescape %}';
         window._INITIAL_STATE_ = JSON.parse(initialData);
+        ////拿localstorage中的currentWorkID
+        if(_INITIAL_STATE_.writer.workList.length > 0){
+            if(localStorage.getItem('currentWorkID')){
+                _INITIAL_STATE_.writer.currentWorkID = localStorage.getItem('currentWorkID');
+            }else{
+                _INITIAL_STATE_.writer.currentWorkID = _INITIAL_STATE_.writer.workList[0].id;
+                localStorage.setItem('currentWorkID', _INITIAL_STATE_.writer.currentWorkID);
+            }
+        }
     </script>
     <script type="text/javascript" src="dist/vendors.js"></script>
     <script type="text/javascript" src="dist/index.js"></script>

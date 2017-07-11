@@ -7,8 +7,8 @@ let data = {
         workList: [
            
         ],
-        currentArticle:-1,
-        currentWork:-1
+        currentArticleID:-1,
+        currentWorkID:-1
     }
 };
 // export default data;

@@ -7,8 +7,6 @@ import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 import actions from '$redux/actions/write'
 
-
-
 /**
  * 去数据库新建文集
  */
@@ -54,7 +52,10 @@ const fetchChangeActiveWork = (actions, workID) => (dispatch) => {
         let result = res.data.result;
         dispatch(actions.changeActiveWork({
             status:'success',
-            payload:result
+            payload:{
+                workID:workID,
+                articleList:result
+            }
         }));
     }).catch(function(e){
          dispatch(actions.changeActiveWork({
@@ -67,7 +68,7 @@ const fetchChangeActiveWork = (actions, workID) => (dispatch) => {
 const mapStateToProps = (state, ownProps) => {
     return {
         workList:state.writer.workList, //文件夹列表
-        currentWork: state.writer.currentWork //当前文集的id值
+        currentWorkID: state.writer.currentWorkID //当前文集的id值
     }
 }
 
@@ -75,7 +76,7 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
         createNewWork: (title)=>{dispatch(fetchCreateNewWork(actions, title))},
 
-        changeActiveWork:(i)=>{dispatch(fetchChangeActiveWork(actions, i))}
+        changeActiveWork:(workID)=>{dispatch(fetchChangeActiveWork(actions, workID))}
     }
 }
 
@@ -83,7 +84,7 @@ class Works extends React.Component{
 
     static PropTypes = {
         workList: PropTypes.array.isRequired,
-        currentWork: PropTypes.number.isRequired
+        currentWorkID: PropTypes.number.isRequired
     };
 
     constructor(){
@@ -95,7 +96,7 @@ class Works extends React.Component{
     }
 
     render(){
-        let {workList, currentWork} = this.props;
+        let {workList, currentWorkID} = this.props;
         let styles = {
             'u-work':true,
             'u-work-active':false
@@ -120,7 +121,7 @@ class Works extends React.Component{
                 }
                 {
                     workList.map((item) =>{
-                        styles['u-work-active'] = currentWork === item.id;
+                        styles['u-work-active'] = +currentWorkID === item.id;
                         return (
                             <div className={cs(styles)} data-id={item.id} onClick={this.changeActiveWork.bind(this,item.id)}>
                                 <div className='field z-unit flex'>
@@ -137,6 +138,11 @@ class Works extends React.Component{
         )
     }
     
+    componentDidMount(){
+        // 首次渲染后就发起第一次请求
+        this.changeActiveWork(+this.props.currentWorkID);
+    }
+
     createWork () {
         if(!this.state.increacing){
              this.setState({
@@ -148,10 +154,10 @@ class Works extends React.Component{
     /**
      * todo: currentWork存放在浏览器缓存里
      */
-    changeActiveWork (i) {
+    changeActiveWork (workID) {
         
         let {changeActiveWork} = this.props;
-        changeActiveWork();
+        changeActiveWork(workID);
     }
 
     submit () {

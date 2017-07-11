@@ -28,3 +28,4 @@ router.get('/queryWorks', async function(ctx, next){
     }
 });
 
+module.exports = router;

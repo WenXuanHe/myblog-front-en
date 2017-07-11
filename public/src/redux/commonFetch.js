@@ -4,8 +4,7 @@ export default (action, {
     fetchData,
     url
     }) => (dispatch) => {
-        if (!action.type) return Error("type is musted");
-        dispatch(action());
+        dispatch(action({}));
         axios.post(url, fetchData).then((res) => {
             let result = res.data.result;
             dispatch(action({

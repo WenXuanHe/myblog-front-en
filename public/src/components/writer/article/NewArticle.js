@@ -5,28 +5,14 @@ import cs from 'classnames'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 import actions from '$redux/actions/write'
-import commonFetch from '$redux/actions/commonFetch'
-
-
-const setCurrentWorkInfo = function(){
-    //todo 做成存到localstoage里面，后面直接取缓存的数据
-}
-const setCurrentArticleInfo = function(){
-    //todo 做成存到localstoage里面，后面直接取缓存的数据
-}
-const getCurrentWorkInfo = function(workList, workID){
-    
-    return workList.find((item) => item.id === workID);
-}
-const getCurrentArticleList = function(articleList, articleID){
-    return articleList.find((item) => item.id === articleID);
-}
+import commonFetch from '$redux/commonFetch'
+import {getCurrentWorkInfo} from '$utils'
 
 const mapStateToProps = (state, ownProps) => {
     return {
         workList: state.writer.workList,
-        currentArticle: state.writer.currentArticle,
-        currentWork: state.writer.currentWork
+        currentArticleID: state.writer.currentArticleID,
+        currentWorkID: state.writer.currentWorkID
     }
 }
 
@@ -35,23 +21,22 @@ const mapDispatchToProps = (dispatch, ownProps) =>{
         
         createNewArticle:(data)=>{dispatch(commonFetch(actions.createNewArticle, data))},
         //非异步
-        changeActiveArticle:(data)=>{dispatch(actions.changeActiveArticle({payload:data}))}
+        changeActiveArticle:(data)=>{dispatch(actions.changeActiveArticle())}
     }
 }
 
 class CreateArticle extends React.Component{
 
     static PropTypes = {
-        currentWork: PropTypes.number.isRequired,
-        currentArticle: PropTypes.number.isRequired,
+        currentWorkID: PropTypes.number.isRequired,
+        currentArticleID: PropTypes.number.isRequired,
         workList: PropTypes.number.isRequired
     }
+
     render(){
-
-        let {workList, currentWork, currentArticle} = this.props;
-        let workInfo = getCurrentWorkInfo(workList, currentWork);
-        let articleList = workInfo.articleList;
-
+        let {workList, currentWorkID, currentArticleID} = this.props;
+        let workInfo = getCurrentWorkInfo(workList, currentWorkID);
+        let articleList = workInfo.articleList || [];
         let styles = {
             'u-article':true,
             'u-article-active':false
@@ -64,7 +49,7 @@ class CreateArticle extends React.Component{
                 <div className='u-article-list'>
                 {
                     articleList.map((item) => {
-                        styles['u-article-active'] = currentArticle === item.id;
+                        styles['u-article-active'] = currentArticleID === item.id;
                         return (
                             <div className={cs(styles)}
                              data-id={item.workID} onClick={this.changeActiveArticle.bind(this, item.id)}>
@@ -84,11 +69,11 @@ class CreateArticle extends React.Component{
     }
 
     createArticle = () => {
-        let {currentWork, createNewArticle} = this.props;
+        let {currentWorkID, createNewArticle} = this.props;
         createNewArticle({
-            url:'write/createNewArticle',
+            url:'writer/createNewArticle',
             fetchData: {
-                workID: currentWork
+                workID: currentWorkID
             }
         });
     }

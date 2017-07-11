@@ -15,7 +15,7 @@ export const changeActiveWork = ({status='', payload=''}) => ({
 })
 
 export const createNewArticle = ({status='', payload=''}) => ({
-    type:'CHANGE_NEW_ARTICLE',
+    type:'CREATE_NEW_ARTICLE',
     payload:payload,
     status:status
 })

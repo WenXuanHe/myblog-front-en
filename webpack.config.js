@@ -70,7 +70,8 @@ module.exports = {
             $components: path.resolve(__dirname, 'public/src/components'),
             $routes: path.resolve(__dirname, 'public/src/routes'),
             $styles: path.resolve(__dirname, 'public/src/styles'),
-            $helper: path.resolve(__dirname, 'public/src/helper')
+            $helper: path.resolve(__dirname, 'public/src/helper'),
+            $utils: path.resolve(__dirname, 'public/src/utils')
         }
     },
     plugins:[
