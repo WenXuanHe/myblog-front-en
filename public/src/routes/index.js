@@ -3,14 +3,14 @@
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group'
 
 let React = require('react');
-let { HashRouter, Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
+let { BrowserRouter , Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
 let Bundle = require('../components/Bundle.js');
 // let Home =  require('bundle-loader?lazy&name=home!../components/Home.js');
 let Home = require('../components/Home.js');
 let Writer =  require('bundle-loader?lazy&name=writer!../components/Writer.js');
 let NoMatch =  require('bundle-loader?lazy&name=noMatch!../components/NoMatch.js');
 // //BrowserRouter
-let Router = HashRouter;
+let Router = BrowserRouter ;
 const initialState = window['_INITIAL_STATE_'] || {};
 
 /*const home = (props) => (
@@ -32,7 +32,7 @@ const noMatch = (props) => (
 )
 
 let router = (
-    <Router context={initialState}>
+    <Router context={initialState} basename='/writer'>
         <div>
             <Switch>
                 {/*<Route path="/index"   getComponent={home} />*/}

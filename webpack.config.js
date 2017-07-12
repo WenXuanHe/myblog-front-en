@@ -1,8 +1,27 @@
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
+let HtmlWebpackPlugin = require("html-webpack-plugin");
 let path = require("path");
 let routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
-let publicPath = '/dist/';
+
+let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
+    hash:false,//path.resolve(__dirname, 'views/template/index.html')
+    filename: path.resolve(__dirname, 'views/index.html'),//最终生成的html文件
+    template: path.resolve(__dirname, 'views/templates/index.html'),
+    chunks:['vendors', 'index'], //入口文件所依赖的js文件
+    inject:'define' //js文件插入到body最后一行
+});
+let htmlWebpackPluginLogin = new HtmlWebpackPlugin({
+    hash:false,//path.resolve(__dirname, 'views/template/index.html')
+    filename: path.resolve(__dirname, 'views/login.html'),//最终生成的html文件
+    template: path.resolve(__dirname, 'views/templates/login.html'),
+    chunks:['vendors', 'login'], //入口文件所依赖的js文件
+    inject:'define' //js文件插入到body最后一行
+});
+htmlWebpackPluginIndex = require('./views/templates/injectAssetsIntoHtml')(htmlWebpackPluginIndex);
+htmlWebpackPluginLogin = require('./views/templates/injectAssetsIntoHtml')(htmlWebpackPluginLogin);
+
+// let publicPath = 'http://localhost:3000/dist/';
 
 module.exports = {
     entry: {
@@ -25,7 +44,7 @@ module.exports = {
         //配置按需加载[chunkhash:5]
         chunkFilename: '[name].chunk.js',
         //给自动引用的生成文件加路径
-        publicPath:publicPath
+        publicPath:'http://localhost:3000/dist/'
     },
     module: {
         loaders: [
@@ -76,11 +95,14 @@ module.exports = {
     },
     plugins:[
         new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+        htmlWebpackPluginIndex,
+        htmlWebpackPluginLogin,
+
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
             $:'jquery'
         }),
-        new ExtractTextPlugin("./styles/[name].css"),
+        new ExtractTextPlugin("styles/[name].css"),
     ],
     devtool: 'source-map'
 }

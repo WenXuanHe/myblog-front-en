@@ -9,8 +9,35 @@ let getReturnPattern = require('../lib/model/return');
 let sqlServer = require('../lib/sql/server');
 
 router.prefix('/writer');
+router.get('/', async function (ctx, next){
+  ctx.redirect('/writer/index');
+});
+router.get('/writer', async function (ctx, next){
+  let {userID, userName} = ctx.session.sessionInfo, workList=[], articles=[];
 
-router.get('/', async function (ctx, next) {
+  try{
+    //查询出文集列表
+    workList = await sqlServer.queryWorks(userID);
+  }catch(e){
+    return ctx.body = getReturnPattern(false, e);
+  }
+
+  let initData = {
+    login:{
+      userID,
+      userName
+    },
+    writer:{
+      workList
+    }
+  };
+  await ctx.render('index', {
+    initialData:JSON.stringify(initData)
+  });
+
+});
+
+router.get('/index', async function (ctx, next) {
 
   let {userID, userName} = ctx.session.sessionInfo, workList=[], articles=[];
 
