@@ -1,34 +1,26 @@
-// import React, { PropTypes } from 'react'
-// import {connect} from 'react-redux'
-
-// import './../styles/writer.scss'
-// import NewWorks from './writer/works/NewWorks.jsx'
-// import NewArticle from './writer/article/NewArticle.jsx'
-// import FileEditor from './editor/FileEditor.jsx'
-let React = require('react');
-let PropTypes = React.PropTypes;
-let connect = require('react-redux').connect;
-let NewWorks = require('./writer/works/NewWorks').default;
-let NewArticle = require('./writer/article/NewArticle');
-let FileEditor = require('./editor/FileEditor');
-
-
-let actions = {
-    updateTitle:{type:'updateTitle',payload:''}
-};
+import React, { PropTypes } from 'react'
+import { connect } from 'react-redux'
+import NewWorks from './writer/works/NewWorks'
+import NewArticle from './writer/article/NewArticle'
+import FileEditor from './editor/FileEditor'
+import utils from '$utils/index'
+import { updateArticleInfo } from '$redux/actions/write'
+import commonFetch from '$redux/commonFetch'
 
 const mapStateToProps = (state, ownProps) => {
-    let {workList, currentArticle, currentWork} = state.writer;
+    let { workList, currentArticleID, currentWorkID } = state.writer;
     return {
         workList,//文章列表
-        currentArticle, //用户信息，包含当前文集及当前文章
-        currentWork
+        currentArticleID, //用户信息，包含当前文集及当前文章
+        currentWorkID
     }
 }
 
-const mapDispatchToProps = (dispatch, ownProps) =>{
+const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        updateTitle:()=>{dispatch(actions.updateTitle, ownProps)}
+        updateArticleInfo: (data) => { dispatch(commonFetch(updateArticleInfo, data)) },
+
+        syncArticleTitle: (data) => { dispatch(updateArticleInfo({ payload: data })) }
     }
 }
 
@@ -36,58 +28,91 @@ class MyProject extends React.Component {
 
     static PropTypes = {
         workList: PropTypes.array.isRequired,
-        currentArticle: PropTypes.number.isRequired,
-        currentWork: PropTypes.number.isRequired
+        currentArticleID: PropTypes.number.isRequired,
+        currentWorkID: PropTypes.number.isRequired
     };
 
     render() {
-
-        let {workList, currentWork, currentArticle} = this.props;
-        if(currentWork !== -1){
-            currentWork = workList.length ? workList[0].id : -1;
-        }
-        let articleList = workList[currentWork] || [];
-        if(currentArticle !== -1){
-            currentArticle = articleList.length ? articleList[0].id : -1;
-        }
+        let { workList, currentWorkID, currentArticleID } = this.props;
+        let workInfo = utils.getCurrentWorkInfo(workList, currentWorkID);
+        this.articleInfo = utils.getCurrentArticleInfo(workInfo.articleList || [], currentArticleID);
 
         return (
 
-                <div className = 'g-write flex'>
-                    <div className = 'col-5 m-work'>
-                        <NewWorks key='NewWorks-01' />
-                    </div>
-                    <div className = 'col-4 m-article'>
-                        <NewArticle key='NewArticle-01' />
-                    </div>
-                    {
-                        articleList.length ?
-                             (<div className = 'col m-content'>
-                                <header>
-                                    <input type = 'text' value = {articleList[currentArticle].title} onChange={this.updateTitle}/>
-                                </header>
-                                {/*< FileEditor ref = 'fileEditor' />*/}
-                            </div>)
-                            : (<br/>)
-                    }
+            <div className='g-write flex'>
+                <div className='col-5 m-work'>
+                    <NewWorks key='NewWorks-01' />
                 </div>
+                <div className='col-4 m-article'>
+                    <NewArticle key='NewArticle-01' />
+                </div>
+                {
+                    this.articleInfo &&
+                    <div className='col m-content'>
+                        <header>
+                            <input type='text' value={this.articleInfo.title} onChange={this.asyncUpdateArticleInfo} onBlur={this.fetchUpdateArticleInfo} />
+                        </header>
+                        < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
+                        <div className="u-footer u-footer-skin">
+                            <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
+                        </div>
+                    </div>
+                }
+            </div>
 
         )
     }
     /**
-     * 一个articleID即可
+     * 同步本地中的数据
      */
-    updateTitle = (e)  =>{
-        let {updateTitle, currentArticle, currentWork} = this.props;
-        actions.updateTitle.payload = {
-            value:e.target.value,
-            currentArticle,
-            currentWork
-        };
-        updateTitle();
+    asyncUpdateArticleInfo = (e) => {
+        let title = e.target.value;
+        this.props.syncArticleTitle({
+            data: {
+                title
+            }
+        });
     }
+
+    submitArticle = () => {
+        var content = this.refs['fileEditor-key0'].getEditContent();
+        var uploadFiles = this.refs['fileEditor-key0'].getFiles();
+        this.fetchArticle({
+            content,
+            title: this.articleInfo.title
+        });
+
+    }
+
+    fetchArticle = ({ title = '', content = '' }) => {
+        let { updateArticleInfo, currentArticleID } = this.props;
+
+        updateArticleInfo({
+            url: 'writer/updateArticleInfo',
+            fetchData: {
+                title,
+                articleID: currentArticleID,
+                content
+            },
+            callBack: function() {
+                alert('update success');
+            }
+        });
+    }
+
+    /**
+     * 失去焦点时存库
+     */
+    fetchUpdateArticleInfo = (e) => {
+        let title = e.target.value;
+        let { updateArticleInfo, currentArticleID } = this.props;
+        this.fetchArticle({
+            content: this.articleInfo.content,
+            title
+        });
+    }
+
 }
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
 module.exports = connect(mapStateToProps, mapDispatchToProps)(MyProject);
-    

@@ -35,7 +35,9 @@ const fetchCreateNewWork = (actions, title) => (dispatch)=>{
  */
 const fetchArticlesByworkID = (workID) => {
     return axios.get('/base/queryArticlesByworkId', {
-        workID:workID
+        params:{
+            workID:workID
+        }
     });
 }
 
@@ -123,7 +125,7 @@ class Works extends React.Component{
                     workList.map((item) =>{
                         styles['u-work-active'] = +currentWorkID === item.id;
                         return (
-                            <div className={cs(styles)} data-id={item.id} onClick={this.changeActiveWork.bind(this,item.id)}>
+                            <div className={cs(styles)} key={ "article-"+ item.id } onClick={this.changeActiveWork.bind(this,item.id)}>
                                 <div className='field z-unit flex'>
                                     <span className='z-file-logo'>
                                         <i className="iconfont">&#xe6f4;</i>
@@ -167,8 +169,7 @@ class Works extends React.Component{
 
     reset () {
         this.setState({
-            newWorkName:'',
-            addWork:false
+            increacing:false
         });
     }
 }

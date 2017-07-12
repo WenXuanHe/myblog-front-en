@@ -12,7 +12,7 @@ class FileUpload extends React.Component{
     }
     render(){
         return (
-            <div>
+            <div className='m-upload'>
                 <input type='file' multiple onChange={this.changed} />
             </div>
         )

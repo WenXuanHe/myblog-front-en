@@ -17,12 +17,6 @@ router.get('/', async function (ctx, next) {
   try{
     //查询出文集列表
     workList = await sqlServer.queryWorks(userID);
-    if(workList.length){
-      // 查询第一个文集下的文章列表
-      articleList = await sqlServer.queryArticlesByworkId(workList[0].id);
-      workList[0].articleList = articleList || [];
-    }
-
   }catch(e){
     return ctx.body = getReturnPattern(false, e);
   }
@@ -82,5 +76,30 @@ router.post('/createNewArticle', async function(ctx, next){
     return ctx.body = getReturnPattern(false, e);
   }
 });
+
+router.post('/updateArticleInfo', async function(ctx, next){
+  try{
+    let { articleID, title, content } = ctx.request.body;
+    let articleInfo = await sqlServer.updateArticleById({id: articleID, title, content});
+    ctx.body = getReturnPattern(true, '',  articleInfo);
+
+  }catch(e){
+    return ctx.body = getReturnPattern(false, e);
+  }
+});
+
+router.post('/deleteArticleById', async function(ctx, next){
+
+  try{
+    let { articleID } = ctx.request.body;
+    await sqlServer.deleteArticleById(articleID);
+    ctx.body = getReturnPattern(true, '',  {
+      articleID
+    });
+
+  }catch(e){
+    return ctx.body = getReturnPattern(false, e);
+  }
+})
 
 module.exports = router;

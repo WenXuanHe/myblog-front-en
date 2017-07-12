@@ -6,8 +6,8 @@ export default class FileEditor extends React.Component{
 
     render(){
         return (
-            <div>
-                <Editor id="editor" ref='editor' />
+            <div className='edit-content'>
+                <Editor id="editor" ref='editor' content={this.props.content} />
                 <FileUpload ref='upload'/>
             </div>
         )

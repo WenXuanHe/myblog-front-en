@@ -1,10 +1,6 @@
-// import React from "react"
-// import wangEditor from 'wangeditor'
-// import {simpleMenus, menus} from '../../config/editor'
-
-let React = require('react');
-let wangEditor = require('wangeditor');
-let {simpleMenus, menus} = require('../../config/editor');
+import React from "react"
+import wangEditor from 'wangeditor'
+import {simpleMenus, menus} from '../../config/editor'
 
 /**
  * style:{},
@@ -19,17 +15,12 @@ class Editor extends React.Component {
             height: '200px'
         }
     }
-
     componentWillMount(){
         this.style = this.props.style || this.styles();
     }
-
     render () {
         return (
-            <div>
-                <div id = {this.props.id} style={this.style}
-                contentEditable="true"></div>
-            </div>
+            <div id = {this.props.id} style={this.style} contentEditable="true">{this.props.content}</div>
         );
     }
     componentDidMount () {
@@ -53,5 +44,4 @@ class Editor extends React.Component {
     }
 }
 
-// export default Editor;
-module.exports = Editor;
+export default Editor;

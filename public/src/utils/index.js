@@ -17,7 +17,7 @@ const getCurrentArticleInfo = function(articleList, articleID=0){
 }
 
 
-module.exports = {
+module.exports = {  
     setCurrentWorkInfo,
     setCurrentArticleInfo,
     getCurrentWorkInfo,
