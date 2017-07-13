@@ -1,14 +1,8 @@
 let data = {
-    login : {
-        userID:'',
-        userName:'',
-    },
     writer: {
-        workList: [
-           
-        ],
-        currentArticleID:-1,
-        currentWorkID:-1
+        workList: [],
+        currentArticleID:0,
+        currentWorkID:0
     }
 };
 // export default data;

@@ -1,131 +1,110 @@
 let router = require('koa-router')();
-let React = require('react');
-let ReactDOMServer = require('react-dom/server');
-let Provider = require('react-redux').Provider;
-let Home = require('../public/src/components/Home');
-let getStore = require('../public/src/redux/store/index');
-let { StaticRouter } = require('react-router');
 let getReturnPattern = require('../lib/model/return');
 let sqlServer = require('../lib/sql/server');
+////支持jsx语法
+require('node-jsx').install();
+
+let buildSeverRenderInitData = require('../helper/severRenderInitData');
+let buildServerRenderByReact = require('../helper/serverRenderByReact');
 
 router.prefix('/writer');
-router.get('/', async function (ctx, next){
+
+router.get('/', async function (ctx, next) {
   ctx.redirect('/writer/index');
 });
-router.get('/writer', async function (ctx, next){
-  let {userID, userName} = ctx.session.sessionInfo, workList=[], articles=[];
 
-  try{
-    //查询出文集列表
-    workList = await sqlServer.queryWorks(userID);
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+/**
+ * 刷新的时候才走后端路由，不刷新时走前端路由
+ */
+router.get('/writer', async function (ctx, next) {
+  let initData;
+  try {
+    initData = await buildSeverRenderInitData(ctx.session.sessionInfo.userID);
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, "查询文集列表失败", e);
   }
 
-  let initData = {
-    login:{
-      userID,
-      userName
-    },
-    writer:{
-      workList
-    }
-  };
   await ctx.render('index', {
-    initialData:JSON.stringify(initData)
+    initialData: JSON.stringify(initData)
   });
 
 });
 
+/**
+ * react SPA的首页
+ */
 router.get('/index', async function (ctx, next) {
 
-  let {userID, userName} = ctx.session.sessionInfo, workList=[], articles=[];
+  try {
+    let initData = await buildSeverRenderInitData(ctx.session.sessionInfo.userID);
+    let html = buildServerRenderByReact(initData);
 
-  try{
-    //查询出文集列表
-    workList = await sqlServer.queryWorks(userID);
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+    await ctx.render('index', {
+      initialHTML: html,
+      initialData: JSON.stringify(initData)
+    });
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, "查询文集列表失败", e);
   }
 
-  let initData = {
-    login:{
-      userID,
-      userName
-    },
-    writer:{
-      workList
-    }
-  };
-  let store = getStore(initData);
-  let html = ReactDOMServer.renderToString(
-    <Provider store={store}>
-      <StaticRouter>
-          <Home />
-      </StaticRouter>
-    </Provider>
-  );
-  await ctx.render('index', {
-    initialHTML: html,
-    initialData:JSON.stringify(initData)
-  });
 });
 
-router.post('/createNewWork', async function(ctx, next){
-  try{
+
+router.post('/createNewWork', async function (ctx, next) {
+  try {
     let { title } = ctx.request.body;
-    let {userID} = ctx.session.sessionInfo;
-    let workID = await sqlServer.createNewWork({title, userID});
-    ctx.body = getReturnPattern(true, '',  {
+    let { userID } = ctx.session.sessionInfo;
+    let workID = await sqlServer.createNewWork({ title, userID });
+    return ctx.body = getReturnPattern(true, '新增成功', {
       title,
       userID,
       id: workID,
-      articleList:[]
+      articleList: []
     });
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, '新增文集失败', e);
   }
 });
 
-router.post('/createNewArticle', async function(ctx, next){
-  try{
+router.post('/createNewArticle', async function (ctx, next) {
+  try {
     let { workID } = ctx.request.body;
     let { userID } = ctx.session.sessionInfo;
-    let articleID = await sqlServer.createNewArticle({workID, userID});
-    ctx.body = getReturnPattern(true, '',  {
+    let articleID = await sqlServer.createNewArticle({ workID, userID });
+    return ctx.body = getReturnPattern(true, '新增成功', {
       workID,
       userID,
       id: articleID,
-      title:'',
-      content:''
+      title: '',
+      content: ''
     });
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, '新增文章失败', e);
   }
 });
 
-router.post('/updateArticleInfo', async function(ctx, next){
-  try{
+router.post('/updateArticleInfo', async function (ctx, next) {
+  try {
     let { articleID, title, content } = ctx.request.body;
-    let articleInfo = await sqlServer.updateArticleById({id: articleID, title, content});
-    ctx.body = getReturnPattern(true, '',  articleInfo);
+    let articleInfo = await sqlServer.updateArticleById({ id: articleID, title, content });
+    return ctx.body = getReturnPattern(true, '更新成功', articleInfo);
 
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, '更新文章失败', e);
   }
 });
 
-router.post('/deleteArticleById', async function(ctx, next){
+router.post('/deleteArticleById', async function (ctx, next) {
 
-  try{
+  try {
     let { articleID } = ctx.request.body;
     await sqlServer.deleteArticleById(articleID);
-    ctx.body = getReturnPattern(true, '',  {
+    return ctx.body = getReturnPattern(true, '删除成功', {
       articleID
     });
 
-  }catch(e){
-    return ctx.body = getReturnPattern(false, e);
+  } catch (e) {
+    return ctx.body = getReturnPattern(false, '删除文章失败', e);
   }
 })
 

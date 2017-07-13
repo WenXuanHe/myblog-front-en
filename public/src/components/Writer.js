@@ -79,24 +79,25 @@ class MyProject extends React.Component {
         var uploadFiles = this.refs['fileEditor-key0'].getFiles();
         this.fetchArticle({
             content,
-            title: this.articleInfo.title
+            title: this.articleInfo.title,
+            callBack: function(){
+                alert('成功');
+            }
         });
 
     }
 
-    fetchArticle = ({ title = '', content = '' }) => {
+    fetchArticle = ({ title = '', content = '', callBack=null }) => {
         let { updateArticleInfo, currentArticleID } = this.props;
 
         updateArticleInfo({
-            url: 'writer/updateArticleInfo',
+            url: '/writer/updateArticleInfo',
             fetchData: {
                 title,
                 articleID: currentArticleID,
                 content
             },
-            callBack: function() {
-                alert('update success');
-            }
+            callBack: callBack
         });
     }
 

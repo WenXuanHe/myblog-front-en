@@ -11,8 +11,8 @@ const path = require('path');
 const session = require("koa-session2");
 const getExpires = require("./lib/session/expires");
 const Store = require("./lib/session/Store");
-////支持jsx语法
-require('node-jsx').install();
+// ////支持jsx语法
+// require('node-jsx').install();
 
 const base = require('./routes/base');
 const index = require('./routes/index');

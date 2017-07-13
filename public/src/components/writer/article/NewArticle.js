@@ -90,7 +90,7 @@ class CreateArticle extends React.Component {
     createArticle = () => {
         let { currentWorkID, createNewArticle } = this.props;
         createNewArticle({
-            url: 'writer/createNewArticle',
+            url: '/writer/createNewArticle',
             fetchData: {
                 workID: currentWorkID
             }
@@ -99,7 +99,7 @@ class CreateArticle extends React.Component {
 
     deleteArticle = (articleID) => {
         this.props.deleteArticleById({
-            url:'writer/deleteArticleById',
+            url:'/writer/deleteArticleById',
             fetchData:{
                 articleID
             }

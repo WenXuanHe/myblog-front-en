@@ -28,4 +28,15 @@ router.get('/queryWorks', async function(ctx, next){
     }
 });
 
+router.get('/queryArticlesByUserId', async function(ctx, next){
+    let {userId} = ctx.query;
+    try{
+        let articleList = await sqlServer.queryArticlesByUserId(userId);
+
+        return ctx.body = getReturnPattern(true, '', articleList);
+    }catch(e){
+        return ctx.body = getReturnPattern(false, '查询失败', e);
+    }
+});
+
 module.exports = router;
