@@ -1,6 +1,7 @@
 let data = {
     writer: {
         workList: [],
+        articleList:[],
         currentArticleID:0,
         currentWorkID:0
     }

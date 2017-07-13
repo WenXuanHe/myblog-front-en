@@ -1,4 +1,4 @@
-body, div, p{
+body, div, ul, li{
     margin:0;
     padding:0;
 }
@@ -22,6 +22,9 @@ body{
 input, select, button, textarea{
     color: #374051;
     outline: 0;
+}
+ul, li{
+    list-style: none;
 }
 input{
     height: 30px;

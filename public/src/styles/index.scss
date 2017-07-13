@@ -1,0 +1,67 @@
+@import './common/mixin.scss';
+
+.g-home{
+    display: grid;
+    grid-template-rows: 50px 1fr;
+    grid-row-gap: 20px;
+    height: 100vh;
+    grid-template-columns: 
+            [full-start] 
+                minmax(1em, 1fr)
+                [main-start] minmax(0, 40em) [main-end]
+                minmax(1em, 1fr) 
+            [full-end];
+    .m-header{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 40px;
+        grid-column: full;
+    }
+    .m-header-skin{
+        background: #ffffff;
+        box-shadow: 3px 3px 3px #aaa;
+    }
+    .m-list{
+        grid-column: main;
+        border-radius: 10px;
+        .m-list-item{
+            height: 120px;
+            display: grid;
+            grid-template-rows: 40px 1fr 15px;
+            &:first-child{
+                margin-top: 30px;
+            }
+            &:last-child{
+                border-bottom: 1px solid #dcdcdc;
+            }
+
+
+            border-top: 1px solid #dcdcdc;
+            .m-list-item-title{
+                font-size: 20px;
+                font-weight: bold;
+                cursor: pointer;
+                line-height: 40px;
+                &:hover{
+                    color: rgba(126, 147, 200, 0.95);
+                }
+            }
+            .m-list-item-body{
+            }
+            .m-list-item-footer{
+                font-size: 12px;
+                text-align: end;
+                margin-right: 20px;
+                color: #83de30;
+            }
+        }
+
+    }
+    .m-list-skin{
+        background: #ffffff;
+        
+        box-shadow: -3px 0px 4px $skin-default, 3px -2px 4px $skin-default;
+    }
+
+}

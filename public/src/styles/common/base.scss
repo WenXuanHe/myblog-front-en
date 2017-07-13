@@ -14,3 +14,9 @@
     -webkit-text-stroke-width: 0.2px;
     -moz-osx-font-smoothing: grayscale;
 }
+
+@for $i from 12 to 30{
+  .fs-#{$i}{
+    font-size: #{$i}px;
+  }
+}

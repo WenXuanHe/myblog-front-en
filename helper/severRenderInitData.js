@@ -10,15 +10,20 @@ module.exports = function (userID) {
 
         let initData = {
             writer: {
-                workList: []
+                workList: [],
+                articleList:[]
             }
         };
         try {
             //查询出文集列表
-            let workList = await sqlServer.queryWorks(userID);
-            if (Array.isArray(workList)) {
-                initData.writer.workList = workList;
-            }
+            await Promise.all([
+                sqlServer.queryWorks(userID),
+                sqlServer.queryArticlesByUserId(userID, " AND title!='' ")
+            ]).then(function(result){
+                initData.writer.workList = result[0];
+                initData.writer.articleList = result[1];
+            });
+            
             resolve(initData);
         } catch (e) {
             reject(e);

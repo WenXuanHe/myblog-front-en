@@ -13,6 +13,8 @@ $colorList:$blue;
 $colorListName:'blue';
 $base-font-size: 16 !default;
 
+$skin-default:#dcdcdc;
+
 @mixin emCalc($props,$sizes,$base:$base-font-size){
     $values: ();
     $sublists: false;
