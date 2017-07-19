@@ -52,7 +52,7 @@ class Home extends React.Component {
         localStorage.setItem('currentWorkID', workID);
         articleIDHash[workID] = articleID;
         localStorage.setItem('currentArticleIDHash', JSON.stringify(articleIDHash));
-        this.props.history.push('/writer');
+        this.props.history.push(`/writer?workID=${workID}&articleID=${articleID}`);
     }
 
 }

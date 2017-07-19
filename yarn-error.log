@@ -1,5 +1,5 @@
 Arguments: 
-  D:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add prop-types
+  D:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
 
 PATH: 
   C:\Users\Administrator\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\local\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\bin;C:\ProgramData\Oracle\Java\javapath;C:\Ruby23-x64\bin;C:\Program Files (x86)\Intel\TXE Components\TCS;C:\Program Files\Intel\TXE Components\TCS;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;D:\SlikSvn\bin;D:\Program Files\TortoiseGit\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files\Git\usr\bin;E:\workspace\golang\bin;D:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\AppData\Roaming\npm;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Microsoft VS Code\bin;D:\Program Files\Git\usr\bin\vendor_perl;D:\Program Files\Git\usr\bin\core_perl
@@ -39,6 +39,7 @@ npm manifest:
       "koa-static": "^3.0.0",
       "koa-swig": "^2.2.1",
       "koa-views": "^5.2.1",
+      "prop-types": "^15.5.10",
       "wangeditor": "^2.1.23",
       "webpack": "^1.13.1"
     },
@@ -63,13 +64,13 @@ npm manifest:
       "gulp-babel": "^6.1.2",
       "gulp-rename": "^1.2.2",
       "gulp-sourcemaps": "^2.6.0",
-      "html-webpack-plugin": "^2.28.0",
+      "html-webpack-plugin": "^2.29.0",
       "koa-session2": "^2.2.4",
       "lodash": "^4.17.4",
       "moment": "^2.18.1",
       "mysql": "^2.13.0",
       "node-jsx": "^0.13.3",
-      "node-sass": "^4.5.2",
+      "node-sass": "^4.5.3",
       "nodemon": "^1.8.1",
       "postcss": "^6.0.1",
       "postcss-import": "^10.0.0",
@@ -102,4 +103,4 @@ Lockfile:
   No lockfile
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'F:\js\github\myblog-front-en\node_modules\._bcrypt@1.0.2@bcrypt\lib\binding\bcrypt_lib.node'
+  Error: EEXIST: file already exists, mkdir 'F:\js\github\myblog-front-en\node_modules\@gulp-sourcemaps\identity-map'

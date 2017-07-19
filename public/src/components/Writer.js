@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
@@ -26,11 +27,11 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 class MyProject extends React.Component {
 
-    static PropTypes = {
-        workList: PropTypes.array.isRequired,
-        currentArticleID: PropTypes.number.isRequired,
-        currentWorkID: PropTypes.number.isRequired
-    };
+    // static PropTypes = {
+    //     workList: PropTypes.array.isRequired,
+    //     currentArticleID: PropTypes.number.isRequired,
+    //     currentWorkID: PropTypes.number.isRequired
+    // };
 
     render() {
         let { workList, currentWorkID, currentArticleID } = this.props;
@@ -80,14 +81,14 @@ class MyProject extends React.Component {
         this.fetchArticle({
             content,
             title: this.articleInfo.title,
-            callBack: function(){
+            callBack: function () {
                 alert('成功');
             }
         });
 
     }
 
-    fetchArticle = ({ title = '', content = '', callBack=null }) => {
+    fetchArticle = ({ title = '', content = '', callBack = null }) => {
         let { updateArticleInfo, currentArticleID } = this.props;
 
         updateArticleInfo({
@@ -114,6 +115,12 @@ class MyProject extends React.Component {
     }
 
 }
+
+MyProject.propTypes = {
+    workList: PropTypes.array.isRequired,
+    currentArticleID: PropTypes.number.isRequired,
+    currentWorkID: PropTypes.number.isRequired
+};
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
 module.exports = connect(mapStateToProps, mapDispatchToProps)(MyProject);
