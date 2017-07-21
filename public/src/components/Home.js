@@ -7,7 +7,7 @@ let { Link  } = require('react-router-dom')
 let moment = require('moment');
 const mapStateToProps = (state, ownProps) => {
     return {
-        articleList: state.writer.articleList
+        workList: state.writer.workList
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
@@ -18,7 +18,7 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 class Home extends React.Component {
 
     render() {
-        let { articleList } = this.props
+        let { workList } = this.props
         return (
             <div className="g-home">
                 <div className="m-header m-header-skin">
@@ -26,14 +26,10 @@ class Home extends React.Component {
                 </div>
                 <ul className="m-list m-list-skin">
                     {
-                        articleList.length && articleList.map((item) => {
-                            let lastModified = moment(item.lastModified).format('YYYY-MM-DD HH:mm:ss');
-                            let content = item.simpleContent.replace(/(&lt;[^(&gt;)]+&gt;)|(<[^>]+>)/g, '');
+                        workList.length && workList.map((item) => {
                             return (
-                                <li key={item.id} className="m-list-item" onClick={this.editArticle.bind(this, item)}>
-                                    <div className="m-list-item-title">{item.title}</div>
-                                    <p className="m-list-item-body fs-13">{content}</p> 
-                                    <div className="m-list-item-footer">最后修改日期：{lastModified}</div>
+                                <li key={item.id} className="m-list-item">
+                                    <a className="m-list-item-title">{item.title}</a>
                                 </li>
                             )
                         })

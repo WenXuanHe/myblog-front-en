@@ -31,6 +31,11 @@ class Editor extends React.Component {
         this.editor.$txt.html(props.content || '<p><br/></p>');
     }
 
+    componentWillUnmount () {
+        this.editor = null;
+        wangEditor.numberOfLocation--;  
+    }
+
     //处理一些配置
     editorConfig = (editor, props) =>{
         let config = props.config || {};

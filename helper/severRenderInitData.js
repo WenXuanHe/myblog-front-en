@@ -11,19 +11,13 @@ module.exports = function (userID) {
         let initData = {
             writer: {
                 workList: [],
-                articleList:[]
+                currentArticleID:0,
+                currentWorkID:0
             }
         };
         try {
             //查询出文集列表
-            await Promise.all([
-                sqlServer.queryWorks(userID),
-                sqlServer.queryArticlesByUserId(userID, " AND title!='' ")
-            ]).then(function(result){
-                initData.writer.workList = result[0];
-                initData.writer.articleList = result[1];
-            });
-            
+            initData.writer.workList = await sqlServer.queryWorks(userID);
             resolve(initData);
         } catch (e) {
             reject(e);
