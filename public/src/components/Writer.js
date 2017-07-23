@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
@@ -27,40 +28,37 @@ const mapDispatchToProps = (dispatch, ownProps) => {
 
 class MyProject extends React.Component {
 
-    // static PropTypes = {
-    //     workList: PropTypes.array.isRequired,
-    //     currentArticleID: PropTypes.number.isRequired,
-    //     currentWorkID: PropTypes.number.isRequired
-    // };
-
     render() {
         let { workList, currentWorkID, currentArticleID } = this.props;
         let workInfo = utils.getCurrentWorkInfo(workList, currentWorkID);
-        this.articleInfo = utils.getCurrentArticleInfo(workInfo.articleList || [], currentArticleID);
+        if(!workInfo){
+            this.articleInfo = null;
+        }else{
+            this.articleInfo = utils.getCurrentArticleInfo(workInfo.articleList || [], currentArticleID);
+        }
 
         return (
-
-            <div className='g-write flex'>
-                <div className='col-5 m-work'>
-                    <NewWorks key='NewWorks-01' />
-                </div>
-                <div className='col-4 m-article'>
-                    <NewArticle key='NewArticle-01' />
-                </div>
-                {
-                    this.articleInfo &&
-                    <div className='col m-content'>
-                        <header>
-                            <input type='text' value={this.articleInfo.title} onChange={this.asyncUpdateArticleInfo} onBlur={this.fetchUpdateArticleInfo} />
-                        </header>
-                        < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
-                        <div className="u-footer u-footer-skin">
-                            <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
-                        </div>
+                <div className='g-write flex'>
+                    <div className='col-5 m-work'>
+                        <NewWorks key='NewWorks-01' />
                     </div>
-                }
-            </div>
-
+                    <div className='col-4 m-article'>
+                        <NewArticle key='NewArticle-01' />
+                    </div>
+                    {
+                        this.articleInfo &&
+                        <div className='col m-content'>
+                            <header style={{'marginBottom':'2px'}}>
+                                <input type='text' value={this.articleInfo.title} onChange={this.asyncUpdateArticleInfo} onBlur={this.fetchUpdateArticleInfo} />
+                            </header>
+                            < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
+                            <div className="u-footer u-footer-skin">
+                                <Link to="/index" className="ml10">返回文章列表</Link>
+                                <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
+                            </div>
+                        </div>
+                    }
+                </div>
         )
     }
     /**

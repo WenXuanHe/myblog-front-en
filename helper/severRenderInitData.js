@@ -10,9 +10,7 @@ module.exports = function (userID) {
 
         let initData = {
             writer: {
-                workList: [],
-                currentArticleID:0,
-                currentWorkID:0
+                workList: []
             }
         };
         try {

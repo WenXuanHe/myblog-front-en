@@ -44,7 +44,11 @@ class CreateArticle extends React.Component {
     render() {
         let { workList, currentWorkID, currentArticleID } = this.props;
         let workInfo = getCurrentWorkInfo(workList, currentWorkID);
-        let articleList = workInfo.articleList || [];
+        let articleList = [];
+        if(workInfo && workInfo.articleList){
+            articleList = workInfo.articleList;
+        }
+        
         let styles = {
             'u-article': true,
             'u-article-skin': true,

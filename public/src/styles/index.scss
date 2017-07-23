@@ -11,17 +11,7 @@
                 [main-start] minmax(0, 40em) [main-end]
                 minmax(1em, 1fr) 
             [full-end];
-    .m-header{
-        display: flex;
-        justify-content: flex-end;
-        align-items: center;
-        padding-right: 40px;
-        grid-column: full;
-    }
-    .m-header-skin{
-        background: #ffffff;
-        box-shadow: 3px 3px 3px #aaa;
-    }
+    
     .m-list{
         grid-column: main;
         border-radius: 10px;
@@ -64,4 +54,16 @@
         box-shadow: -3px 0px 4px $skin-default, 3px -2px 4px $skin-default;
     }
 
+}
+
+.m-header{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 40px;
+        grid-column: full;
+    }
+.m-header-skin{
+    background: #ffffff;
+    box-shadow: 3px 3px 3px #aaa;
 }

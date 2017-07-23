@@ -11,10 +11,7 @@ let reducer = (state = data.writer, action) => {
     switch (action.type) {
         // 创建新文集
         case 'CREATE_NEW_WORK':
-            workList.push(payload);
-            return _.assign({}, state, {
-                workList
-            });
+            return create_new_work(state, workList, action);
         // 改变当前文集
         case 'CHANGE_ACTIVE_WORK':
             return change_active_work(state, workList, action);
@@ -32,6 +29,21 @@ let reducer = (state = data.writer, action) => {
             return state;
     }
 }
+
+function create_new_work(state, workList, action){
+
+    if(action.status === "success"){
+        workList.push(action.payload);
+        return _.assign({}, state, {
+            workList
+        });
+    }else if(action.status === 'error'){
+
+    }else{
+        return state;
+    }
+}
+
 function delete_article(state, workList, action){
     if (action.status === 'success') {
         //从workInfo里删除当前那条article消息
