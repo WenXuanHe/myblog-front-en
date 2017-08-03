@@ -6,10 +6,13 @@ import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
 import FileEditor from './editor/FileEditor'
 import utils from '$utils/index'
-import { updateArticleInfo } from '$redux/actions/write'
-import commonFetch from '$redux/commonFetch'
+// import { updateArticleInfo } from '$redux/actions/write'
+// import commonFetch from '$redux/commonFetch'
+import actions from '$actions'
+import actionType from "$redux/actionType"
 
 const mapStateToProps = (state, ownProps) => {
+
     let { workList, currentArticleID, currentWorkID } = state.writer;
     return {
         workList,//文章列表
@@ -20,9 +23,14 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        updateArticleInfo: (data) => { dispatch(commonFetch(updateArticleInfo, data)) },
-
-        syncArticleTitle: (data) => { dispatch(updateArticleInfo({ payload: data })) }
+        updateArticleInfo: (data) => { dispatch(actions.updateArticleInfo(data)) },
+        //同步更新题目
+        UpdateTitle: (title) => {
+            dispatch({
+                type: actionType.UPDATE_TITLE,
+                payload: title
+            })
+        }
     }
 }
 
@@ -31,72 +39,58 @@ class MyProject extends React.Component {
     render() {
         let { workList, currentWorkID, currentArticleID } = this.props;
         let workInfo = utils.getCurrentWorkInfo(workList, currentWorkID);
-        if(!workInfo){
+        if (!workInfo) {
             this.articleInfo = null;
-        }else{
+        } else {
             this.articleInfo = utils.getCurrentArticleInfo(workInfo.articleList || [], currentArticleID);
         }
 
         return (
-                <div className='g-write flex'>
-                    <div className='col-5 m-work'>
-                        <NewWorks key='NewWorks-01' />
-                    </div>
-                    <div className='col-4 m-article'>
-                        <NewArticle key='NewArticle-01' />
-                    </div>
-                    {
-                        this.articleInfo &&
-                        <div className='col m-content'>
-                            <header style={{'marginBottom':'2px'}}>
-                                <input type='text' value={this.articleInfo.title} onChange={this.asyncUpdateArticleInfo} onBlur={this.fetchUpdateArticleInfo} />
-                            </header>
-                            < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
-                            <div className="u-footer u-footer-skin">
-                                <Link to="/index" className="ml10">返回文章列表</Link>
-                                <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
-                            </div>
-                        </div>
-                    }
+            <div className='g-write flex'>
+                <div className='col-5 m-work'>
+                    <NewWorks key='NewWorks-01' />
                 </div>
+                <div className='col-4 m-article'>
+                    <NewArticle key='NewArticle-01' />
+                </div>
+                {
+                    this.articleInfo &&
+                    <div className='col m-content'>
+                        <header style={{ 'marginBottom': '2px' }}>
+                            <input type='text'
+                                value={this.articleInfo.title}
+                                onChange={this.UpdateTitle}
+                                onBlur={this.fetchUpdateArticleInfo} />
+                        </header>
+                        < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
+                        <div className="u-footer u-footer-skin">
+                            <Link to="/index" className="ml10">返回文章列表</Link>
+                            <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
+                        </div>
+                    </div>
+                }
+            </div>
         )
     }
     /**
      * 同步本地中的数据
      */
-    asyncUpdateArticleInfo = (e) => {
-        let title = e.target.value;
-        this.props.syncArticleTitle({
-            data: {
-                title
-            }
-        });
+    UpdateTitle = (e) => {
+        this.props.UpdateTitle(e.target.value);
     }
 
     submitArticle = () => {
         var content = this.refs['fileEditor-key0'].getEditContent();
         var uploadFiles = this.refs['fileEditor-key0'].getFiles();
-        this.fetchArticle({
-            content,
-            title: this.articleInfo.title,
-            callBack: function () {
-                alert('成功');
-            }
-        });
-
+        this.props.updateArticleInfo({ content, title: this.articleInfo.title });
     }
 
-    fetchArticle = ({ title = '', content = '', callBack = null }) => {
+    fetchArticle = ({ title = '', content = ''}) => {
         let { updateArticleInfo, currentArticleID } = this.props;
-
         updateArticleInfo({
-            url: '/writer/updateArticleInfo',
-            fetchData: {
-                title,
-                articleID: currentArticleID,
-                content
-            },
-            callBack: callBack
+            title,
+            articleID: currentArticleID,
+            content
         });
     }
 

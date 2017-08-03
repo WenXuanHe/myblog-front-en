@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import axios from 'axios'
 import cs from 'classnames'
@@ -7,6 +8,8 @@ import Cancle from '../../buttons/cancle'
 import actions from '$redux/actions/write'
 import commonFetch from '$redux/commonFetch'
 import { getCurrentWorkInfo } from '$utils'
+import actions from '$actions'
+import actionType from "$redux/actionType"
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -18,22 +21,19 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-
-        createNewArticle: (data) => { dispatch(commonFetch(actions.createNewArticle, data)) },
-        //非异步
-        changeActiveArticle: (data) => { dispatch(actions.changeActiveArticle({ payload: data })) },
-
-        deleteArticleById: (data) => {  dispatch(commonFetch(actions.deleteArticle, data)) }
+        createNewArticle: (workID) => { dispatch(actions.fetchCreateNewArticle(workID)) },
+        deleteArticleById: (data) => {  dispatch(actions.deleteArticleById(articleID)) },
+        
+        changeActiveArticle: (data) => { 
+            dispatch({ 
+                type:actionType.CHANGE_ACTIVE_ARTICLE,
+                payload: data }) 
+        },
     }
 }
 
 class CreateArticle extends React.Component {
 
-    static PropTypes = {
-        currentWorkID: PropTypes.number.isRequired,
-        currentArticleID: PropTypes.number.isRequired,
-        workList: PropTypes.number.isRequired
-    }
     constructor() {
         super(...arguments);
         this.state = {
@@ -48,7 +48,6 @@ class CreateArticle extends React.Component {
         if(workInfo && workInfo.articleList){
             articleList = workInfo.articleList;
         }
-        
         let styles = {
             'u-article': true,
             'u-article-skin': true,
@@ -92,22 +91,11 @@ class CreateArticle extends React.Component {
     }
 
     createArticle = () => {
-        let { currentWorkID, createNewArticle } = this.props;
-        createNewArticle({
-            url: '/writer/createNewArticle',
-            fetchData: {
-                workID: currentWorkID
-            }
-        });
+        this.props.createNewArticle(this.props.currentWorkID);
     }
 
     deleteArticle = (articleID) => {
-        this.props.deleteArticleById({
-            url:'/writer/deleteArticleById',
-            fetchData:{
-                articleID
-            }
-        });
+        this.props.deleteArticleById(articleID);
     }
 
     changeActiveArticle = (articleID) => {
@@ -119,6 +107,12 @@ class CreateArticle extends React.Component {
     }
 
 }
+
+CreateArticle.PropTypes = {
+    currentWorkID: PropTypes.number.isRequired,
+    currentArticleID: PropTypes.number.isRequired,
+    workList: PropTypes.number.isRequired
+};
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
 module.exports = connect(mapStateToProps, mapDispatchToProps)(CreateArticle);

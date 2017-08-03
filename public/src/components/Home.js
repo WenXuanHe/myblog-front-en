@@ -40,17 +40,6 @@ class Home extends React.Component {
 
         )
     }
-
-    editArticle(article){
-        let workID = article.workID;
-        let articleID = article.id;
-        let articleIDHash = JSON.parse(localStorage.getItem('currentArticleIDHash') || '{}');
-        localStorage.setItem('currentWorkID', workID);
-        articleIDHash[workID] = articleID;
-        localStorage.setItem('currentArticleIDHash', JSON.stringify(articleIDHash));
-        this.props.history.push(`/writer?workID=${workID}&articleID=${articleID}`);
-    }
-
 }
 
 // export default Index;

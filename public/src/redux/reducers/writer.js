@@ -2,6 +2,7 @@
 let data = require('../store/data');
 let utils = require('../../utils/index');
 let _ = require('lodash');
+let ActionTypes = require('../actionType');
 
 let reducer = (state = data.writer, action) => {
 
@@ -10,20 +11,20 @@ let reducer = (state = data.writer, action) => {
 
     switch (action.type) {
         // 创建新文集
-        case 'CREATE_NEW_WORK':
+        case ActionTypes.CREATE_NEW_WORK:
             return create_new_work(state, workList, action);
         // 改变当前文集
-        case 'CHANGE_ACTIVE_WORK':
+        case ActionTypes.CHANGE_ACTIVE_WORK:
             return change_active_work(state, workList, action);
         // 更新文章信息
-        case 'UPDATE_ARTICLE_INFO':
+        case ActionTypes.UPDATE_ARTICLE_INFO:
             return update_article_info(state, workList, action);
         // 新建文章
-        case 'CREATE_NEW_ARTICLE':
+        case ActionTypes.CREATE_NEW_ARTICLE:
             return create_new_article(state, workList, action);
-        case 'CHANGE_ACTIVE_ARTICLE':
+        case ActionTypes.CHANGE_ACTIVE_ARTICLE:
             return change_active_article(state, workList, action);
-        case 'DELETE_ARTICLE':
+        case ActionTypes.DELETE_ARTICLE:
             return delete_article(state, workList, action);
         default:
             return state;

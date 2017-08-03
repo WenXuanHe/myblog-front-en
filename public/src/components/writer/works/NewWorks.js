@@ -1,71 +1,12 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import {connect} from 'react-redux'
 import cs from 'classnames'
 import timestamp from '$helper/timestamp'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
-import actions from '$redux/actions/write'
-
-/**
- * 去数据库新建文集
- */
-const fetchCreateNewWork = (actions, title) => (dispatch)=>{
-    //先发送一个action
-    dispatch(actions.createNewWork({}));
-    return axios.post('/writer/createNewWork', {
-        title:title
-    }).then(function(res){
-        let result = res.data.result;
-        dispatch(actions.createNewWork({
-            status:'success',
-            payload:result
-        }));
-    }).catch(function(e){
-         dispatch(actions.createNewWork({
-            status:'error',
-            payload:e
-        }));
-    })
-}
-
-/**
- * 通过workID拉取文章列表
- * @param {*workID} workID 
- */
-const fetchArticlesByworkID = (workID) => {
-    return axios.get('/base/queryArticlesByworkId', {
-        params:{
-            workID:workID
-        }
-    });
-}
-
-/**
- * 改变文件，拉取当前文集下的所有文章
- * @param {*} actions 
- * @param {*} workID 
- */
-const fetchChangeActiveWork = (actions, workID) => (dispatch) => {
-
-    dispatch(actions.changeActiveWork({}));
-
-    fetchArticlesByworkID(workID).then(function(res){
-        let result = res.data.result;
-        dispatch(actions.changeActiveWork({
-            status:'success',
-            payload:{
-                workID:workID,
-                articleList:result
-            }
-        }));
-    }).catch(function(e){
-         dispatch(actions.changeActiveWork({
-            status:'error',
-            payload:e
-        }));
-    })
-}
+import actions from '$actions'
 
 const mapStateToProps = (state, ownProps) => {
     return {
@@ -73,21 +14,13 @@ const mapStateToProps = (state, ownProps) => {
         currentWorkID: state.writer.currentWorkID //当前文集的id值
     }
 }
-
 const mapDispatchToProps = (dispatch, ownProps) =>{
     return {
-        createNewWork: (title)=>{dispatch(fetchCreateNewWork(actions, title))},
-
-        changeActiveWork:(workID)=>{dispatch(fetchChangeActiveWork(actions, workID))}
+        createNewWork: (title)=>{dispatch(actions.fetchCreateNewWork(title))},
+        changeActiveWork:(workID)=>{dispatch(actions.fetchChangeActiveWork(workID))}
     }
 }
-
 class Works extends React.Component{
-
-    static PropTypes = {
-        workList: PropTypes.array.isRequired,
-        currentWorkID: PropTypes.number.isRequired
-    };
 
     constructor(){
         super(...arguments);
@@ -142,7 +75,8 @@ class Works extends React.Component{
     
     componentDidMount(){
         // 首次渲染后就发起第一次请求
-        this.changeActiveWork(+this.props.currentWorkID);
+        this.props.changeActiveWork(+this.props.currentWorkID);
+        
     }
 
     createWork () {
@@ -151,15 +85,6 @@ class Works extends React.Component{
                 increacing:true
             });
         }
-    }
-
-    /**
-     * todo: currentWork存放在浏览器缓存里
-     */
-    changeActiveWork (workID) {
-        
-        let {changeActiveWork} = this.props;
-        changeActiveWork(workID);
     }
 
     submit () {
@@ -173,5 +98,10 @@ class Works extends React.Component{
         });
     }
 }
+
+Works.propTypes = {
+    workList: PropTypes.array.isRequired,
+    currentWorkID: PropTypes.number.isRequired
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Works);
