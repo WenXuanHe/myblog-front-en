@@ -32,7 +32,7 @@ const noMatch = (props) => (
 )
 
 let router = (
-    <Router context={initialState} basename='/writer'>
+    <Router context={initialState} >
         <div>
             <Switch>
                 {/*<Route path="/index"   getComponent={home} />*/}

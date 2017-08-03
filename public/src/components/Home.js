@@ -23,7 +23,7 @@ class Home extends React.Component {
         return (
             <div className="g-home">
                 <div className="m-header m-header-skin">
-                    <div><Link to="/writer">写文章</Link></div>
+                    <Link to="/writer/writer">写文章</Link>
                 </div>
                 <ul className="m-list m-list-skin">
                     {
