@@ -74,9 +74,13 @@ class Works extends React.Component{
     }
     
     componentDidMount(){
-        // 首次渲染后就发起第一次请求
-        this.props.changeActiveWork(+this.props.currentWorkID);
-        
+       
+        this.changeActiveWork(+this.props.currentWorkID);
+    }
+
+    changeActiveWork = (workID) =>{
+         // 首次渲染后就发起第一次请求
+        this.props.changeActiveWork(workID);
     }
 
     createWork () {

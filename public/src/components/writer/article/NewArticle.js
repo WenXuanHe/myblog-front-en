@@ -5,8 +5,6 @@ import axios from 'axios'
 import cs from 'classnames'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
-import actions from '$redux/actions/write'
-import commonFetch from '$redux/commonFetch'
 import { getCurrentWorkInfo } from '$utils'
 import actions from '$actions'
 import actionType from "$redux/actionType"
@@ -115,5 +113,5 @@ CreateArticle.PropTypes = {
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
-module.exports = connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
+export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
 

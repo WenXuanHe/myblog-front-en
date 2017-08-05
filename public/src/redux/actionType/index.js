@@ -1,6 +1,7 @@
-let KeyMirror = require('keymirror');
 
-const ActionTypes = KeyMirror({
+var KeyMirror = require( 'keymirror' );
+
+let  ActionTypes = KeyMirror({
     CREATE_NEW_WORK: null,
     CHANGE_ACTIVE_WORK: null,
     CREATE_NEW_ARTICLE: null,
@@ -8,6 +9,6 @@ const ActionTypes = KeyMirror({
     UPDATE_ARTICLE_INFO: null,
     UPDATE_TITLE:null,
     DELETE_ARTICLE: null
-});
+}); 
 
 module.exports = ActionTypes;

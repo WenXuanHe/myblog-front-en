@@ -1,6 +1,5 @@
 import apis from  '../apis';
-import actionType from  '../redux/actionType';
-
+let ActionTypes = require('../redux/actionType');
 /**
  * 去数据库新建文集
  */
@@ -9,7 +8,7 @@ export const fetchCreateNewWork = (title) => async (dispatch) => {
     try{
         let result = await apis.createNewWork(title);
         dispatch({
-            type: actionType.CREATE_NEW_WORK,
+            type: ActionTypes.CREATE_NEW_WORK,
             payload:result
         });
     
@@ -28,7 +27,7 @@ export const fetchChangeActiveWork = (workID) => async (dispatch) => {
         let result = await apis.queryArticlesByworkId(workID);
         
         dispatch({
-            type: actionType.CHANGE_ACTIVE_WORK,
+            type: ActionTypes.CHANGE_ACTIVE_WORK,
             payload:{
                 workID:workID,
                 articleList:result
@@ -46,7 +45,7 @@ export const fetchCreateNewArticle = (workID) => async (dispatch) => {
         let result = await apis.createNewArticle(workID);
         
         dispatch({
-            type: actionType.CREATE_NEW_ARTICLE,
+            type: ActionTypes.CREATE_NEW_ARTICLE,
             payload:result
         });
     
@@ -62,7 +61,7 @@ export const deleteArticleById = (articleID) => async (dispatch) => {
         let result = await apis.deleteArticle(articleID);
         
         dispatch({
-            type: actionType.DELETE_ARTICLE,
+            type: ActionTypes.DELETE_ARTICLE,
             payload:result
         });
     
@@ -78,7 +77,7 @@ export const updateArticleInfo = (params) => async (dispatch) => {
         let result = await apis.updateArticleInfo(params);
         
         dispatch({
-            type: actionType.UPDATE_ARTICLE_INFO,
+            type: ActionTypes.UPDATE_ARTICLE_INFO,
             payload:result
         });
     

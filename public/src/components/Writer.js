@@ -6,10 +6,9 @@ import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
 import FileEditor from './editor/FileEditor'
 import utils from '$utils/index'
-// import { updateArticleInfo } from '$redux/actions/write'
-// import commonFetch from '$redux/commonFetch'
 import actions from '$actions'
-import actionType from "$redux/actionType"
+
+let actionType = require('$redux/actionType');
 
 const mapStateToProps = (state, ownProps) => {
 
@@ -82,7 +81,11 @@ class MyProject extends React.Component {
     submitArticle = () => {
         var content = this.refs['fileEditor-key0'].getEditContent();
         var uploadFiles = this.refs['fileEditor-key0'].getFiles();
-        this.props.updateArticleInfo({ content, title: this.articleInfo.title });
+        
+        this.fetchArticle({ 
+            content, 
+            title: this.articleInfo.title
+        });
     }
 
     fetchArticle = ({ title = '', content = ''}) => {
@@ -99,7 +102,7 @@ class MyProject extends React.Component {
      */
     fetchUpdateArticleInfo = (e) => {
         let title = e.target.value;
-        let { updateArticleInfo, currentArticleID } = this.props;
+        let { updateArticleInfo } = this.props;
         this.fetchArticle({
             content: this.articleInfo.content,
             title
@@ -115,4 +118,4 @@ MyProject.propTypes = {
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
-module.exports = connect(mapStateToProps, mapDispatchToProps)(MyProject);
+export default connect(mapStateToProps, mapDispatchToProps)(MyProject);
