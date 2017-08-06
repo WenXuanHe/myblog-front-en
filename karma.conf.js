@@ -22,11 +22,12 @@ module.exports = function (config) {
         extensions: ['', '.js', '.jsx', '.css', '.scss'],
         alias: {
           $redux: path.resolve(__dirname, 'public/src/redux'),
-          $components: path.resolve(__dirname, 'public/src/components'),
-          $routes: path.resolve(__dirname, 'public/src/routes'),
-          $styles: path.resolve(__dirname, 'public/src/styles'),
-          $helper: path.resolve(__dirname, 'public/src/helper'),
-          $utils: path.resolve(__dirname, 'public/src/utils')
+            $components: path.resolve(__dirname, 'public/src/components'),
+            $routes: path.resolve(__dirname, 'public/src/routes'),
+            $styles: path.resolve(__dirname, 'public/src/styles'),
+            $helper: path.resolve(__dirname, 'public/src/helper'),
+            $utils: path.resolve(__dirname, 'public/src/utils'),
+            $actions: path.resolve(__dirname, 'public/src/actions')
         }
       },
       module: {

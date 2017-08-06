@@ -5,19 +5,12 @@
 let React = require('react');
 let { BrowserRouter , Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
 let Bundle = require('../components/Bundle.js');
-// let Home =  require('bundle-loader?lazy&name=home!../components/Home.js');
 let Home = require('../components/Home.js');
 let Writer =  require('bundle-loader?lazy&name=writer!../components/Writer.js');
 let NoMatch =  require('bundle-loader?lazy&name=noMatch!../components/NoMatch.js');
 // //BrowserRouter
 let Router = BrowserRouter ;
 const initialState = window['_INITIAL_STATE_'] || {};
-
-/*const home = (props) => (
-  <Bundle load={Home}>
-    {(Component) => <Component {...props}/>}
-  </Bundle>
-)*/
 
 const writer = (props) => (
   <Bundle load={Writer}>
@@ -36,8 +29,8 @@ let router = (
         <div>
             <Switch>
                 {/*<Route path="/index"   getComponent={home} />*/}
-                <Route path="/index"  exact  component={Home} />
-                <Route path="/writer"  component={writer} />
+                <Route path="/index" exact  component={Home} />
+                <Route path="/writer" component={writer} />
 
                 <Redirect from="/" to="/index" />
                 <Route component={noMatch}/>
