@@ -5,14 +5,15 @@ let React = require('react')
 let connect = require('react-redux').connect
 let { Link  } = require('react-router-dom')
 let moment = require('moment');
+let { getter } = require ('../utils/immutable-extend');
+
 const mapStateToProps = (state, ownProps) => {
     return {
-        workList: state.writer.workList
+        workList: getter(state.writer, 'workList')
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-    }
+    return {}
 }
 
 class Home extends React.Component {

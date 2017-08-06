@@ -1,17 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import axios from 'axios'
 import {connect} from 'react-redux'
 import cs from 'classnames'
-import timestamp from '$helper/timestamp'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
 import actions from '$actions'
 
+let { getter } = require ('$utils/immutable-extend');
+
 const mapStateToProps = (state, ownProps) => {
     return {
-        workList:state.writer.workList, //文件夹列表
-        currentWorkID: state.writer.currentWorkID //当前文集的id值
+        workList:getter(state.writer, 'workList'), //文件夹列表
+        currentWorkID: getter(state.writer, 'currentWorkID')  //当前文集的id值
     }
 }
 const mapDispatchToProps = (dispatch, ownProps) =>{

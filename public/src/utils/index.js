@@ -1,3 +1,5 @@
+let { Map} = require('immutable');
+
 const setCurrentWorkInfo = function(){
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 }
@@ -16,10 +18,18 @@ const getCurrentArticleInfo = function(articleList, articleID=0){
     return articleList.find((item) => item.id === articleID);
 }
 
+const arrayToHashByID = function(arr, id='id'){
+    var info = {};
+    arr.forEach((item) => {
+        info[item[id]] = Map(item);
+    });
+    return info;
+}
 
 module.exports = {  
     setCurrentWorkInfo,
     setCurrentArticleInfo,
     getCurrentWorkInfo,
-    getCurrentArticleInfo
+    getCurrentArticleInfo,
+    arrayToHashByID
 }

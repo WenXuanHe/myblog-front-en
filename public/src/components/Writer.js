@@ -5,18 +5,17 @@ import { connect } from 'react-redux'
 import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
 import FileEditor from './editor/FileEditor'
-import utils from '$utils/index'
 import actions from '$actions'
 
+let { isMap, getter } = require('$utils/immutable-extend');
 let actionType = require('$redux/actionType');
 
 const mapStateToProps = (state, ownProps) => {
 
-    let { workList, currentArticleID, currentWorkID } = state.writer;
     return {
-        workList,//文章列表
-        currentArticleID, //用户信息，包含当前文集及当前文章
-        currentWorkID
+        articleLists: getter(state.writer, "articleLists"),
+        currentArticleID: getter(state.writer, "currentArticleID"), 
+        currentWorkID: getter(state.writer, "currentWorkID")
     }
 }
 
@@ -26,24 +25,19 @@ const mapDispatchToProps = (dispatch, ownProps) => {
         //同步更新题目
         UpdateTitle: (title) => {
             dispatch({
-                type: actionType.UPDATE_TITLE,
-                payload: title
+                type: actionType.UPDATE_ARTICLE_INFO,
+                payload: {title}
             })
         }
     }
 }
 
-class MyProject extends React.Component {
+class Writer extends React.Component {
 
     render() {
-        let { workList, currentWorkID, currentArticleID } = this.props;
-        let workInfo = utils.getCurrentWorkInfo(workList, currentWorkID);
-        if (!workInfo) {
-            this.articleInfo = null;
-        } else {
-            this.articleInfo = utils.getCurrentArticleInfo(workInfo.articleList || [], currentArticleID);
-        }
-
+        let { articleLists, currentWorkID, currentArticleID } = this.props;
+        this.articleInfo = isMap(articleLists) && articleLists.getIn([currentWorkID.toString(), currentArticleID.toString()]) || null;
+       
         return (
             <div className='g-write flex'>
                 <div className='col-5 m-work'>
@@ -57,11 +51,11 @@ class MyProject extends React.Component {
                     <div className='col m-content'>
                         <header style={{ 'marginBottom': '2px' }}>
                             <input type='text'
-                                value={this.articleInfo.title}
+                                value={getter(this.articleInfo, 'title')}
                                 onChange={this.UpdateTitle}
                                 onBlur={this.fetchUpdateArticleInfo} />
                         </header>
-                        < FileEditor ref='fileEditor-key0' content={this.articleInfo.content} />
+                        < FileEditor ref='fileEditor-key0' content={getter(this.articleInfo, 'content')} />
                         <div className="u-footer u-footer-skin">
                             <Link to="/index" className="ml10">返回文章列表</Link>
                             <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
@@ -79,21 +73,13 @@ class MyProject extends React.Component {
     }
 
     submitArticle = () => {
+
         var content = this.refs['fileEditor-key0'].getEditContent();
         var uploadFiles = this.refs['fileEditor-key0'].getFiles();
         
         this.fetchArticle({ 
             content, 
-            title: this.articleInfo.title
-        });
-    }
-
-    fetchArticle = ({ title = '', content = ''}) => {
-        let { updateArticleInfo, currentArticleID } = this.props;
-        updateArticleInfo({
-            title,
-            articleID: currentArticleID,
-            content
+            title: getter(this.articleInfo, 'title')
         });
     }
 
@@ -101,21 +87,34 @@ class MyProject extends React.Component {
      * 失去焦点时存库
      */
     fetchUpdateArticleInfo = (e) => {
+
         let title = e.target.value;
+        if(this.articleInfo.get('title') === title) return;
+        
         let { updateArticleInfo } = this.props;
         this.fetchArticle({
-            content: this.articleInfo.content,
             title
         });
     }
 
+    /**
+     * title{* string}
+     * content{* string}
+     */
+    fetchArticle = (params) => {
+        let { updateArticleInfo, currentArticleID } = this.props;
+        updateArticleInfo({
+            ...params,
+            articleID: currentArticleID
+        });
+    }
 }
 
-MyProject.propTypes = {
+Writer.propTypes = {
     workList: PropTypes.array.isRequired,
     currentArticleID: PropTypes.number.isRequired,
     currentWorkID: PropTypes.number.isRequired
 };
 
 // export default connect(mapStateToProps, mapDispatchToProps)(Writer);
-export default connect(mapStateToProps, mapDispatchToProps)(MyProject);
+export default connect(mapStateToProps, mapDispatchToProps)(Writer);

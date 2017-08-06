@@ -75,11 +75,15 @@ export const updateArticleInfo = (params) => async (dispatch) => {
 
     try{
         let result = await apis.updateArticleInfo(params);
-        
-        dispatch({
-            type: ActionTypes.UPDATE_ARTICLE_INFO,
-            payload:result
-        });
+        if(result.status){
+             dispatch({
+                type: ActionTypes.UPDATE_ARTICLE_INFO,
+                payload:params
+            });
+        }else{
+            alert(result.msg);
+        }
+       
     
     }catch(e){
 

@@ -1,26 +1,26 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
-import axios from 'axios'
 import cs from 'classnames'
 import Submit from '../../buttons/submit'
 import Cancle from '../../buttons/cancle'
-import { getCurrentWorkInfo } from '$utils'
 import actions from '$actions'
-import actionType from "$redux/actionType"
+
+let { getter } = require ('$utils/immutable-extend');
+let actionType = require('$redux/actionType');
 
 const mapStateToProps = (state, ownProps) => {
     return {
-        workList: state.writer.workList,
-        currentArticleID: state.writer.currentArticleID,
-        currentWorkID: state.writer.currentWorkID
+        articleLists: getter(state.writer, "articleLists"),
+        currentArticleID: getter(state.writer, 'currentArticleID'),
+        currentWorkID: getter(state.writer, 'currentWorkID'),
     }
 }
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         createNewArticle: (workID) => { dispatch(actions.fetchCreateNewArticle(workID)) },
-        deleteArticleById: (data) => {  dispatch(actions.deleteArticleById(articleID)) },
+        deleteArticleById: (articleID) => {  dispatch(actions.deleteArticleById(articleID)) },
         
         changeActiveArticle: (data) => { 
             dispatch({ 
@@ -40,12 +40,8 @@ class CreateArticle extends React.Component {
     }
 
     render() {
-        let { workList, currentWorkID, currentArticleID } = this.props;
-        let workInfo = getCurrentWorkInfo(workList, currentWorkID);
-        let articleList = [];
-        if(workInfo && workInfo.articleList){
-            articleList = workInfo.articleList;
-        }
+        let { articleLists, currentWorkID, currentArticleID } = this.props;
+        let articleInfos = getter(articleLists, currentWorkID);
         let styles = {
             'u-article': true,
             'u-article-skin': true,
@@ -58,26 +54,29 @@ class CreateArticle extends React.Component {
                 </div>
                 <div className='u-article-list'>
                     {
-                        articleList.map((item) => {
-                            styles['u-article-active'] = currentArticleID === item.id;
+                        articleInfos && Object.keys(articleInfos.toJS()).map((key) => {
+                            let item = getter(articleInfos, key);
+                            let id = getter(item, 'id');
+                            let title = getter(item, 'title');
+                            let workID = getter(item, 'workID');
+                            styles['u-article-active'] = currentArticleID === id;
                             return (
-                                <div className={cs(styles)} key={"article-" + item.id}
-                                    data-id={item.workID}
-                                    onClick={this.changeActiveArticle.bind(this, item.id)}
-                                    onMouseEnter={() => this.setState({ hoverElementID: item.id })}>
+                                <div className={cs(styles)} key={"article-" +  id}
+                                    data-id={ workID }
+                                    onClick={this.changeActiveArticle.bind(this, id)}
+                                    onMouseEnter={() => this.setState({ hoverElementID: id })}>
 
                                     <div className='field z-unit flex'>
                                         <span className='z-file-logo'>
                                             <i className="iconfont">&#xe6f4;</i>
                                         </span>
-                                        <span className="col z-file-title">{item.title || '无标题文章'}</span>
+                                        <span className="col z-file-title">{title || '无标题文章'}</span>
                                         {
-                                            this.state.hoverElementID === item.id &&
-                                            <span className="z-file-logo" onClick={this.deleteArticle.bind(this, item.id)}>
+                                            this.state.hoverElementID === id &&
+                                            <span className="z-file-logo" onClick={this.deleteArticle.bind(this, id)}>
                                                 <i className="iconfont">&#xe6f2;</i>
                                             </span>
                                         }
-
                                     </div>
                                 </div>
                             )

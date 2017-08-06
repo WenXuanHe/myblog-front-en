@@ -43,7 +43,7 @@ export const updateArticleInfo = function({ title, articleID, content}){
      return axios.post('/writer/updateArticleInfo', {
         title, articleID, content
     }).then(function(res){
-        return res.data.result;
+        return res.data;
     })
 }
 
