@@ -35,15 +35,15 @@ describe("A suite", function () {
 
 });
 
-describe('click on link', () => {
-    beforeEach(() => {
-        wrapper.find('Link').findWhere(n => n.prop('to') === '/writer/writer').simulate('click');
-        //  wrapper.find('.m-header a').simulate('click');
-    });
+// describe('click on link', () => {
+//     beforeEach(() => {
+//         wrapper.find('Link').findWhere(n => n.prop('to') === '/writer/writer').simulate('click');
+//         //  wrapper.find('.m-header a').simulate('click');
+//     });
 
-    it('render Profile writer', () => {
+//     it('render Profile writer', () => {
 
-        console.log('current html', wrapper.html());
-        expect(wrapper.find('.m-work').length).toBe(1);
-    });
-});
+//         console.log('current html', wrapper.html());
+//         expect(wrapper.find('.m-work').length).toBe(1);
+//     });
+// });
