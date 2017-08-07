@@ -6,7 +6,7 @@
     "start": "node bin/www",
     "pm2": "pm2 start bin/www ",
     "dev": "webpack --watch",
-    "test": "karma start --single-run karma.conf.js"
+    "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
