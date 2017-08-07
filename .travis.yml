@@ -1,17 +1,17 @@
 language: node_js
 node_js:
 - 7.9.0
-dist: trusty # needs Ubuntu Trusty
-sudo: false  # no need for virtualization.
+dist: trusty
+sudo: false
 addons:
-  chrome: stable # have Travis install chrome stable.
+  chrome: stable
 cache:
   directories:
   - node_modules
 script:
 - npm run test
 before_install:
-- openssl aes-256-cbc -K $encrypted_d766e45766e3_key -iv $encrypted_d766e45766e3_iv
+- openssl aes-256-cbc -K $encrypted_262935894ccb_key -iv $encrypted_262935894ccb_iv
   -in id_rsa.enc -out .travis/id_rsa -d
 - mv .travis/id_rsa ~/.ssh -f
 - chmod 600 ~/.ssh/id_rsa
