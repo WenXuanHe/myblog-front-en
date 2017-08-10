@@ -3,14 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node bin/www",
+    "start": "node ./bin/www",
     "pm2": "pm2 start bin/www ",
     "dev": "webpack --watch",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
-    "bcrypt-nodejs": "^0.0.3",
+    "bcryptjs": "^2.4.3",
     "classnames": "^2.2.5",
     "immutable": "^3.8.1",
     "ioredis": "^3.0.0",

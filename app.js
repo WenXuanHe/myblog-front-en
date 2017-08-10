@@ -57,7 +57,6 @@ app.use(session({
 //验证用户是否过期
 app.use(async function (ctx, next) {
   let session = ctx.session.sessionInfo;
-  console.log(session);
   if(ctx.originalUrl === '/' || ctx.originalUrl.indexOf('/login') > -1 || session){
     await next();
   }else{
