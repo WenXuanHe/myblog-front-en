@@ -5,6 +5,10 @@ let getReturnPattern = require('../lib/model/return');
 router.prefix('/login');
 
 router.get('/', async function(ctx, next){
+    var old = new Date().getTime();
+    await next();
+    console.log("跳转耗时：" , new Date().getTime() - old);
+},async function(ctx, next){
      await ctx.render('login', {});
 });
 
