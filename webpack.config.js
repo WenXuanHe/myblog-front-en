@@ -5,29 +5,27 @@ let path = require("path");
 let routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
 
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
-    hash:false,//path.resolve(__dirname, 'views/template/index.html')
-    filename: path.resolve(__dirname, 'views/index.html'),//最终生成的html文件
+    hash: false, //path.resolve(__dirname, 'views/template/index.html')
+    filename: path.resolve(__dirname, 'views/index.html'), //最终生成的html文件
     template: path.resolve(__dirname, 'views/templates/index.html'),
-    chunks:['vendors', 'index'], //入口文件所依赖的js文件
-    inject:'define' //js文件插入到body最后一行
+    chunks: ['vendors', 'index'], //入口文件所依赖的js文件
+    inject: 'define' //js文件插入到body最后一行
 });
 let htmlWebpackPluginLogin = new HtmlWebpackPlugin({
-    hash:false,//path.resolve(__dirname, 'views/template/index.html')
-    filename: path.resolve(__dirname, 'views/login.html'),//最终生成的html文件
+    hash: false, //path.resolve(__dirname, 'views/template/index.html')
+    filename: path.resolve(__dirname, 'views/login.html'), //最终生成的html文件
     template: path.resolve(__dirname, 'views/templates/login.html'),
-    chunks:['vendors', 'login'], //入口文件所依赖的js文件
-    inject:'define' //js文件插入到body最后一行
+    chunks: ['vendors', 'login'], //入口文件所依赖的js文件
+    inject: 'define' //js文件插入到body最后一行
 });
 htmlWebpackPluginIndex = require('./views/templates/injectAssetsIntoHtml')(htmlWebpackPluginIndex);
 htmlWebpackPluginLogin = require('./views/templates/injectAssetsIntoHtml')(htmlWebpackPluginLogin);
 
-// let publicPath = 'http://localhost:3000/dist/';
-
 module.exports = {
     entry: {
-        index:path.resolve(__dirname, "public/src/index.js"),
-        login:path.resolve(__dirname, "public/src/login.js"),
-        vendors:[
+        index: path.resolve(__dirname, "public/src/index.js"),
+        login: path.resolve(__dirname, "public/src/login.js"),
+        vendors: [
             'react',
             'react-dom',
             'react-redux',
@@ -44,47 +42,64 @@ module.exports = {
         //配置按需加载[chunkhash:5]
         chunkFilename: '[name].chunk.js',
         //给自动引用的生成文件加路径
-        publicPath:'http://localhost:3000/dist/'
+        publicPath: '/dist/'
     },
     module: {
-        loaders: [
-            {
-                test: /\.js[x]?$/,
-                loader: 'babel',
-                include: [path.resolve(__dirname, 'public/src')],
-                exclude: /node_modules/,
-                query: {
-                    "presets":
-                    [
+        rules: [{
+            test: /\.js[x]?$/,
+            use: [{
+                loader: 'babel-loader',
+                options: {
+                    presets: [
                         "es2015",
                         "stage-0",
                         "react"
                     ],
-                    'plugins':['transform-runtime']
+                    plugins: ['transform-runtime']
                 }
-            },
-            {
-                test: routeComponentRegex,
-                include: path.resolve(__dirname, 'src'),
-                loaders: ['bundle?lazy', 'babel']
-            },
-            {
-                test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
-                loader: 'url-loader?limit=50000&name=[path][name].[ext]'
-            },
-            {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style', ['css-loader'])
-            },
-            {
-                test: /\.scss$/,//'postcss-loader?parser=postcss-scss'
-                loader: ExtractTextPlugin.extract('style', ['css', 'sass'])
-            }
-        ]
+            }],
+            include: [path.resolve(__dirname, 'public/src')],
+            exclude: /(node_modules|bower_components)/
+        }, {
+            test: /\.ts$/,
+            use: 'ts-loader'
+        }, {
+            test: routeComponentRegex,
+            include: path.resolve(__dirname, 'public/src'),
+            use: [{
+                    loader: 'bundle-loader',
+                    options: {
+                        lazy: true
+                    }
+                },
+                'babel-loader'
+            ]
+        }, {
+            test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
+            use: [{
+                loader: 'url-loader',
+                options: {
+                    limit: 50000,
+                    name: '/imgs/[name].[ext]'
+                }
+            }]
+        }, {
+            test: /\.css$/,
+            use: ExtractTextPlugin.extract({
+                use: ["css-loader", "postcss-loader"],
+                fallback: "style-loader",
+            })
+        }, {
+            test: /\.scss$/,
+            use: ExtractTextPlugin.extract({
+                use: ["css-loader", "sass-loader"],
+                fallback: "style-loader",
+            })
+        }]
     },
     resolve: {
         // root:path.resolve(__dirname, './public/src'),
-        extensions: ['', '.js', '.jsx', '.css', '.scss'],
+        extensions: ['.js', '.jsx', '.css', '.scss'],
         alias: {
             $redux: path.resolve(__dirname, 'public/src/redux'),
             $components: path.resolve(__dirname, 'public/src/components'),
@@ -95,14 +110,17 @@ module.exports = {
             $actions: path.resolve(__dirname, 'public/src/actions'),
         }
     },
-    plugins:[
-        new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
+    plugins: [
+        new webpack.optimize.CommonsChunkPlugin({
+            name: "vendors",
+            filename: "vendors.js",
+        }),
         htmlWebpackPluginIndex,
         htmlWebpackPluginLogin,
 
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
-            $:'jquery'
+            $: 'jquery'
         }),
         new ExtractTextPlugin("styles/[name].css"),
     ],
