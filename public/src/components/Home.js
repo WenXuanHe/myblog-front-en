@@ -1,20 +1,7 @@
-// import React from 'react'
-// import '../styles/index.scss';
-
 let React = require('react')
 let connect = require('react-redux').connect
 let { Link  } = require('react-router-dom')
-let moment = require('moment');
-let { getter } = require ('../utils/immutable-extend');
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        workList: getter(state.writer, 'workList')
-    }
-}
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {}
-}
+let mapStateToProps = require ('../redux/connect/mapStateToProps');
 
 class Home extends React.Component {
 
@@ -43,5 +30,4 @@ class Home extends React.Component {
     }
 }
 
-// export default Index;
-module.exports = connect(mapStateToProps, mapDispatchToProps)(Home);
+module.exports = connect( mapStateToProps('writer', ['workList']) )(Home);

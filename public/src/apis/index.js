@@ -47,10 +47,21 @@ export const updateArticleInfo = function({ title, articleID, content}){
     })
 }
 
+/**
+ * 持久化页面性能数据
+ * @param  {[type]} params [description]
+ * @return {[type]}        promise
+ */
+export const persistenceTimingInfo = function(params){
+
+     return axios.post('/base/persistenceTimingInfo', params);
+}
+
 export default{
     createNewWork,
     queryArticlesByworkId,
     createNewArticle,
     deleteArticle,
-    updateArticleInfo
+    updateArticleInfo,
+    persistenceTimingInfo
 }

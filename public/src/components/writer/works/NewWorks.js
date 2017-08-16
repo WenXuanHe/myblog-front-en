@@ -2,24 +2,12 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
 import cs from 'classnames'
-import Submit from '../../buttons/submit'
-import Cancle from '../../buttons/cancle'
-import actions from '$actions'
+import MyButton from '../../buttons'
+import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
 
 let { getter } = require ('$utils/immutable-extend');
+let mapStateToProps = require ('$redux/connect/mapStateToProps');
 
-const mapStateToProps = (state, ownProps) => {
-    return {
-        workList:getter(state.writer, 'workList'), //文件夹列表
-        currentWorkID: getter(state.writer, 'currentWorkID')  //当前文集的id值
-    }
-}
-const mapDispatchToProps = (dispatch, ownProps) =>{
-    return {
-        createNewWork: (title)=>{dispatch(actions.fetchCreateNewWork(title))},
-        changeActiveWork:(workID)=>{dispatch(actions.fetchChangeActiveWork(workID))}
-    }
-}
 class Works extends React.Component{
 
     constructor(){
@@ -45,12 +33,12 @@ class Works extends React.Component{
                     <div className='u-file-name'>
                         <div className='field'>
                             <input type='text' placeholder='请输入文集名'
-                            onChange={(e) => {this.setState({newWorkName: e.target.value})}} 
+                            onChange={(e) => {this.setState({newWorkName: e.target.value})}}
                             value={this.state.newWorkName} />
                         </div>
                         <div className='field form'>
-                            <Submit value='提交' key='Submit-01' func={_.bind(this.submit, this)} />
-                            <Cancle value='取消' key='Cancle-01' func={_.bind(this.reset, this)} />
+                            <MyButton value='提交' key='Submit-01' class="btn-green" func={_.bind(this.submit, this)} />
+                            <MyButton value='取消' key='Cancle-01' class="btn-dark" func={_.bind(this.reset, this)} />
                         </div>
                     </div>
                 }
@@ -72,22 +60,25 @@ class Works extends React.Component{
             </div>
         )
     }
-    
+
     componentDidMount(){
-       
+        // 首次渲染后就发起第一次请求
         this.changeActiveWork(+this.props.currentWorkID);
     }
 
+    /**
+     * 改变当前文集，拉取文集下信息
+     * @param  {[type]} workID workID
+     * @return {[type]}  articles
+     */
     changeActiveWork = (workID) =>{
-         // 首次渲染后就发起第一次请求
+
         this.props.changeActiveWork(workID);
     }
 
     createWork () {
         if(!this.state.increacing){
-             this.setState({
-                increacing:true
-            });
+             this.setState({ increacing:true });
         }
     }
 
@@ -108,4 +99,4 @@ Works.propTypes = {
     currentWorkID: PropTypes.number.isRequired
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Works);
+export default connect( mapStateToProps('writer',  ['workList', 'currentWorkID']) ,  mapDispatchToProps.work)(Works);

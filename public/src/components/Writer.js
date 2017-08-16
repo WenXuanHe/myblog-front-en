@@ -5,39 +5,28 @@ import { connect } from 'react-redux'
 import NewWorks from './writer/works/NewWorks'
 import NewArticle from './writer/article/NewArticle'
 import FileEditor from './editor/FileEditor'
-import actions from '$actions'
+import PureRenderMixin from 'react-addons-pure-render-mixin'
+import persistence from '$helper/persistence'
+import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
 
 let { isMap, getter } = require('$utils/immutable-extend');
-let actionType = require('$redux/actionType');
+let mapStateToProps = require ('$redux/connect/mapStateToProps');
 
-const mapStateToProps = (state, ownProps) => {
-
-    return {
-        articleLists: getter(state.writer, "articleLists"),
-        currentArticleID: getter(state.writer, "currentArticleID"), 
-        currentWorkID: getter(state.writer, "currentWorkID")
-    }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        updateArticleInfo: (data) => { dispatch(actions.updateArticleInfo(data)) },
-        //同步更新题目
-        UpdateTitle: (title) => {
-            dispatch({
-                type: actionType.UPDATE_ARTICLE_INFO,
-                payload: {title}
-            })
-        }
-    }
-}
+//持久化页面渲染信息
+persistence();
 
 class Writer extends React.Component {
 
+    constructor(){
+        super(...arguments);
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    }
+
     render() {
+
         let { articleLists, currentWorkID, currentArticleID } = this.props;
         this.articleInfo = isMap(articleLists) && articleLists.getIn([currentWorkID.toString(), currentArticleID.toString()]) || null;
-       
+
         return (
             <div className='g-write flex'>
                 <div className='col-5 m-work'>
@@ -65,6 +54,7 @@ class Writer extends React.Component {
             </div>
         )
     }
+
     /**
      * 同步本地中的数据
      */
@@ -76,9 +66,9 @@ class Writer extends React.Component {
 
         var content = this.refs['fileEditor-key0'].getEditContent();
         var uploadFiles = this.refs['fileEditor-key0'].getFiles();
-        
-        this.fetchArticle({ 
-            content, 
+
+        this.fetchArticle({
+            content,
             title: getter(this.articleInfo, 'title')
         });
     }
@@ -90,7 +80,7 @@ class Writer extends React.Component {
 
         let title = e.target.value;
         if(this.articleInfo.get('title') === title) return;
-        
+
         let { updateArticleInfo } = this.props;
         this.fetchArticle({
             title
@@ -116,5 +106,4 @@ Writer.propTypes = {
     currentWorkID: PropTypes.number.isRequired
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Writer);
-export default connect(mapStateToProps, mapDispatchToProps)(Writer);
+export default connect( mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.writer)(Writer);

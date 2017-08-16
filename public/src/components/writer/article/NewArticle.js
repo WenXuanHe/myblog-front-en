@@ -2,33 +2,10 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import cs from 'classnames'
-import Submit from '../../buttons/submit'
-import Cancle from '../../buttons/cancle'
-import actions from '$actions'
+import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
 
 let { getter } = require ('$utils/immutable-extend');
-let actionType = require('$redux/actionType');
-
-const mapStateToProps = (state, ownProps) => {
-    return {
-        articleLists: getter(state.writer, "articleLists"),
-        currentArticleID: getter(state.writer, 'currentArticleID'),
-        currentWorkID: getter(state.writer, 'currentWorkID'),
-    }
-}
-
-const mapDispatchToProps = (dispatch, ownProps) => {
-    return {
-        createNewArticle: (workID) => { dispatch(actions.fetchCreateNewArticle(workID)) },
-        deleteArticleById: (articleID) => {  dispatch(actions.deleteArticleById(articleID)) },
-        
-        changeActiveArticle: (data) => { 
-            dispatch({ 
-                type:actionType.CHANGE_ACTIVE_ARTICLE,
-                payload: data }) 
-        },
-    }
-}
+let mapStateToProps = require ('$redux/connect/mapStateToProps');
 
 class CreateArticle extends React.Component {
 
@@ -111,6 +88,5 @@ CreateArticle.PropTypes = {
     workList: PropTypes.number.isRequired
 };
 
-// export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
-export default connect(mapStateToProps, mapDispatchToProps)(CreateArticle);
+export default connect(mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.article)(CreateArticle);
 
