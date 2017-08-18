@@ -39,4 +39,14 @@ router.get('/queryArticlesByUserId', async function(ctx, next){
     }
 });
 
+router.post('/persistenceTimingInfo', async function (ctx, next) {
+
+     let { connectTime, pageLoadTime, renderTime } = ctx.request.body;
+      try{
+        let result = await sqlServer.persistenceTimingInfo({connectTime, pageLoadTime, renderTime });
+        return ctx.body = getReturnPattern(true, '持久化页面渲染信息成功', result);
+    }catch(e){
+        return ctx.body = getReturnPattern(false, '持久化页面渲染信息失败', e);
+    }
+})
 module.exports = router;

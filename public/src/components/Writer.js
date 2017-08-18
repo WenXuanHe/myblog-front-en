@@ -1,19 +1,16 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import NewWorks from './writer/works/NewWorks'
-import NewArticle from './writer/article/NewArticle'
-import FileEditor from './editor/FileEditor'
-import PureRenderMixin from 'react-addons-pure-render-mixin'
-import persistence from '$helper/persistence'
-import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
+import React from 'react';
+import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import NewWorks from './writer/works/NewWorks';
+import NewArticle from './writer/article/NewArticle';
+import FileEditor from './editor/FileEditor';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
+import persistence from '$helper/persistence';
+import mapDispatchToProps from '$redux/connect/mapDispatchToProps';
 
 let { isMap, getter } = require('$utils/immutable-extend');
 let mapStateToProps = require ('$redux/connect/mapStateToProps');
-
-//持久化页面渲染信息
-persistence();
 
 class Writer extends React.Component {
 
@@ -46,15 +43,21 @@ class Writer extends React.Component {
                         </header>
                         < FileEditor ref='fileEditor-key0' content={getter(this.articleInfo, 'content')} />
                         <div className="u-footer u-footer-skin">
-                            <Link to="/index" className="ml10">返回文章列表</Link>
+                            <Link to="/writer/index" className="ml10">返回文章列表</Link>
                             <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>
                         </div>
                     </div>
                 }
+
+                <Hello compiler="TypeScript" framework="React" />,
             </div>
         )
     }
 
+    componentDidMount(){
+        //持久化页面渲染信息
+        persistence();
+    }
     /**
      * 同步本地中的数据
      */

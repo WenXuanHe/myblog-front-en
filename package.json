@@ -9,6 +9,8 @@
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "dependencies": {
+    "@types/react": "^16.0.2",
+    "@types/react-dom": "^15.5.3",
     "axios": "^0.16.2",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.2.5",
@@ -35,6 +37,7 @@
     "react-addons-css-transition-group": "^15.5.2",
     "react-addons-pure-render-mixin": "^15.6.0",
     "react-dom": "^15.5.4",
+    "react-highcharts": "^12.0.0",
     "react-redux": "^5.0.5",
     "react-router": "^4.1.1",
     "react-router-dom": "^4.1.1",
@@ -45,6 +48,7 @@
   },
   "devDependencies": {
     "autoprefixer": "^7.1.1",
+    "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.24.1",
     "babel-loader": "^7.0.0",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
@@ -93,9 +97,11 @@
     "react-loader": "^2.4.0",
     "react-test-renderer": "^15.6.1",
     "sass-loader": "^6.0.5",
+    "source-map-loader": "^0.2.1",
     "sourcemap": "^0.1.0",
     "style-loader": "^0.13.2",
     "supertest": "^3.0.0",
+    "typescript": "^2.4.2",
     "url-loader": "^0.5.9",
     "webpack": "^3.5.4",
     "webpack-dev-server": "^2.7.1",

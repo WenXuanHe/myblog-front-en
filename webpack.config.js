@@ -1,6 +1,7 @@
 let webpack = require('webpack');
 let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require("html-webpack-plugin");
+const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 let path = require("path");
 let routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
 
@@ -61,8 +62,8 @@ module.exports = {
             include: [path.resolve(__dirname, 'public/src')],
             exclude: /(node_modules|bower_components)/
         }, {
-            test: /\.ts$/,
-            use: 'ts-loader'
+            test: /\.tsx?$/,
+            use: ['awesome-typescript-loader']
         }, {
             test: routeComponentRegex,
             include: path.resolve(__dirname, 'public/src'),
@@ -99,9 +100,10 @@ module.exports = {
     },
     resolve: {
         // root:path.resolve(__dirname, './public/src'),
-        extensions: ['.js', '.jsx', '.css', '.scss'],
+        extensions: ['.js', '.jsx', '.css', '.scss', '.tsx'],
         alias: {
             $redux: path.resolve(__dirname, 'public/src/redux'),
+            $apis: path.resolve(__dirname, 'public/src/apis'),
             $components: path.resolve(__dirname, 'public/src/components'),
             $routes: path.resolve(__dirname, 'public/src/routes'),
             $styles: path.resolve(__dirname, 'public/src/styles'),
@@ -123,6 +125,8 @@ module.exports = {
             $: 'jquery'
         }),
         new ExtractTextPlugin("styles/[name].css"),
+
+        new TsConfigPathsPlugin
     ],
     devtool: 'source-map'
 }

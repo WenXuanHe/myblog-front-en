@@ -37,8 +37,8 @@ class Works extends React.Component{
                             value={this.state.newWorkName} />
                         </div>
                         <div className='field form'>
-                            <MyButton value='提交' key='Submit-01' class="btn-green" func={_.bind(this.submit, this)} />
-                            <MyButton value='取消' key='Cancle-01' class="btn-dark" func={_.bind(this.reset, this)} />
+                            <MyButton value='提交' key='Submit-01' className="btn-green" func={_.bind(this.submit, this)} />
+                            <MyButton value='取消' key='Cancle-01' className="btn-dark" func={_.bind(this.reset, this)} />
                         </div>
                     </div>
                 }

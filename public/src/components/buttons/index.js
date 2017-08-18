@@ -1,8 +1,9 @@
+let React = require('react');
 
 const myButton = (props) => {
-
+    let { className, func, value} = props;
      return (
-            <a className={ "btn " + this.props.class} href="javascript:void(0);" onClick={this.props.func}>{this.props.value}</a>
+            <a className={ "btn " + className} href="javascript:void(0);" onClick={func}>{value}</a>
         )
 }
 module.exports = myButton;

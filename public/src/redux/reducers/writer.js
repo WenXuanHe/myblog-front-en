@@ -16,7 +16,7 @@ let reducer = (state = data.writer, action) => {
         case ActionTypes.CREATE_NEW_WORK:
 
             return newState.set('workList', workList.push(action.payload));
-        // 改变当前文集 
+        // 改变当前文集
         case ActionTypes.CHANGE_ACTIVE_WORK:
 
             var articleID = action.payload.articleList.length ? action.payload.articleList[0].id : 0;
@@ -40,7 +40,7 @@ let reducer = (state = data.writer, action) => {
         // 新建文章
         case ActionTypes.CREATE_NEW_ARTICLE:
 
-            return newState.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], action.payload);
+            return newState.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], Map(action.payload));
 
         case ActionTypes.DELETE_ARTICLE:
 

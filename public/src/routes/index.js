@@ -29,10 +29,10 @@ let router = (
         <div>
             <Switch>
                 {/*<Route path="/index"   getComponent={home} />*/}
-                <Route path="/index" exact  component={Home} />
-                <Route path="/writer" component={writer} />
+                <Route path="/writer/index" exact  component={Home} />
+                <Route path="/writer/writer" component={writer} />
 
-                <Redirect from="/" to="/index" />
+                <Redirect from="/" to="/writer/index" />
                 <Route component={noMatch}/>
             </Switch>
         </div>
