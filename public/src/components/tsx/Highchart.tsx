@@ -1,10 +1,10 @@
-import React from 'react';
+import * as React from 'react';
 import ReactHighcharts from 'react-highcharts';
 
 export interface Props {
     xtitle:string,
     ytitle:string,
-    series: Array<any>,
+    series: Array<number>,
     categories: Array<string>
 }
 
@@ -14,18 +14,18 @@ export class Highchart extends React.Component<Props, undefined>{
 
        let config = this.getConfig(this.props);
        
-       return (<ReactHighcharts config = {config}></ReactHighcharts>);
+       return <ReactHighcharts config = {config}></ReactHighcharts>;
     }
 
-    getConfig = ({xtitle, ytitle, series, categories}:{xtitle:string, ytitle:string, series:Array<object>, categories:Array<string>}) => {
+    getConfig = ({xtitle, ytitle, series, categories}:{xtitle:string, ytitle:string, series: Array<number>, categories: Array<string>}) => {
 
         return {
             title: {
-                text: title,
+                text: xtitle,
                 x: -20
             },
             xAxis: {
-                categories: categories || []
+                categories: categories
             },
             yAxis: {
                 title: {
@@ -43,7 +43,7 @@ export class Highchart extends React.Component<Props, undefined>{
                 verticalAlign: 'middle',
                 borderWidth: 0
             },
-            series: series || []
+            series:  series
         };
     }
 }

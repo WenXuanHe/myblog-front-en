@@ -3,6 +3,7 @@ const app = new Koa();
 const views = require('koa-views');
 const json = require('koa-json');
 const onerror = require('koa-onerror');
+const errorHandler = require('koa-errorhandler');
 const bodyparser = require('koa-bodyparser')();
 const logger = require('koa-logger');
 const render = require('koa-swig');
@@ -30,6 +31,7 @@ app.context.render = co.wrap(render({
     writeBody: true
 }));
 // middlewares
+app.use(errorHandler);
 app.use(bodyparser);
 app.use(json());
 app.use(logger());

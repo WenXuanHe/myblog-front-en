@@ -57,11 +57,23 @@ export const persistenceTimingInfo = function(params){
      return axios.post('/base/persistenceTimingInfo', params);
 }
 
+/**
+ * 获取页面渲染信息
+ */
+export const getPersistenceTimingInfo = function(){
+    
+    return axios.get('/base/getPersistenceTimingInfo')
+        .then(function(res){
+        return res.data.result;
+    });
+}
+
 export default{
     createNewWork,
     queryArticlesByworkId,
     createNewArticle,
     deleteArticle,
     updateArticleInfo,
-    persistenceTimingInfo
+    persistenceTimingInfo,
+    getPersistenceTimingInfo
 }
