@@ -125,7 +125,9 @@ module.exports = {
         }),
         new ExtractTextPlugin("styles/[name].css"),
 
-        new TsConfigPathsPlugin
+        new TsConfigPathsPlugin({
+            configFileName: "tsconfig.json",
+            compiler: "typescript"})
     ],
     devtool: 'source-map'
 }

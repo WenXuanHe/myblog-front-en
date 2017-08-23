@@ -1,11 +1,11 @@
 
 import * as React from 'react';
 import axios from 'axios';
-import boundleFunc from '../../helper/boundle';
+import boundleFunc from '$helper/boundle';
 import { FromControlUserName } from './FromControlUserName';
 import { FromControlPassword } from './FromControlPassword';
 import { FromControlSubmit } from './FromControlSubmit';
-import { judgeRepeat, loginService, registorService} from '../../apis/login';
+import { judgeRepeat, loginService, registorService} from '$apis/login';
 
 //1默认一秒防抖 
 let boundle = boundleFunc(2000);

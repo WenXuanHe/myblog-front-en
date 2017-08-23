@@ -8,7 +8,12 @@
         "target": "es5",
         "jsx": "react",
         "allowJs": true,
-        "experimentalDecorators": true
+        "experimentalDecorators": true,
+        "baseUrl": "./",
+        "paths": {
+            "$helper/*": ["public/src/helper/*"],
+            "$apis/*": ["public/src/apis/*"]
+        }
     },
     "include": [
         "public/src/**/*.tsx"
