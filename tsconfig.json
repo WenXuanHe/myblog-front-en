@@ -8,13 +8,10 @@
         "target": "es5",
         "jsx": "react",
         "allowJs": true,
-        "baseUrl": "./",
-        "paths": {
-            "$boundle": ["public/src/helper/boundle"]
-        }
+        "experimentalDecorators": true
     },
     "include": [
-        "./public/src/**/*.tsx"
+        "public/src/**/*.tsx"
     ],
     "exclude": [
         "node_modules"

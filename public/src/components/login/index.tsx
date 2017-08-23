@@ -1,16 +1,19 @@
-import _ from 'lodash';
+
 import * as React from 'react';
-import Submit from '../buttons/submit';
 import axios from 'axios';
 import boundleFunc from '../../helper/boundle';
+import { FromControlUserName } from './FromControlUserName';
+import { FromControlPassword } from './FromControlPassword';
+import { FromControlSubmit } from './FromControlSubmit';
+import { judgeRepeat, loginService, registorService} from '../../apis/login';
 
-//1默认一秒防抖
+//1默认一秒防抖 
 let boundle = boundleFunc(2000);
 
-interface loginStates{
+interface LoginStates{
     userName:string,
     password: string,
-    login: true,
+    login: boolean,
     tip:{
         isRepeat: boolean,
         value: string,
@@ -18,112 +21,22 @@ interface loginStates{
     }
 }
 
-/**
- * 用户名输入组件Props
- */
-interface FromControlUserNameProps{
-    judgeRepeat: () => void,
-    tip:{
-        className:string, 
-        isRepeat:boolean, 
-        value:string},
-    userName: string,
-    that:any
-}
 
-/**
- * 密码输入Props
- */
-interface FromControlPasswordProps{
-    password: string,
-    handleChange: () => void,
-    that: any
-}
+class Login extends React.Component<undefined, LoginStates>{
 
-interface FromControlSubmitProps{
-    login: boolean,
-    loginFunc: () => void,
-    registorFunc: () => void,
-    that: any
-}
-
-
-/**
- * 用户名输入组件
- * @param  {[object]} props [description]
- * {props.judgeRepeat} 判断重复
- * {props.tip} 是否重复的信息
- * {userName} 用户名
- * @return {[type]}       [description]
- */
-const FromControlUserName = (props:FromControlUserNameProps):any => {
-    let {judgeRepeat, tip, userName, that} = props;
-    return (
-        <div className="u-userName form-control">
-            <label className="flex">
-                <span className="ml2em">用户名: </span>
-                <input type='text' name='userName' placeholder='请输入用户名'
-                className="w160" value={userName} onChange={_.bind(judgeRepeat, that)} />
-                <span className={`col-3 ${tip.className}`}>{tip.isRepeat ? tip.value : ""}</span>
-            </label>
-        </div>
-    )
-}
-
-/**
- * 
- * @param props interface FromControlPasswordProps
- */
-const FromControlPassword = (props: FromControlPasswordProps): any => {
-    let {password, handleChange, that} = props;
-    return (
-        <div className="u-password form-control">
-            <label className="flex">
-                <span className="ml2em">密码: </span>
-                <input type='password' placeholder='请输入密码'
-                    className="w160" value={password} onChange={_.bind(handleChange, that)} />
-                <span className="col-3"></span>
-            </label>
-        </div>
-    )
-}
-
-/**
- * 
- * @param props interface FromControlSubmitProps
- */
-const FromControlSubmit = (props:FromControlSubmitProps): any => {
-
-    let { login, loginFunc, registorFunc, that } = props;
-
-    let submitButton = login ?
-        <Submit func={_.bind(loginFunc , that)} value={'登录'}/> :
-        <Submit func={_.bind(registorFunc , that)} value={'注册'}/> ;
-    return (
-        <div className="u-submit form-control">
-            {submitButton}
-            <a href="javascript:void(0)" className="switch-registor"
-            onClick={()=>that.setState({'login': !login})}>{login ? "去注册" : "去登录"}</a>
-        </div>
-    )
-}
-
-
-class Login extends React.Component<undefined, loginStates>{
-
-    // constructor(){
-    //     super();
-    //     this.state = {
-    //         userName:'',
-    //         password:'',
-    //         login:true,
-    //         tip:{
-    //             isRepeat:false,
-    //             value:'',
-    //             className:''
-    //         }
-    //     };
-    // }
+    constructor(){
+        super();
+        this.state = {
+            userName:'',
+            password:'',
+            login:true,
+            tip:{
+                isRepeat:false,
+                value:'',
+                className:''
+            }
+        };
+    }
 
     render(){
 
@@ -131,62 +44,42 @@ class Login extends React.Component<undefined, loginStates>{
             <div className="m-login m-login-bc">
 
                 <FromControlUserName
-
                     judgeRepeat={this.judgeRepeat}
                     tip={this.state.tip}
                     userName={this.state.userName}
                     that={this}/>
-
                 <FromControlPassword
                     password={this.state.password}
-                    handleChange={this.handleChangePassword}
-                    that={this} />
-
+                    handleChange={(e: any)=>{ this.setState({password: e.target.value}) }} />
                 <FromControlSubmit
                     login={this.state.login}
                     loginFunc={this.login}
-                    registorFunc={this.registor}
-                    that={this}/>
-
+                    switchLoginFunc={this.switch}
+                    registorFunc={this.registor}/>
             </div>
         )
     }
 
-    judgeRepeatThoughtRedis (userName:string) {
-        let _self = this;
-        return axios.post('/login/judgeRepeat', {
-            userName
-        }).then(function(result){
-            if(result.data.result.isRepeat){
-                 _self.setState({
-                    tip:{
-                        value:'该账号已经注册',
-                        isRepeat:true,
-                        className:'notice'
-                    }
-                 });
-            }
-        }).catch(function(ex){
-             _self.setState({
+    judgeRepeatThoughtRedis = (userName:string) => {
+
+        judgeRepeat(userName).then(({isRepeat})=>{
+            this.setState({
                 tip:{
-                    value:'请求失败，请重试',
+                    value:'该账号已经注册',
                     isRepeat:true,
-                    className:'error'
+                    className:'notice'
                 }
              });
-            console.log(ex);
-        })
+        });
     }
 
-
-    handleChangePassword(e:any){
-        this.setState({password: e.target.value});
+    switch = () =>{
+        this.setState({login: !this.state.login});
     }
-
     /**
      * 判断是否重复
      */
-    judgeRepeat (e: any) {
+    judgeRepeat = (e: any) => {
         let userName = e.target.value;
         this.setState({userName});
 
@@ -195,11 +88,11 @@ class Login extends React.Component<undefined, loginStates>{
 
         //先用防抖函数来判断是否还会继续输入，如果不输入，才会调方法执行
         boundle((userName)=>{
-            _.bind(this.judgeRepeatThoughtRedis, this, userName)();
+            this.judgeRepeatThoughtRedis.call(this, userName);
         }, userName);
     }
 
-    registor (){
+    registor = () => {
         let {userName, password, tip} = this.state;
         if(!userName || !password){
             alert('用户名或密码不能为空');
@@ -210,46 +103,23 @@ class Login extends React.Component<undefined, loginStates>{
             return;
         }
 
-        this.registorRequest(userName, password);
+        registorService(userName, password).then(this.cb);
     }
 
-    login (){
+    /**
+     * 登录或注册成功跳转
+     */
+    cb = ({status, msg}) => {
+        if(!status){
+            alert(msg);
+        }else{
+            window.location.href='/writer';
+        }
+    }
+
+    login = () => {
         let {userName, password} = this.state;
-        let _self = this;
-        return axios.post('/login/loginRequest', {
-            userName,
-            password
-        }).then(function(result){
-            if(!result.data.status){
-                alert(result.data.msg);
-            }else{
-                window.location.href='/writer';
-            }
-        }).catch(function(ex){
-             _self.setState({
-                tip:ex
-            });
-            console.log(ex);
-        })
-    }
-
-    registorRequest (userName: string, password: string) {
-        let _self = this;
-        return axios.post('/login/registorRequest', {
-            userName,
-            password
-        }).then(function(result){
-            if(!result.data.status){
-                alert(result.data.msg);
-            }else{
-                window.location.href='/writer';
-            }
-        }).catch(function(ex){
-             _self.setState({
-                tip:ex
-            });
-            console.log(ex);
-        })
+        loginService(userName, password).then(this.cb);
     }
 }
 

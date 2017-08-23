@@ -56,7 +56,7 @@ module.exports = {
                         "stage-0",
                         "react"
                     ],
-                    plugins: ['transform-runtime']
+                    plugins: ['transform-runtime', "transform-decorators-legacy"]
                 }
             }],
             include: [path.resolve(__dirname, 'public/src')],

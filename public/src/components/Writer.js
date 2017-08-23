@@ -12,7 +12,8 @@ import mapDispatchToProps from '$redux/connect/mapDispatchToProps';
 let { isMap, getter } = require('$utils/immutable-extend');
 let mapStateToProps = require ('$redux/connect/mapStateToProps');
 
-class Writer extends React.Component {
+@connect(mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.writer)
+export default class Writer extends React.Component {
 
     constructor(){
         super(...arguments);
@@ -48,8 +49,6 @@ class Writer extends React.Component {
                         </div>
                     </div>
                 }
-
-                <Hello compiler="TypeScript" framework="React" />,
             </div>
         )
     }
@@ -109,4 +108,4 @@ Writer.propTypes = {
     currentWorkID: PropTypes.number.isRequired
 };
 
-export default connect( mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.writer)(Writer);
+// export default connect( mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.writer)(Writer);
