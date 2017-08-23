@@ -25,7 +25,7 @@ htmlWebpackPluginLogin = require('./views/templates/injectAssetsIntoHtml')(htmlW
 module.exports = {
     entry: {
         index: path.resolve(__dirname, "public/src/index.js"),
-        login: path.resolve(__dirname, "public/src/login.js"),
+        login: path.resolve(__dirname, "public/src/login.tsx"),
         vendors: [
             'react',
             'react-dom',
@@ -99,7 +99,6 @@ module.exports = {
         }]
     },
     resolve: {
-        // root:path.resolve(__dirname, './public/src'),
         extensions: ['.js', '.jsx', '.css', '.scss', '.tsx'],
         alias: {
             $redux: path.resolve(__dirname, 'public/src/redux'),

@@ -1,11 +1,52 @@
 import _ from 'lodash';
-import React from 'react';
+import * as React from 'react';
 import Submit from '../buttons/submit';
 import axios from 'axios';
-import boundleFunc from '$helper/boundle';
+import boundleFunc from '../../helper/boundle';
 
 //1默认一秒防抖
 let boundle = boundleFunc(2000);
+
+interface loginStates{
+    userName:string,
+    password: string,
+    login: true,
+    tip:{
+        isRepeat: boolean,
+        value: string,
+        className: string
+    }
+}
+
+/**
+ * 用户名输入组件Props
+ */
+interface FromControlUserNameProps{
+    judgeRepeat: () => void,
+    tip:{
+        className:string, 
+        isRepeat:boolean, 
+        value:string},
+    userName: string,
+    that:any
+}
+
+/**
+ * 密码输入Props
+ */
+interface FromControlPasswordProps{
+    password: string,
+    handleChange: () => void,
+    that: any
+}
+
+interface FromControlSubmitProps{
+    login: boolean,
+    loginFunc: () => void,
+    registorFunc: () => void,
+    that: any
+}
+
 
 /**
  * 用户名输入组件
@@ -15,7 +56,7 @@ let boundle = boundleFunc(2000);
  * {userName} 用户名
  * @return {[type]}       [description]
  */
-const FromControlUserName = (props) => {
+const FromControlUserName = (props:FromControlUserNameProps):any => {
     let {judgeRepeat, tip, userName, that} = props;
     return (
         <div className="u-userName form-control">
@@ -29,7 +70,11 @@ const FromControlUserName = (props) => {
     )
 }
 
-const FromControlPassword = (props) => {
+/**
+ * 
+ * @param props interface FromControlPasswordProps
+ */
+const FromControlPassword = (props: FromControlPasswordProps): any => {
     let {password, handleChange, that} = props;
     return (
         <div className="u-password form-control">
@@ -43,13 +88,17 @@ const FromControlPassword = (props) => {
     )
 }
 
-const FromControlSubmit = (props) => {
+/**
+ * 
+ * @param props interface FromControlSubmitProps
+ */
+const FromControlSubmit = (props:FromControlSubmitProps): any => {
 
     let { login, loginFunc, registorFunc, that } = props;
 
     let submitButton = login ?
-        <Submit func={_.bind(loginFunc , that)} isLogin={login} value={'登录'}/> :
-        <Submit func={_.bind(registorFunc , that)} isLogin={login} value={'注册'}/> ;
+        <Submit func={_.bind(loginFunc , that)} value={'登录'}/> :
+        <Submit func={_.bind(registorFunc , that)} value={'注册'}/> ;
     return (
         <div className="u-submit form-control">
             {submitButton}
@@ -59,21 +108,22 @@ const FromControlSubmit = (props) => {
     )
 }
 
-class Login extends React.Component{
 
-    constructor(){
-        super(...arguments);
-        this.state = {
-            userName:'',
-            password:'',
-            login:true,
-            tip:{
-                isRepeat:false,
-                value:'',
-                className:''
-            }
-        };
-    }
+class Login extends React.Component<undefined, loginStates>{
+
+    // constructor(){
+    //     super();
+    //     this.state = {
+    //         userName:'',
+    //         password:'',
+    //         login:true,
+    //         tip:{
+    //             isRepeat:false,
+    //             value:'',
+    //             className:''
+    //         }
+    //     };
+    // }
 
     render(){
 
@@ -81,6 +131,7 @@ class Login extends React.Component{
             <div className="m-login m-login-bc">
 
                 <FromControlUserName
+
                     judgeRepeat={this.judgeRepeat}
                     tip={this.state.tip}
                     userName={this.state.userName}
@@ -101,7 +152,7 @@ class Login extends React.Component{
         )
     }
 
-    judgeRepeatThoughtRedis (userName) {
+    judgeRepeatThoughtRedis (userName:string) {
         let _self = this;
         return axios.post('/login/judgeRepeat', {
             userName
@@ -128,14 +179,14 @@ class Login extends React.Component{
     }
 
 
-    handleChangePassword(e){
+    handleChangePassword(e:any){
         this.setState({password: e.target.value});
     }
 
     /**
      * 判断是否重复
      */
-    judgeRepeat (e) {
+    judgeRepeat (e: any) {
         let userName = e.target.value;
         this.setState({userName});
 
@@ -176,15 +227,13 @@ class Login extends React.Component{
             }
         }).catch(function(ex){
              _self.setState({
-                tip:ex,
-                display:true,
-                className:'error'
+                tip:ex
             });
             console.log(ex);
         })
     }
 
-    registorRequest (userName, password) {
+    registorRequest (userName: string, password: string) {
         let _self = this;
         return axios.post('/login/registorRequest', {
             userName,
@@ -197,14 +246,12 @@ class Login extends React.Component{
             }
         }).catch(function(ex){
              _self.setState({
-                tip:ex,
-                display:true,
-                className:'error'
+                tip:ex
             });
             console.log(ex);
         })
     }
 }
 
-module.exports = Login;
+export default Login;
 

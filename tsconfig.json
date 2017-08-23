@@ -7,10 +7,14 @@
         "module": "es6",
         "target": "es5",
         "jsx": "react",
-        "allowJs": true
+        "allowJs": true,
+        "baseUrl": "./",
+        "paths": {
+            "$boundle": ["public/src/helper/boundle"]
+        }
     },
     "include": [
-        "./public/src/components/**/*.tsx"
+        "./public/src/**/*.tsx"
     ],
     "exclude": [
         "node_modules"
