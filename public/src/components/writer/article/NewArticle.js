@@ -2,62 +2,60 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import cs from 'classnames'
-import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
 
-let { getter } = require ('$utils/immutable-extend');
+import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
+import Article from './Article'
+import ArticleDelete from './ArticleDelete'
+import actions from '$actions'
+
 let mapStateToProps = require ('$redux/connect/mapStateToProps');
+
+const articleMap = (dispatch, ownProps) => {
+    return {
+        createNewArticle: (workID) => { dispatch(actions.fetchCreateNewArticle(workID)) },
+        deleteArticleById: (articleID) => {  dispatch(actions.deleteArticleById(articleID)) },
+
+        changeActiveArticle: (data) => {
+            dispatch({
+                type:actionType.CHANGE_ACTIVE_ARTICLE,
+                payload: data })
+        },
+    }
+}
 
 class CreateArticle extends React.Component {
 
     constructor() {
         super(...arguments);
-        this.state = {
-            hoverElementID: -1
-        }
-    }
-
-    render() {
-        let { articleLists, currentWorkID, currentArticleID } = this.props;
-        let articleInfos = getter(articleLists, currentWorkID);
-        let styles = {
+        this.styles = {
             'u-article': true,
             'u-article-skin': true,
             'u-article-active': false
         };
+    }
+    //抽离出原本在map中的内容，避免在render中使用箭头函数
+    articleItem = (key) => {
+        let article = this.articleInfos[key];
+        let current = this.props.currentArticleID === article.id;
+        this.styles['u-article-active'] = current;
+        
+        return <Article styles={cs(this.styles)} onClick={this.changeActiveArticle} article={article}>
+                {
+                    current && <ArticleDelete onClick={this.deleteArticle} id={article.id} />  
+                }
+            </Article>
+    }
+    render() {
+        let { articleLists, currentWorkID } = this.props;
+        this.articleInfos = getter(articleLists, currentWorkID).toJS(); //from immutable to js
         return (
-            <div className='m-add-article' onMouseLeave={() => this.setState({ hoverElementID: -1 })}>
+            <div className='m-add-article'>
                 <div className='u-create' onClick={this.createArticle}>
                     <div className='field'>+新建文章</div>
                 </div>
                 <div className='u-article-list'>
                     {
-                        articleInfos && Object.keys(articleInfos.toJS()).map((key) => {
-                            let item = getter(articleInfos, key);
-                            let id = getter(item, 'id');
-                            let title = getter(item, 'title');
-                            let workID = getter(item, 'workID');
-                            styles['u-article-active'] = currentArticleID === id;
-                            return (
-                                <div className={cs(styles)} key={"article-" +  id}
-                                    data-id={ workID }
-                                    onClick={this.changeActiveArticle.bind(this, id)}
-                                    onMouseEnter={() => this.setState({ hoverElementID: id })}>
-
-                                    <div className='field z-unit flex'>
-                                        <span className='z-file-logo'>
-                                            <i className="iconfont">&#xe6f4;</i>
-                                        </span>
-                                        <span className="col z-file-title">{title || '无标题文章'}</span>
-                                        {
-                                            this.state.hoverElementID === id &&
-                                            <span className="z-file-logo" onClick={this.deleteArticle.bind(this, id)}>
-                                                <i className="iconfont">&#xe6f2;</i>
-                                            </span>
-                                        }
-                                    </div>
-                                </div>
-                            )
-                        })
+                        articleInfos && Object.keys(articleInfos).map(this.articleItem)
                     }
                 </div>
             </div>
@@ -88,5 +86,5 @@ CreateArticle.PropTypes = {
     workList: PropTypes.number.isRequired
 };
 
-export default connect(mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), mapDispatchToProps.article)(CreateArticle);
+export default connect(mapStateToProps('writer', ['articleLists', 'currentArticleID', 'currentWorkID']), articleMap)(CreateArticle);
 

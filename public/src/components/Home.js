@@ -5,6 +5,14 @@ let mapStateToProps = require ('../redux/connect/mapStateToProps');
 
 class Home extends React.Component {
 
+    workItem = (item) => {
+        return (
+            <li key={item.id} className="m-list-item">
+                <a className="m-list-item-title">{item.title}</a>
+            </li>
+        )
+    }
+
     render() {
         let { workList } = this.props
         return (
@@ -14,15 +22,8 @@ class Home extends React.Component {
                 </div>
                 <ul className="m-list m-list-skin">
                     {
-                        workList.length && workList.map((item) => {
-                            return (
-                                <li key={item.id} className="m-list-item">
-                                    <a className="m-list-item-title">{item.title}</a>
-                                </li>
-                            )
-                        })
+                        workList.length && workList.map(this.workItem)
                     }
-
                 </ul>
             </div>
 
