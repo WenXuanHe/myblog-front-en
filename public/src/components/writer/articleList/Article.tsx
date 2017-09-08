@@ -1,7 +1,13 @@
-import React from 'react'
+import * as  React from 'react'
 
 
-class Article extends React.PureComponent{
+interface Props{
+    onClick: (id:string|number) => void,
+    article:any,
+    styles: string
+}
+
+class Article extends React.PureComponent<Props>{
 
     changeActiveArticle = () => {
         this.props.onClick(this.props.article.id);

@@ -1,4 +1,4 @@
-let { Map} = require('immutable');
+import { Map} from 'immutable'
 
 const setCurrentWorkInfo = function(){
     //todo 做成存到localstoage里面，后面直接取缓存的数据
@@ -26,7 +26,7 @@ const arrayToHashByID = function(arr, id='id'){
     return info;
 }
 
-module.exports = {  
+export default {  
     setCurrentWorkInfo,
     setCurrentArticleInfo,
     getCurrentWorkInfo,

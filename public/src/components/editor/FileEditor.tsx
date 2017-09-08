@@ -1,8 +1,12 @@
-import React from "react"
+import * as React from "react"
 import Editor from './Editor.js'
 import FileUpload from '../upload/FileUpload.js'
 
-export default class FileEditor extends React.Component{
+interface Props{
+    content:any
+}
+
+export default class FileEditor extends React.Component<Props, undefined>{
 
     render(){
         return (

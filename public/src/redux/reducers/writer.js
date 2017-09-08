@@ -1,8 +1,14 @@
-let data = require('../store/data');
-let utils = require('../../utils/index');
-let ActionTypes = require('../actionType/index');
-let { Map, List} = require('immutable');
-let { isMap, isList } = require('../../utils/immutable-extend');
+// let data = require('../store/data');
+// let utils = require('../../utils/index');
+// let ActionTypes = require('../actionType/index');
+// let { Map, List} = require('immutable');
+// let { isMap, isList } = require('../../utils/immutable-extend');
+
+import data from '../store/data'
+import utils from '../../utils/index'
+import ActionTypes from '../actionType/index'
+import { Map, List} from 'immutable'
+import { isMap, isList } from '../../utils/immutable-extend'
 
 let reducer = (state = data.writer, action) => {
 
@@ -53,5 +59,5 @@ let reducer = (state = data.writer, action) => {
     }
 }
 
-module.exports = reducer;
+export default reducer;
 

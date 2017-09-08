@@ -1,0 +1,139 @@
+Arguments: 
+  D:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js
+
+PATH: 
+  C:\Users\Administrator\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\local\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\usr\bin;D:\Program Files\Git\mingw64\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\bin;C:\ProgramData\Oracle\Java\javapath;C:\Ruby23-x64\bin;C:\Program Files (x86)\Intel\TXE Components\TCS;C:\Program Files\Intel\TXE Components\TCS;C:\windows\system32;C:\windows;C:\windows\System32\Wbem;C:\windows\System32\WindowsPowerShell\v1.0;C:\Program Files (x86)\AMD\ATI.ACE\Core-Static;D:\SlikSvn\bin;D:\Program Files\TortoiseGit\bin;D:\Program Files\TortoiseSVN\bin;D:\Program Files\Git\usr\bin;E:\workspace\golang\bin;D:\Program Files\nodejs;C:\Program Files (x86)\Yarn\bin;D:\Program Files\Git\usr\bin;C:\Users\Administrator\AppData\Roaming\npm;C:\Program Files (x86)\Yarn\bin;C:\Program Files (x86)\Microsoft VS Code\bin;C:\Users\Administrator\AppData\Local\Programs\Fiddler;D:\Program Files\Git\usr\bin\vendor_perl;D:\Program Files\Git\usr\bin\core_perl
+
+Yarn version: 
+  0.23.4
+
+Node version: 
+  7.7.2
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "myblog-front-end",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+      "start": "node ./bin/www",
+      "pm2": "pm2 start bin/www -i 4",
+      "dev": "webpack --color --watch",
+      "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
+    },
+    "dependencies": {
+      "@std/esm": "^0.5.1",
+      "@types/react": "^16.0.2",
+      "@types/react-dom": "^15.5.3",
+      "axios": "^0.16.2",
+      "bcryptjs": "^2.4.3",
+      "classnames": "^2.2.5",
+      "immutable": "^3.8.1",
+      "ioredis": "^3.0.0",
+      "keymirror": "^0.1.1",
+      "koa": "^2.2.0",
+      "koa-bodyparser": "^3.2.0",
+      "koa-convert": "^1.2.0",
+      "koa-errorhandler": "^0.1.1",
+      "koa-json": "^2.0.2",
+      "koa-logger": "^2.0.1",
+      "koa-onerror": "^1.2.1",
+      "koa-router": "^7.0.1",
+      "koa-session2": "^2.2.4",
+      "koa-static": "^3.0.0",
+      "koa-swig": "^2.2.1",
+      "koa-views": "^5.2.1",
+      "lodash": "^4.17.4",
+      "moment": "^2.18.1",
+      "mysql": "^2.13.0",
+      "node-jsx": "^0.13.3",
+      "prop-types": "^15.5.10",
+      "react": "^15.5.4",
+      "react-addons-css-transition-group": "^15.5.2",
+      "react-addons-pure-render-mixin": "^15.6.0",
+      "react-dom": "^15.5.4",
+      "react-highcharts": "^12.0.0",
+      "react-redux": "^5.0.5",
+      "react-router": "^4.1.1",
+      "react-router-dom": "^4.1.1",
+      "redis": "^2.7.1",
+      "redux": "^3.6.0",
+      "redux-thunk": "^2.2.0",
+      "wangeditor": "^2.1.23"
+    },
+    "devDependencies": {
+      "autoprefixer": "^7.1.1",
+      "awesome-typescript-loader": "^3.2.3",
+      "babel-core": "^6.24.1",
+      "babel-loader": "^7.0.0",
+      "babel-plugin-syntax-dynamic-import": "^6.18.0",
+      "babel-plugin-transform-decorators-legacy": "^1.3.4",
+      "babel-plugin-transform-es2015-modules-commonjs": "^6.24.1",
+      "babel-plugin-transform-runtime": "^6.23.0",
+      "babel-plugin-transform-strict-mode": "^6.24.1",
+      "babel-preset-airbnb": "^2.4.0",
+      "babel-preset-es2015": "^6.24.1",
+      "babel-preset-react": "^6.16.0",
+      "babel-preset-react-hmre": "^1.1.1",
+      "babel-preset-stage-0": "^6.16.0",
+      "bundle-loader": "^0.5.5",
+      "chai": "^4.1.0",
+      "css-loader": "^0.23.1",
+      "debug": "^2.6.3",
+      "enzyme": "^2.9.1",
+      "es6-promise": "^4.1.1",
+      "extract-text-webpack-plugin": "^3.0.0",
+      "file-loader": "^0.11.2",
+      "gulp": "^3.9.1",
+      "gulp-alias-combo": "^0.3.3",
+      "gulp-babel": "^6.1.2",
+      "gulp-rename": "^1.2.2",
+      "gulp-sourcemaps": "^2.6.0",
+      "html-webpack-plugin": "^2.30.1",
+      "jasmine": "^2.7.0",
+      "json-loader": "^0.5.7",
+      "karma": "^1.7.0",
+      "karma-chai": "^0.1.0",
+      "karma-chrome-launcher": "^2.2.0",
+      "karma-commonjs": "^1.0.0",
+      "karma-jasmine": "^1.1.0",
+      "karma-mocha": "^1.3.0",
+      "karma-phantomjs-launcher": "^1.0.4",
+      "karma-sourcemap-loader": "^0.3.7",
+      "karma-webpack": "^2.0.4",
+      "mocha": "^3.5.0",
+      "node-sass": "^4.5.3",
+      "nodemon": "^1.8.1",
+      "pm2": "^2.6.1",
+      "postcss": "^6.0.1",
+      "postcss-import": "^10.0.0",
+      "postcss-loader": "^2.0.5",
+      "postcss-scss": "^1.0.0",
+      "precss": "^1.4.0",
+      "react-addons-test-utils": "^15.6.0",
+      "react-loader": "^2.4.0",
+      "react-test-renderer": "^15.6.1",
+      "sass-loader": "^6.0.5",
+      "source-map-loader": "^0.2.1",
+      "sourcemap": "^0.1.0",
+      "style-loader": "^0.13.2",
+      "supertest": "^3.0.0",
+      "typescript": "^2.4.2",
+      "url-loader": "^0.5.9",
+      "webpack": "^3.5.4",
+      "webpack-dev-server": "^2.7.1",
+      "webpack-isomorphic": "^1.4.1"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: EEXIST: file already exists, mkdir 'F:\js\github\myblog-front-en\node_modules\async-listener'

@@ -1,6 +1,15 @@
 
 let sqlServer = require('../lib/sql/server');
-let data = require('../public/src/redux/store/data');
+let data = {
+    writer: {
+        workList: [],
+        articleLists:{},
+        currentArticleID:0,
+        currentWorkID:0,
+        //显示编辑模块
+        contentVisible: false
+    }
+};
 /**
  * 传入userID
  */

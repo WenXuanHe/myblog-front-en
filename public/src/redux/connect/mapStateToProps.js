@@ -1,4 +1,5 @@
-let { getter } = require ('../../utils/immutable-extend');
+
+import { getter } from '../../utils/immutable-extend';
 
 const mapStateToProps = (stateName, needs=[]) => (state, ownProps) =>{
     let res = {};
@@ -8,4 +9,4 @@ const mapStateToProps = (stateName, needs=[]) => (state, ownProps) =>{
     return res;
 }
 
-module.exports = mapStateToProps;
+export default mapStateToProps;

@@ -1,6 +1,12 @@
-import React from 'react'
+import * as React from 'react'
 
-class Work extends React.PureComponent{
+interface Props{
+    styles:string,
+    work:any,
+    onClick: (id:string) => void
+}
+
+class Work extends React.PureComponent<Props>{
 
     changeActiveWork = () => {
         this.props.onClick(this.props.work.id);

@@ -1,13 +1,22 @@
-let React = require('react');
+import * as React from 'react'
 
+interface Props{
+  load:any,
+  children:any
+}
+
+interface States{
+  mod:any,
+ 
+}
 /**
  * 为了解决react-router4 的按需加载，需配合bundle-loader来做处理
  * 
  */
-class Bundle extends React.Component {
+class Bundle extends React.Component<Props, States> {
   
-  constructor(){
-    super(...arguments);
+  constructor(...args: any[]){
+    super(...args);
     this.state = {
       // short for "module" but that's a keyword in js, so "mod"
       mod: null
@@ -41,4 +50,4 @@ class Bundle extends React.Component {
   }
 }
 
-module.exports = Bundle;
+export default Bundle;

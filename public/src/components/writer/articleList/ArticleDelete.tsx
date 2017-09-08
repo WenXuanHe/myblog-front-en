@@ -1,7 +1,13 @@
 
-import React from 'react'
+import * as React from 'react'
 
-class ArticleDelete extends React.PureComponent {
+
+interface Props{
+    onClick: (id:string|number) => void,
+    id:string|number
+}
+
+class ArticleDelete extends React.PureComponent<Props> {
 
     delete = () => {
         this.props.onClick(this.props.id);

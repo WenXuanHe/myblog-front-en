@@ -1,13 +1,14 @@
-// import React from 'react';
-let React = require('react');
+import * as React from 'react'
+
+interface Props {
+    location:any
+}
+
 /**
  * 处理所有未匹配路由
  */
-class NoMatch extends React.Component{
+class NoMatch extends React.PureComponent<Props>{
 
-    componentWillMount(){
-
-    }
     render(){
         return (
             <div>
@@ -17,5 +18,4 @@ class NoMatch extends React.Component{
     }
 }
 
-// export default NoMatch;
-module.exports = NoMatch;
+export default NoMatch

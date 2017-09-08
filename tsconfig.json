@@ -12,12 +12,18 @@
         "baseUrl": "./",
         "paths": {
             "$helper/*": ["public/src/helper/*"],
-            "$apis/*": ["public/src/apis/*"]
+            "$apis/*": ["public/src/apis/*"],
+            "$utils/*":["public/src/utils/*"],
+            "$redux/*": ["public/src/redux/*"],
+            "$components/*": ["public/src/components/*"],
+            "$routes/*": ["public/src/routes/*"],
+            "$styles/*": ["public/src/styles/*"],
+            "$actions/*": ["public/src/actions/*"]
         }
     },
-    "include": [
-        "public/src/**/*.tsx"
-    ],
+    // "include": [
+    //     "public/src/**/*.tsx"
+    // ],
     "exclude": [
         "node_modules"
     ]

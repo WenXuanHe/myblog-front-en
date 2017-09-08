@@ -1,33 +1,58 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import {connect} from 'react-redux'
+import * as React from 'react'
+import { StoreState } from '$redux/store/data'
+import {connect, Dispatch} from 'react-redux'
 import cs from 'classnames'
 import MyButton from '../../buttons'
-import mapDispatchToProps from '$redux/connect/mapDispatchToProps'
 import Increace from './Increace'
 import Work from './Work'
-import actions from '$actions'
+import actions from '$actions/index'
 
-let mapStateToProps = require ('$redux/connect/mapStateToProps');
+interface Props{
+    workList:Array<any>,
+    currentWorkID:number,
+    createNewWork: (title:string) => void
+    changeActiveWork:(workID:number)=>void
+}
 
-const workMap = (dispatch, ownProps) =>{
+export type StyleType = {
+    'u-work':boolean,
+    'u-work-active': boolean
+}
+
+interface States{
+    newWorkName:string,
+    increacing:boolean,
+    styles:StyleType
+}
+/**
+ * 从store中拿到的状态
+ * @param param0 
+ */
+const mapStateToProps = ({ writer }: StoreState) => {
     return {
-        createNewWork: (title)=>{dispatch(actions.fetchCreateNewWork(title))},
-        changeActiveWork:(workID)=>{dispatch(actions.fetchChangeActiveWork(workID))}
+        workList: writer.getIn(['workList']),
+        currentWorkID: writer.getIn(['currentWorkID'])
     }
 }
 
-class Works extends React.Component{
+const workMap = (dispatch:Dispatch<any>, ownProps) =>{
+    return {
+        createNewWork: (title:string)=>{dispatch(actions.fetchCreateNewWork(title))},
+        changeActiveWork:(workID:number)=>{dispatch(actions.fetchChangeActiveWork(workID))}
+    }
+}
+
+class WorkList extends React.Component<Props, States>{
 
     constructor(){
-        super(...arguments);
+        super();
         this.state = {
             newWorkName:'',
-            increacing:false
-        };
-        this.styles = {
-            'u-work':true,
-            'u-work-active':false
+            increacing:false,
+            styles:{
+                'u-work':true,
+                'u-work-active':false
+            }
         };
     }
 
@@ -39,12 +64,12 @@ class Works extends React.Component{
                     <div className='field'>+新建文集</div>
                 </div>
                 { this.state.increacing && 
-                    <increace onChange={this.setNewWorkName} newWorkName={this.state.newWorkName} >
+                    <Increace onChange={this.setNewWorkName} newWorkName={this.state.newWorkName} >
                         <div className='field form'>
                             <MyButton value='提交' key='Submit-01' className="btn-green" func={this.submit} />
                             <MyButton value='取消' key='Cancle-01' className="btn-dark" func={this.reset} />
                         </div>
-                    </increace>
+                    </Increace>
                 }
                 {
                     workList.map(this.renderWorkItem)
@@ -63,8 +88,10 @@ class Works extends React.Component{
     }
 
     renderWorkItem = (item) => {
-        this.styles['u-work-active'] = +this.props.currentWorkID === item.id;
-        return <Work styles={cs(this.styles)} work={item} onClick={this.changeActiveWork}/>
+        var styles = this.state.styles;
+        styles['u-work-active'] = +this.props.currentWorkID === item.id;
+        this.setState({styles})
+        return <Work styles={cs(this.state.styles)} work={item} onClick={this.changeActiveWork}/>
     }
 
     /**
@@ -95,9 +122,4 @@ class Works extends React.Component{
     }
 }
 
-Works.propTypes = {
-    workList: PropTypes.array.isRequired,
-    currentWorkID: PropTypes.number.isRequired
-};
-
-export default connect( mapStateToProps('writer',  ['workList', 'currentWorkID']) ,  workMap)(Works);
+export default connect( mapStateToProps , workMap)(WorkList);

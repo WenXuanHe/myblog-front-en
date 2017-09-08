@@ -1,5 +1,4 @@
-
-var KeyMirror = require( 'keymirror' );
+import KeyMirror from 'keymirror'
 
 let  ActionTypes = KeyMirror({
     CREATE_NEW_WORK: null,
@@ -11,4 +10,4 @@ let  ActionTypes = KeyMirror({
     DELETE_ARTICLE: null
 }); 
 
-module.exports = ActionTypes;
+export default ActionTypes;

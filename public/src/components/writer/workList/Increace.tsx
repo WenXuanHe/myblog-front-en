@@ -1,7 +1,12 @@
 
-import React from 'react'
+import * as React from 'react'
 
-class Increace extends React.PureComponent {
+interface Props{
+    onChange: (name:string) => void,
+    newWorkName: string
+}
+
+class Increace extends React.PureComponent<Props> {
     setNewWorkName = () =>{
         this.props.onChange(this.props.newWorkName);
     }

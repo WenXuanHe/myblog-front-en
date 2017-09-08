@@ -1,7 +1,12 @@
-let React = require('react')
-let connect = require('react-redux').connect
-let { Link  } = require('react-router-dom')
-let mapStateToProps = require ('../redux/connect/mapStateToProps');
+// let React = require('react')
+// let connect = require('react-redux').connect
+// let { Link  } = require('react-router-dom')
+// let mapStateToProps = require ('../redux/connect/mapStateToProps');
+
+import *  as React from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
+import mapStateToProps from '../redux/connect/mapStateToProps'
 
 class Home extends React.Component {
 
@@ -31,4 +36,4 @@ class Home extends React.Component {
     }
 }
 
-module.exports = connect( mapStateToProps('writer', ['workList']) )(Home);
+export default connect(mapStateToProps('writer', ['workList']))(Home);

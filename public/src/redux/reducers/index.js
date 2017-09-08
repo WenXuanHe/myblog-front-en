@@ -1,7 +1,6 @@
+import {combineReducers} from 'redux'
+import writer from './writer'
 
-let {combineReducers} = require('redux');
-let writer = require('./writer');
-
-module.exports = combineReducers({
+export default combineReducers({
   writer
 });

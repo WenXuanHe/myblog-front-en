@@ -7,7 +7,6 @@ import { FromControlPassword } from './FromControlPassword';
 import { FromControlSubmit } from './FromControlSubmit';
 import { judgeRepeat, loginService, registorService} from '$apis/login';
 
-//1默认一秒防抖 
 let boundle = boundleFunc(2000);
 
 interface LoginStates{
@@ -36,32 +35,31 @@ class Login extends React.Component<undefined, LoginStates>{
                 className:''
             }
         };
+
     }
 
     render(){
-
         return (
             <div className="m-login m-login-bc">
-
-                <FromControlUserName
-                    judgeRepeat={this.judgeRepeat}
-                    tip={this.state.tip}
-                    userName={this.state.userName}
-                    that={this}/>
-                <FromControlPassword
-                    password={this.state.password}
-                    handleChange={(e: any)=>{ this.setState({password: e.target.value}) }} />
-                <FromControlSubmit
-                    login={this.state.login}
-                    loginFunc={this.login}
-                    switchLoginFunc={this.switch}
-                    registorFunc={this.registor}/>
+                <FromControlUserName judgeRepeat={this.judgeRepeat} tip={this.state.tip} userName={this.state.userName} that={this}/>
+                <FromControlPassword password={this.state.password} onChange={this.passwordChange} />
+                <FromControlSubmit login={this.state.login} loginFunc={this.login} switchLoginFunc={this.switch} registorFunc={this.registor}/>
             </div>
         )
     }
 
-    judgeRepeatThoughtRedis = (userName:string) => {
+    /**
+     * 同步password
+     */
+    passwordChange = (password) => {
+        this.setState({password});
+    }
 
+    /**
+     * 判断是否存在改账号
+     */
+    judgeRepeatThoughtRedis = (userName:string) => {
+        
         judgeRepeat(userName).then(({isRepeat})=>{
             this.setState({
                 tip:{
@@ -73,6 +71,9 @@ class Login extends React.Component<undefined, LoginStates>{
         });
     }
 
+    /**
+     * 切换登录和注册
+     */
     switch = () =>{
         this.setState({login: !this.state.login});
     }

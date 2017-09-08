@@ -9,7 +9,6 @@ export interface FromControlSubmitProps {
     registorFunc: () => void
 }
 
-
 /**
  * 
  * @param props interface FromControlSubmitProps

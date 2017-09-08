@@ -1,11 +1,13 @@
-// import React from "react"
+import * as React from "react"
 
-let React = require('react');
+export interface State {
+    files: Array<any>
+}
 
-class FileUpload extends React.Component{
+class FileUpload extends React.Component<undefined, State>{
 
     constructor(){
-        super(...arguments);
+        super();
         this.state = {
             files:[]
         };
@@ -17,16 +19,13 @@ class FileUpload extends React.Component{
             </div>
         )
     }
-
-    changed = (e)=>{
+    changed = (e:any)=>{
         this.setState({
             'files': e.target.files
         });
     }
-
     getFiles = ()=>{
         return this.state.files;
     }
 }
-// export default FileUpload;
-module.exports = FileUpload;
+export default FileUpload;

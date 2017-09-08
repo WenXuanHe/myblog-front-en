@@ -1,6 +1,5 @@
 import actions from '$actions'
-
-let actionType = require('$redux/actionType');
+import actionType from '$redux/actionType'
 
 export  const writer = (dispatch, ownProps) => {
     return {

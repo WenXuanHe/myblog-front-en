@@ -63,17 +63,13 @@ module.exports = {
             exclude: /(node_modules|bower_components)/
         }, {
             test: /\.tsx?$/,
-            use: ['awesome-typescript-loader']
-        }, {
-            test: routeComponentRegex,
-            include: path.resolve(__dirname, 'public/src'),
             use: [{
-                    loader: 'bundle-loader',
-                    options: {
-                        lazy: true
-                    }
-                },
-                'babel-loader'
+                loader: 'bundle-loader',
+                options: {
+                    lazy: true
+                }
+            },
+            'awesome-typescript-loader'
             ]
         }, {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
@@ -127,7 +123,8 @@ module.exports = {
 
         new TsConfigPathsPlugin({
             configFileName: "tsconfig.json",
-            compiler: "typescript"})
+            compiler: "typescript"
+        })
     ],
     devtool: 'source-map'
 }
