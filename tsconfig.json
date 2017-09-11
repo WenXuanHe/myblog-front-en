@@ -4,8 +4,9 @@
         "sourceMap": true,
         "noImplicitAny": false,
         "moduleResolution": "node",
-        "module": "es6",
+        "module": "commonjs",
         "target": "es5",
+        "lib": ["es6", "dom"],
         "jsx": "react",
         "allowJs": true,
         "experimentalDecorators": true,
@@ -18,7 +19,8 @@
             "$components/*": ["public/src/components/*"],
             "$routes/*": ["public/src/routes/*"],
             "$styles/*": ["public/src/styles/*"],
-            "$actions/*": ["public/src/actions/*"]
+            "$actions/*": ["public/src/actions/*"],
+            "$views/*": ["public/src/views/*"]
         }
     },
     // "include": [

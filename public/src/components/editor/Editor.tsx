@@ -1,17 +1,25 @@
 import * as React from "react"
 import wangEditor from 'wangeditor'
 import {simpleMenus, menus} from '../../config/editor'
+import { StoreState } from '$redux/store/data'
+import {connect} from 'react-redux'
 import _ from 'lodash'
 
 interface Props{
-    style?:any,
-    id:string,
     content: any
 }
 
 interface States{
     editor:any
 }
+
+
+const mapStateToProps = ({ writer }:StoreState) => {
+    return {
+        content: writer.getIn(['content'])
+    }
+}
+
 
 class Editor extends React.Component<Props, States> {
 
@@ -29,14 +37,15 @@ class Editor extends React.Component<Props, States> {
     }
 
     render () {
-        let style = this.props.style || this.styles();
+        let style = this.styles();
         return (
-            <div id = {this.props.id} style={style} contentEditable={true}>{this.props.content}</div>
+            <div style={style} ref="editorElem" contentEditable={true}>{this.props.content}</div>
         )
     }
     componentDidMount () {
-        let props = this.props;
-        let editor = new wangEditor(props.id);
+        const props = this.props;
+        const elem = this.refs.editorElem;
+        let editor = new wangEditor(elem);
         editor.$txt.html(props.content || '<p><br/></p>');
         //配置编辑器
         this.editorConfig(this.state.editor, props).create();
@@ -63,4 +72,4 @@ class Editor extends React.Component<Props, States> {
     }
 }
 
-export default Editor;
+export default connect(mapStateToProps)(Editor);

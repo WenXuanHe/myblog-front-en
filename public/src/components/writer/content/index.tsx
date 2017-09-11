@@ -75,13 +75,11 @@ class Content extends React.Component<Props> {
         this.props.UpdateTitle(this.props.title);
     }
 
+    // todo，由Editor自己处理
     submitArticle = () => {
-        
-        var content = this.refs['fileEditor-key0'].getEditContent();
-        var uploadFiles = this.refs['fileEditor-key0'].getFiles();
 
         this.fetchArticle({
-            content,
+            content: this.props.content,
             title: this.props.title
         });
     }
@@ -92,7 +90,7 @@ class Content extends React.Component<Props> {
                 <header className='mb2'>
                     <input type='text' value={this.props.title} onChange={this.UpdateTitle} onBlur={this.fetchUpdateArticleInfo} />
                 </header>
-                < FileEditor ref='fileEditor-key0' content={this.props.content} />
+                < FileEditor />
                 <div className="u-footer u-footer-skin">
                     <Link to="/writer/index" className="ml10">返回文章列表</Link>
                     <a href='javascript:void(0);' className="btn btn-green" onClick={this.submitArticle}> 提交 </a>

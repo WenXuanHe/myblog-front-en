@@ -16,7 +16,9 @@ const data:StoreState = {
         currentArticleID:0,
         currentWorkID:0,
         //显示编辑模块
-        contentVisible: false
+        contentVisible: false,
+        //编辑的内容
+        content:''
     })
 }
 

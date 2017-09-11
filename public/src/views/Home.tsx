@@ -6,9 +6,18 @@
 import *  as React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
-import mapStateToProps from '../redux/connect/mapStateToProps'
+import { StoreState } from '$redux/store/data'
 
-class Home extends React.Component {
+interface Props{
+    workList:Array<any>
+}
+
+const mapStateToProps = ({ writer }:StoreState) => {
+    return {
+        workList: writer.getIn(['workList'])
+    }
+}
+class Home extends React.Component<Props> {
 
     workItem = (item) => {
         return (
@@ -36,4 +45,4 @@ class Home extends React.Component {
     }
 }
 
-export default connect(mapStateToProps('writer', ['workList']))(Home);
+export default connect(mapStateToProps)(Home);

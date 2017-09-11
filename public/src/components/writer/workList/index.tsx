@@ -60,7 +60,7 @@ class WorkList extends React.Component<Props, States>{
         let {workList, currentWorkID} = this.props;
         return (
             <div className='m-add-files'>
-                <div className='u-create' onClick={_.bind(this.createWork, this)}>
+                <div className='u-create' onClick={this.createWork}>
                     <div className='field'>+新建文集</div>
                 </div>
                 { this.state.increacing && 

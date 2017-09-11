@@ -1,27 +1,15 @@
 import * as React from "react"
-import Editor from './Editor.js'
-import FileUpload from '../upload/FileUpload.js'
+import Editor from './Editor'
+import FileUpload from '../upload/FileUpload'
 
-interface Props{
-    content:any
-}
-
-export default class FileEditor extends React.Component<Props, undefined>{
+export default class FileEditor extends React.Component<undefined, undefined>{
 
     render(){
         return (
             <div className='edit-content'>
-                <Editor id="editor" ref='editor' content={this.props.content} />
-                <FileUpload ref='upload'/>
+                <Editor />
+                <FileUpload/>
             </div>
         )
-    }
-
-    getFiles = () =>{
-        return this.refs.upload.getFiles();
-    }
-
-    getEditContent = ()=>{
-        return this.refs.editor.getEditContent();
     }
 }

@@ -1,6 +1,6 @@
 
 import * as React from 'react';
-import Submit from '../buttons/submit';
+import Submit from '../buttons/index';
 
 export interface FromControlSubmitProps {
     login: boolean,

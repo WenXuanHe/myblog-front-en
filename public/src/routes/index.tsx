@@ -14,9 +14,9 @@
 import * as React from 'react'
 import { BrowserRouter as Router , Route , Redirect, Switch, StaticRouter} from 'react-router-dom'
 import Bundle from '../components/Bundle'
-import Home from '../components/Home'
-import Writer from '../components/Writer'
-import NoMatch from '../components/NoMatch'
+import Home from '$views/Home'
+import Writer from '$views/Writer'
+import NoMatch from '$views/NoMatch'
 import storeData from '../redux/store/data'
 
 // function lazyLoadComponent(lazyModule) {  

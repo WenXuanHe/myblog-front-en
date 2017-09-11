@@ -3,7 +3,7 @@ let ExtractTextPlugin = require('extract-text-webpack-plugin');
 let HtmlWebpackPlugin = require("html-webpack-plugin");
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 let path = require("path");
-let routeComponentRegex = /public\/src\/([^\/]+\/?[^\/]+).js$/;
+let routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
 
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
     hash: false, //path.resolve(__dirname, 'views/template/index.html')
@@ -24,7 +24,7 @@ htmlWebpackPluginLogin = require('./views/templates/injectAssetsIntoHtml')(htmlW
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, "public/src/index.js"),
+        index: path.resolve(__dirname, "public/src/index.tsx"),
         login: path.resolve(__dirname, "public/src/login.tsx"),
         vendors: [
             'react',
@@ -61,8 +61,13 @@ module.exports = {
             }],
             include: [path.resolve(__dirname, 'public/src')],
             exclude: /(node_modules|bower_components)/
-        }, {
+        }, 
+        {
             test: /\.tsx?$/,
+            use: ['awesome-typescript-loader']
+        },
+        {
+            test: /public\\src\\views(\\.*).tsx$/,
             use: [{
                 loader: 'bundle-loader',
                 options: {
@@ -71,7 +76,8 @@ module.exports = {
             },
             'awesome-typescript-loader'
             ]
-        }, {
+        },
+        {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             use: [{
                 loader: 'url-loader',
@@ -95,7 +101,7 @@ module.exports = {
         }]
     },
     resolve: {
-        extensions: ['.js', '.jsx', '.css', '.scss', '.tsx'],
+        extensions: ['.js', '.jsx', '.css', '.scss', '.tsx', 'ts'],
         alias: {
             $redux: path.resolve(__dirname, 'public/src/redux'),
             $apis: path.resolve(__dirname, 'public/src/apis'),
@@ -105,6 +111,7 @@ module.exports = {
             $helper: path.resolve(__dirname, 'public/src/helper'),
             $utils: path.resolve(__dirname, 'public/src/utils'),
             $actions: path.resolve(__dirname, 'public/src/actions'),
+            $views: path.resolve(__dirname, 'public/src/views'),
         }
     },
     plugins: [

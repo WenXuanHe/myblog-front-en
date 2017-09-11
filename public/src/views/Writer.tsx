@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { connect } from 'react-redux'
-import WorkList from './writer/workList'
-import ArticleList from './writer/articleList'
-import Content from './writer/content'
+import WorkList from '$components/writer/workList'
+import ArticleList from '$components/writer/articleList'
+import Content from '$components/writer/content'
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 import persistence from '$helper/persistence'
 import { StoreState } from '$redux/store/data'

@@ -76,7 +76,7 @@ class ArticleList extends React.Component<Props, States> {
         styles['u-article-active'] = current;
         this.setState({styles});
 
-        return <Article styles={cs(this.styles)} onClick={this.changeActiveArticle} article={article}>
+        return <Article styles={cs(this.state.styles)} onClick={this.changeActiveArticle} article={article}>
                 {
                     current && <ArticleDelete onClick={this.deleteArticle} id={article.id} />  
                 }

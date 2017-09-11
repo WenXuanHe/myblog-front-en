@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 interface Props{
-    className:string,
+    className?:string,
     func:() => any,
     value: string
 }

@@ -11,7 +11,7 @@ export default <Provider store={store}>
 
 import * as React from 'react'
 import {Provider} from 'react-redux'
-import getStore from './store'
+import getStore from './store/index'
 import routes from '../routes'
 
 let store = getStore(window['_INITIAL_STATE_'])
