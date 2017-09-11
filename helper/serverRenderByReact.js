@@ -1,7 +1,7 @@
 let React = require('react');
 let ReactDOMServer = require('react-dom/server');
 let Provider = require('react-redux').Provider;
-let Home = require('../public/src/components/Home');
+let Home = require('$views/Home');
 let getStore = require('../public/src/redux/store/index');
 let { StaticRouter } = require('react-router');
 

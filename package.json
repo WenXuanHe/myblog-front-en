@@ -6,6 +6,7 @@
     "start": "node ./bin/www",
     "pm2": "pm2 start bin/www -i 4",
     "dev": "webpack --color --watch",
+    "build-ts": "tsc",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "dependencies": {
@@ -49,6 +50,7 @@
     "wangeditor": "^2.1.23"
   },
   "devDependencies": {
+    "@types/node": "^8.0.28",
     "autoprefixer": "^7.1.1",
     "awesome-typescript-loader": "^3.2.3",
     "babel-core": "^6.24.1",

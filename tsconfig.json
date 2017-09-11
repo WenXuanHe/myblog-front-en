@@ -5,7 +5,7 @@
         "noImplicitAny": false,
         "moduleResolution": "node",
         "module": "commonjs",
-        "target": "es5",
+        "target": "es2015",
         "lib": ["es6", "dom"],
         "jsx": "react",
         "allowJs": true,
