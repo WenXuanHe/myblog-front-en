@@ -1,9 +1,8 @@
 
 import Router from 'koa-router'
-import * as loginServer from '../lib/sql/login'
-import * as getReturnPattern from '../lib/model/return'
+import loginServer, { PasswordType } from '../lib/sql/login'
+import getReturnPattern from '../lib/model/return'
 const router = new Router()
-
 router.prefix('/login');
 
 router.get('/', async function(ctx, next){
@@ -22,7 +21,7 @@ router.post('/registorRequest', async function(ctx, next){
         let res = await loginServer.judgeExitByName(userName, 'count(*) as count');
         let isRepeat = res[0];
         if(!isRepeat.count){
-            let {salt, hash} = await loginServer.hashPassword(password);
+            let {hash, salt}:PasswordType = await loginServer.hashPassword(password);
             //存mysql数据库
             let userID = await loginServer.registor(userName, hash, salt);
             if(userID){
@@ -82,4 +81,4 @@ router.post('/judgeRepeat', async function(ctx, next){
 
 });
 
-module.exports = router;
+export default router;

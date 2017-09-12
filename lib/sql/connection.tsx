@@ -1,6 +1,6 @@
-let mysql = require('mysql');
+import mysql from 'mysql'
 
-module.exports = () => {
+export default () => {
     let connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -8,7 +8,7 @@ module.exports = () => {
         database:'blog'
     });
     return new Promise(function(resolve, reject){
-        connection.connect((err) => {
+        connection.connect((err:any) => {
             if (err) {
                 reject(err);
             }else{

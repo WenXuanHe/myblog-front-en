@@ -8,12 +8,12 @@ import * as render from 'koa-swig'
 import * as co from 'co'
 import * as path from 'path'
 import * as session from "koa-session2"
-import * as getExpires from "./lib/session/expires"
-import * as Store from "./lib/session/Store"
-import * as base from './routes/base'
-import * as index from './routes/index'
-import * as login from './routes/login'
-import * as writer from './routes/writer'
+import getExpires from "./lib/session/expires"
+import Store from "./lib/session/Store"
+import base from './routes/base'
+import index from './routes/index'
+import login from './routes/login'
+import writer from './routes/writer'
 
 const app = new Koa();
 const bodyparser = createBodyparser();
@@ -69,4 +69,4 @@ app.use(index.routes(), index.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
 app.use(writer.routes(), writer.allowedMethods());
 console.log("PID", process.pid);
- export default app;
+export default app;

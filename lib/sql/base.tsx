@@ -9,14 +9,14 @@ import * as queryString from 'querystring'
 // // 创建user表
 // CREATE TABLE `blog`.`user` ( `id` INT NOT NULL AUTO_INCREMENT , `name` VARCHAR(30) NOT NULL , `hash` VARCHAR(100) NOT NULL , `salt` VARCHAR(100) NOT NULL ,
 // `lastModified` DATETIME NOT NULL , `isDelete` INT(2) NOT NULL DEFAULT '0', PRIMARY KEY (`id`)) ENGINE = InnoDB;
-interface ConditionType{
+export interface ConditionType{
     type:string,
     tblName:string, 
-    field:string, 
-    condition:string, 
-    updateField:string, 
-    sort:string, 
-    otherwise:string
+    field?:Array<string>|string, 
+    condition:any, 
+    updateField?:any, 
+    sort?:string, 
+    otherwise?:string
 }
 
 class Base {

@@ -13,7 +13,7 @@ fs.readdirSync('node_modules')
 module.exports = {
     entry: [
         'webpack/hot/poll?1000',
-        './app.js'
+        './bin/www'
     ],
     output: {
         path: path.resolve(__dirname, 'build'),

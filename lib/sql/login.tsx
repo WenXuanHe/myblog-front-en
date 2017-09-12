@@ -1,13 +1,12 @@
-import * as Connection from './connection'
-import * as Base from './base'
+import Connection from './connection'
+import Base from './base'
 import bcrypt from 'bcryptjs'
-import * as getReturnPattern from '../model/return'
-import * as moment from 'moment'
+import getReturnPattern from '../model/return'
 
 /**
  * Password 返回格式
  */
-type PasswordType = {
+export type PasswordType = {
     salt?:string,
     hash?: string
 }

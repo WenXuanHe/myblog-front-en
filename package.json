@@ -5,8 +5,8 @@
   "scripts": {
     "start": "node ./bin/www",
     "pm2": "pm2 start bin/www -i 4",
-    "dev": "webpack --color --watch",
-    "build-ts": "tsc",
+    "dev": "webpack --color",
+    "build-s": "webpack --color --config webpack.config.server.js",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
   "dependencies": {
