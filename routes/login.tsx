@@ -1,8 +1,8 @@
 
-import Router from 'koa-router'
+import * as Router from 'koa-router'
 import loginServer, { PasswordType } from '../lib/sql/login'
 import getReturnPattern from '../lib/model/return'
-const router = new Router()
+const router = Router()
 router.prefix('/login');
 
 router.get('/', async function(ctx, next){

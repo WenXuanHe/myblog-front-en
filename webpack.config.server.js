@@ -16,8 +16,7 @@ module.exports = {
         './bin/www'
     ],
     output: {
-        path: path.resolve(__dirname, 'build'),
-        filename: 'bundle.js',
+        filename: 'server.js',
         libraryTarget: 'commonjs2'
     },
     target: 'node',

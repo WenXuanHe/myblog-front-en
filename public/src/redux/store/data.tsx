@@ -10,9 +10,9 @@ import { Map, List } from 'immutable'
 
 const data:StoreState = {
     writer: Map({
-        workList: [],
-        articleLists:{},
-        articleInfo:{},
+        workList: null,
+        articleLists:null,
+        articleInfo:null,
         currentArticleID:0,
         currentWorkID:0,
         //显示编辑模块

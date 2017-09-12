@@ -1,6 +1,6 @@
 import Connection from './connection'
 import Base from './base'
-import bcrypt from 'bcryptjs'
+import * as bcrypt from 'bcryptjs'
 import getReturnPattern from '../model/return'
 
 /**

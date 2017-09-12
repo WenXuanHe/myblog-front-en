@@ -1,4 +1,4 @@
-import Redis from "ioredis"
+import * as Redis from "ioredis"
 import { Store } from"koa-session2"
 
 export type sidsType = {
@@ -21,9 +21,9 @@ class RedisStore extends Store {
         return JSON.parse(data);
     }
 
-    async set(session:any, { sid =  super.getID(24), maxAge = 1000000 }:sidsType) {
+    async set(session:any, { sid , maxAge = 1000000 }:sidsType) {
         try {
-
+            sid = sid || super.getID(24);
             await this.redis.set(`SESSION:${sid}`, JSON.stringify(session), 'EX', maxAge / 1000);
             return sid;
 

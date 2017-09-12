@@ -2,11 +2,11 @@
  * 开放基础接口
  */
 
-import Router from 'koa-router'
+import * as Router from 'koa-router'
 import sqlServer from '../lib/sql/server'
 import getReturnPattern from '../lib/model/return'
 
-const router = new Router()
+const router = Router()
 router.prefix('/base');
 
 router.get('/queryArticlesByworkId', async function (ctx, next) {

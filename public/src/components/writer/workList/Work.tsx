@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface Props{
-    styles:string,
+    styles:any,
     work:any,
     onClick: (id:string) => void
 }

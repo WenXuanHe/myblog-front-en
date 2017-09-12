@@ -1,12 +1,11 @@
-import Router from 'koa-router'
+import * as Router from 'koa-router'
 import getReturnPattern from '../lib/model/return'
 import sqlServer from '../lib/sql/server'
-const router = new Router();
+const router = Router();
 ////支持jsx语法
 // require('node-jsx').install();
-
-let buildSeverRenderInitData = require('../helper/severRenderInitData');
-let buildServerRenderByReact = require('../helper/serverRenderByReact');
+import buildSeverRenderInitData from '../helper/severRenderInitData'
+import buildServerRenderByReact from '../helper/serverRenderByReact'
 
 router.prefix('/writer');
 
@@ -38,7 +37,7 @@ router.get('/index', async function (ctx, next) {
 
   try {
     let initData = await buildSeverRenderInitData(ctx.session.sessionInfo.userID);
-    let html = buildServerRenderByReact(initData);
+    let html = buildServerRenderByReact(ctx.req.url, initData);
 
     await ctx.render('index', {
       initialHTML: html,

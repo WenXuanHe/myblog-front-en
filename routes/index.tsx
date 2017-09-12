@@ -1,6 +1,6 @@
 // var router = require('koa-router')();
-import Router from 'koa-router'
-const router = new Router()
+import * as Router from 'koa-router'
+const router = Router()
 
 router.get('/', async function (ctx, next) {
   if(ctx.session.sessionInfo){

@@ -1,28 +1,27 @@
 import * as React from 'react'
 import { StoreState } from '$redux/store/data'
-import {connect, Dispatch} from 'react-redux'
-import cs from 'classnames'
+import { connect, Dispatch } from 'react-redux'
+import * as cs from 'classnames'
 import MyButton from '../../buttons'
 import Increace from './Increace'
 import Work from './Work'
 import actions from '$actions/index'
 
-interface Props{
-    workList:Array<any>,
-    currentWorkID:number,
-    createNewWork: (title:string) => void
-    changeActiveWork:(workID:number)=>void
+interface Props {
+    workList: Array<any>,
+    currentWorkID: number,
+    createNewWork: (title: string) => void
+    changeActiveWork: (workID: number) => void
 }
 
 export type StyleType = {
-    'u-work':boolean,
+    'u-work': boolean,
     'u-work-active': boolean
 }
 
-interface States{
-    newWorkName:string,
-    increacing:boolean,
-    styles:StyleType
+interface States {
+    newWorkName: string,
+    increacing: boolean
 }
 /**
  * 从store中拿到的状态
@@ -35,35 +34,37 @@ const mapStateToProps = ({ writer }: StoreState) => {
     }
 }
 
-const workMap = (dispatch:Dispatch<any>, ownProps) =>{
+const workMap = (dispatch: Dispatch<any>, ownProps) => {
     return {
-        createNewWork: (title:string)=>{dispatch(actions.fetchCreateNewWork(title))},
-        changeActiveWork:(workID:number)=>{dispatch(actions.fetchChangeActiveWork(workID))}
+        createNewWork: (title: string) => { dispatch(actions.fetchCreateNewWork(title)) },
+        changeActiveWork: (workID: number) => { dispatch(actions.fetchChangeActiveWork(workID)) }
     }
 }
 
 class WorkList extends React.Component<Props, States>{
 
-    constructor(){
+    styles:StyleType
+
+    constructor() {
         super();
         this.state = {
-            newWorkName:'',
-            increacing:false,
-            styles:{
-                'u-work':true,
-                'u-work-active':false
-            }
+            newWorkName: '',
+            increacing: false
+        };
+        this.styles = {
+            'u-work': true,
+            'u-work-active': false
         };
     }
 
-    render(){
-        let {workList, currentWorkID} = this.props;
+    render() {
+        let { workList, currentWorkID } = this.props;
         return (
             <div className='m-add-files'>
                 <div className='u-create' onClick={this.createWork}>
                     <div className='field'>+新建文集</div>
                 </div>
-                { this.state.increacing && 
+                {this.state.increacing &&
                     <Increace onChange={this.setNewWorkName} newWorkName={this.state.newWorkName} >
                         <div className='field form'>
                             <MyButton value='提交' key='Submit-01' className="btn-green" func={this.submit} />
@@ -72,26 +73,22 @@ class WorkList extends React.Component<Props, States>{
                     </Increace>
                 }
                 {
-                    workList.map(this.renderWorkItem)
+                    workList && workList.map((item) => {
+                        this.styles['u-work-active'] = +this.props.currentWorkID === item.id;
+                        return <Work key={item.id} styles={cs(this.styles)} work={item} onClick={this.changeActiveWork} />
+                    })
                 }
             </div>
         )
     }
 
-    componentDidMount(){
+    componentDidMount() {
         // 首次渲染后就发起第一次请求
         this.changeActiveWork(+this.props.currentWorkID);
     }
 
-    setNewWorkName = (name)=>{
-        this.setState({newWorkName: name})
-    }
-
-    renderWorkItem = (item) => {
-        var styles = this.state.styles;
-        styles['u-work-active'] = +this.props.currentWorkID === item.id;
-        this.setState({styles})
-        return <Work styles={cs(this.state.styles)} work={item} onClick={this.changeActiveWork}/>
+    setNewWorkName = (name) => {
+        this.setState({ newWorkName: name })
     }
 
     /**
@@ -99,14 +96,14 @@ class WorkList extends React.Component<Props, States>{
      * @param  {[type]} workID workID
      * @return {[type]}  articles
      */
-    changeActiveWork = (workID) =>{
+    changeActiveWork = (workID) => {
 
         this.props.changeActiveWork(workID);
     }
 
     createWork = () => {
-        if(!this.state.increacing){
-             this.setState({ increacing:true });
+        if (!this.state.increacing) {
+            this.setState({ increacing: true });
         }
     }
 
@@ -117,9 +114,9 @@ class WorkList extends React.Component<Props, States>{
 
     reset = () => {
         this.setState({
-            increacing:false
+            increacing: false
         });
     }
 }
 
-export default connect( mapStateToProps , workMap)(WorkList);
+export default connect(mapStateToProps, workMap)(WorkList);

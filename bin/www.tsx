@@ -1,7 +1,7 @@
-
-var app = require('../app');
-var debug = require('debug')('demo:server');
-var http = require('http');
+import app from '../app'
+import * as CreateDebug from 'debug'
+import * as http from 'http'
+var debug = CreateDebug('demo:server');
 
 /**
  * Get port from environment and store in Express.
@@ -28,7 +28,7 @@ console.log('server is run in '+ (process.env.PORT || '3000'));
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+function normalizePort(val:string) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {

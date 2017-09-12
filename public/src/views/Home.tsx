@@ -9,7 +9,7 @@ import {Link} from 'react-router-dom'
 import { StoreState } from '$redux/store/data'
 
 interface Props{
-    workList:Array<any>
+    workList:any
 }
 
 const mapStateToProps = ({ writer }:StoreState) => {
@@ -17,6 +17,7 @@ const mapStateToProps = ({ writer }:StoreState) => {
         workList: writer.getIn(['workList'])
     }
 }
+
 class Home extends React.Component<Props> {
 
     workItem = (item) => {

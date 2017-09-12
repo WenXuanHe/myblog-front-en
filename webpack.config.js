@@ -66,17 +66,17 @@ module.exports = {
             test: /\.tsx?$/,
             use: ['awesome-typescript-loader']
         },
-        {
-            test: /public\\src\\views(\\.*).tsx$/,
-            use: [{
-                loader: 'bundle-loader',
-                options: {
-                    lazy: true
-                }
-            },
-            'awesome-typescript-loader'
-            ]
-        },
+        // {
+        //     test: /public\\src\\views(\\.*).tsx$/,
+        //     use: [{
+        //         loader: 'bundle-loader',
+        //         options: {
+        //             lazy: true
+        //         }
+        //     },
+        //     'awesome-typescript-loader'
+        //     ]
+        // },
         {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             use: [{

@@ -5,7 +5,7 @@ import data from '../public/src/redux/store/data'
 /**
  * 传入userID
  */
-export default function (userID:number) {
+export default function (userID:number|string) {
 
     return new Promise(async function (resolve, reject) {
 
@@ -14,7 +14,7 @@ export default function (userID:number) {
             //查询出文集列表
             let workList = await sqlServer.queryWorks(userID);
             workList = data.writer.setIn(['workList'], workList);
-            resolve({writer:workList.toJS()});
+            resolve({writer:workList});
         } catch (e) {
             reject(e);
         }

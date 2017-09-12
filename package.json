@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "node ./build/server.js",
     "pm2": "pm2 start bin/www -i 4",
-    "dev": "webpack --color",
+    "dev": "webpack --color --watch",
     "build-s": "webpack --color --config webpack.config.server.js",
     "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
   },
