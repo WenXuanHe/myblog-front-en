@@ -1,43 +1,33 @@
 import * as React from "react"
 import * as  wangEditor from 'wangeditor'
 import {simpleMenus, menus} from '../../config/editor'
-import { StoreState } from '$redux/store/data'
-import {connect} from 'react-redux'
 
 interface Props{
     content: string,
-    config?:any,
+    onChange: (content:string) => void,
     simple?:boolean
 }
-
-const mapStateToProps = ({ writer }:StoreState) => {
-    return {
-        content: writer.getIn(['content'])
-    }
-}
-
 
 class Editor extends React.PureComponent<Props> {
 
     editor:any;
-
     constructor(){
         super();
         this.editor = null;
     }
-    styles = () => {
-        return {
-            width: '100%',
-            height: '500px'
-        }
+
+    //同步content的数据
+    getEditContent = () =>{
+        var value = this.editor.txt.$txt.html();
+        this.props.onChange(value);
     }
 
     render () {
-        let style = this.styles();
         return (
-            <div style={style} ref="editorElem" contentEditable={true}>{this.props.content}</div>
+            <div className="u-editor" ref="editorElem" contentEditable={true} onChange={this.getEditContent}>{this.props.content}</div>
         )
     }
+
     componentDidMount () {
         let editor = new wangEditor(this.refs.editorElem);
         editor.txt.$txt.html(this.props.content || '<p><br/></p>');
@@ -45,11 +35,11 @@ class Editor extends React.PureComponent<Props> {
         this.editor = this.editorConfig(editor);
         this.editor.create();
     }
-
+    /**
+     * 销毁组件时将引用置为null
+     */
     componentWillUnmount () {
-        this.setState({
-            editor: null
-        });
+        this.editor=null;
         wangEditor.numberOfLocation--;  
     }
 
@@ -60,10 +50,6 @@ class Editor extends React.PureComponent<Props> {
         Object.assign(editor.config, config);
         return editor;
     }
-
-    getEditContent = () =>{
-        return this.editor.txt.$txt.html();
-    }
 }
 
-export default connect(mapStateToProps)(Editor);
+export default Editor;

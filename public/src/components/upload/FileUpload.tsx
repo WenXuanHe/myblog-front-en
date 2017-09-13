@@ -1,31 +1,22 @@
 import * as React from "react"
 
-export interface State {
-    files: Array<any>
+interface Props{
+    onChange:(files:Array<any>) => void
 }
 
-class FileUpload extends React.Component<undefined, State>{
+class FileUpload extends React.PureComponent<Props>{
 
-    constructor(){
-        super();
-        this.state = {
-            files:[]
-        };
-    }
+    files:Array<any>;
+
     render(){
         return (
             <div className='m-upload'>
-                <input type='file' multiple onChange={this.changed} />
+                <input type='file' multiple onChange={this.change} />
             </div>
         )
     }
-    changed = (e:any)=>{
-        this.setState({
-            'files': e.target.files
-        });
-    }
-    getFiles = ()=>{
-        return this.state.files;
+    change = (e)=>{
+        this.props.onChange(e.target.files)
     }
 }
 export default FileUpload;
