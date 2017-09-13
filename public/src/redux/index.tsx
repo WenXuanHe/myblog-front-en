@@ -13,6 +13,7 @@ import * as React from 'react'
 import {Provider} from 'react-redux'
 import getStore from './store/index'
 import routes from '../routes'
+import {Map, List} from 'immutable'
 
 let store = getStore(window['_INITIAL_STATE_'])
 

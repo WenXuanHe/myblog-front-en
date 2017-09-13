@@ -1,29 +1,27 @@
 import { Map, List } from 'immutable'
 
-// interface IModel{
-//     workList: List<any>,
-//     articleLists:Map<string, {}>,
-//     currentArticleID: number,
-//     currentWorkID: number,
-//     contentVisible: boolean
-// }
+export type dataStates = Map<string, {
+    workList: any;
+    articleLists: any;
+    currentArticleID: number;
+    currentWorkID: number;
+}>
 
-const data:StoreState = {
-    writer: Map({
+interface StoreState{
+    data:dataStates
+}
+
+const States:StoreState = {
+    data:Map({ writer: {
         workList: null,
         articleLists:null,
-        articleInfo:null,
         currentArticleID:0,
         currentWorkID:0,
-        //显示编辑模块
-        contentVisible: false,
-        //编辑的内容
-        content:''
-    })
+    }
+})
+    
 }
 
-export interface StoreState{
-    writer:Map<string, {}>
-}
 
-export default data;
+
+export default States.data;

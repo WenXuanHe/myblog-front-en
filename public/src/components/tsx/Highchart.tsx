@@ -8,7 +8,7 @@ export interface Props {
     categories: Array<string>
 }
 
-export class Highchart extends React.Component<Props, undefined>{
+export class Highchart extends React.PureComponent<Props>{
 
     render() {
 

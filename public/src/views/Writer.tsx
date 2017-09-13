@@ -1,24 +1,12 @@
 import * as React from 'react'
-import { connect } from 'react-redux'
 import WorkList from '$components/writer/workList'
 import ArticleList from '$components/writer/articleList'
 import Content from '$components/writer/content'
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 import persistence from '$helper/persistence'
-import { StoreState } from '$redux/store/data'
+import { dataStates } from '$redux/store/data'
 
-interface Props{
-    contentVisible:boolean
-}
-
-const mapStateToProps = ({ writer }:StoreState) => {
-    return {
-        contentVisible: writer.getIn(['contentVisible'])
-    }
-}
-
-
-class Writer extends React.Component<Props> {
+class Writer extends React.PureComponent {
 
     // constructor(){
     //     super(...arguments);
@@ -45,5 +33,5 @@ class Writer extends React.Component<Props> {
     }
 }
 
-export default connect(mapStateToProps)(Writer)
+export default Writer
 

@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StoreState } from '$redux/store/data'
+import { dataStates } from '$redux/store/data'
 import { connect, Dispatch } from 'react-redux'
 import * as cs from 'classnames'
 import MyButton from '../../buttons'
@@ -15,23 +15,17 @@ interface Props {
     changeActiveWork: (workID: number) => void
 }
 
-export type StyleType = {
-    'u-work': boolean,
-    'u-work-active': boolean
-}
-
 interface States {
-    newWorkName: string,
     increacing: boolean
 }
 /**
  * 从store中拿到的状态
  * @param param0 
  */
-const mapStateToProps = ({ writer }: StoreState) => {
+const mapStateToProps = (data: dataStates) => {
     return {
-        workList: writer.getIn(['workList']),
-        currentWorkID: writer.getIn(['currentWorkID'])
+        workList: data.getIn(['writer', 'workList']),
+        currentWorkID: data.getIn(['writer', 'currentWorkID'])
     }
 }
 
@@ -44,14 +38,19 @@ const workMap = (dispatch: Dispatch<any>, ownProps) => {
 
 class WorkList extends React.Component<Props, States>{
 
-    styles:StyleType
+    styles:{
+        'u-work': boolean,
+        'u-work-active': boolean
+    };
+    newWorkName:string;
 
     constructor() {
         super();
+
         this.state = {
-            newWorkName: '',
-            increacing: false
+            increacing : false
         };
+        this.newWorkName = "";
         this.styles = {
             'u-work': true,
             'u-work-active': false
@@ -66,7 +65,7 @@ class WorkList extends React.Component<Props, States>{
                     <div className='field'>+新建文集</div>
                 </div>
                 {this.state.increacing &&
-                    <Increace onChange={this.setNewWorkName} newWorkName={this.state.newWorkName} >
+                    <Increace onChange={this.setNewWorkName}>
                         <div className='field form'>
                             <MyButton value='提交' key='Submit-01' className="btn-green" func={this.submit} />
                             <MyButton value='取消' key='Cancle-01' className="btn-dark" func={this.reset} />
@@ -89,7 +88,7 @@ class WorkList extends React.Component<Props, States>{
     }
 
     setNewWorkName = (name) => {
-        this.setState({ newWorkName: name })
+        this.newWorkName = name;
     }
 
     /**
@@ -98,7 +97,6 @@ class WorkList extends React.Component<Props, States>{
      * @return {[type]}  articles
      */
     changeActiveWork = (workID) => {
-
         this.props.changeActiveWork(workID);
     }
 
@@ -109,7 +107,7 @@ class WorkList extends React.Component<Props, States>{
     }
 
     submit = () => {
-        var result = this.props.createNewWork(this.state.newWorkName);
+        var result = this.props.createNewWork(this.newWorkName);
         this.reset();
     }
 

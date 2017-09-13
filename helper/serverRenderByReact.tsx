@@ -13,7 +13,6 @@ export default function(url, initData){
                 <Home />
             </StaticRouter>
         </Provider>
-        
     );
     return html;
 }

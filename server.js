@@ -20,7 +20,7 @@ module.exports =
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "915538642e390d972445"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "3b385e23e874b5c92cef"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -884,7 +884,7 @@ module.exports = require("object-assign");
 
 var _prodInvariant = __webpack_require__(2);
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var ReactDOMComponentFlags = __webpack_require__(64);
 
 var invariant = __webpack_require__(0);
@@ -1857,7 +1857,7 @@ var _prodInvariant = __webpack_require__(2),
 var CallbackQueue = __webpack_require__(65);
 var PooledClass = __webpack_require__(12);
 var ReactFeatureFlags = __webpack_require__(138);
-var ReactReconciler = __webpack_require__(18);
+var ReactReconciler = __webpack_require__(19);
 var Transaction = __webpack_require__(25);
 
 var invariant = __webpack_require__(0);
@@ -2633,6 +2633,12 @@ module.exports = reactProdInvariant;
 
 /***/ }),
 /* 15 */
+/***/ (function(module, exports) {
+
+module.exports = require("immutable");
+
+/***/ }),
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2648,7 +2654,7 @@ module.exports = reactProdInvariant;
 
 
 
-var EventPluginHub = __webpack_require__(16);
+var EventPluginHub = __webpack_require__(17);
 var EventPluginUtils = __webpack_require__(34);
 
 var accumulateInto = __webpack_require__(61);
@@ -2771,7 +2777,7 @@ var EventPropagators = {
 module.exports = EventPropagators;
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3050,7 +3056,7 @@ var EventPluginHub = {
 module.exports = EventPluginHub;
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3264,7 +3270,7 @@ var DOMProperty = {
 module.exports = DOMProperty;
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3435,7 +3441,7 @@ var ReactReconciler = {
 module.exports = ReactReconciler;
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3499,7 +3505,7 @@ SyntheticEvent.augmentClass(SyntheticUIEvent, UIEventInterface);
 module.exports = SyntheticUIEvent;
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3622,7 +3628,7 @@ DOMLazyTree.queueText = queueText;
 module.exports = DOMLazyTree;
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3759,13 +3765,13 @@ if (process.env.NODE_ENV !== 'production') {
 module.exports = React;
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports) {
 
 module.exports = require("koa-router");
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3777,12 +3783,6 @@ exports.default = (status, msg, result = {}) => {
     };
 };
 
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports) {
-
-module.exports = require("immutable");
 
 /***/ }),
 /* 25 */
@@ -4034,7 +4034,7 @@ module.exports = TransactionImpl;
 
 
 
-var SyntheticUIEvent = __webpack_require__(19);
+var SyntheticUIEvent = __webpack_require__(20);
 var ViewportMetrics = __webpack_require__(68);
 
 var getEventModifierState = __webpack_require__(38);
@@ -5201,7 +5201,7 @@ module.exports = getEventModifierState;
 
 
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var Danger = __webpack_require__(150);
 var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInstrumentation = __webpack_require__(7);
@@ -5931,7 +5931,7 @@ var _prodInvariant = __webpack_require__(2);
 var ReactPropTypesSecret = __webpack_require__(73);
 var propTypesFactory = __webpack_require__(74);
 
-var React = __webpack_require__(21);
+var React = __webpack_require__(22);
 var PropTypes = propTypesFactory(React.isValidElement);
 
 var invariant = __webpack_require__(0);
@@ -7005,7 +7005,7 @@ exports.default = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const immutable_1 = __webpack_require__(24);
+const immutable_1 = __webpack_require__(15);
 // interface IModel{
 //     workList: List<any>,
 //     articleLists:Map<string, {}>,
@@ -7017,13 +7017,8 @@ const data = {
     writer: immutable_1.Map({
         workList: null,
         articleLists: null,
-        articleInfo: null,
         currentArticleID: 0,
         currentWorkID: 0,
-        //显示编辑模块
-        contentVisible: false,
-        //编辑的内容
-        content: ''
     })
 };
 exports.default = data;
@@ -7798,7 +7793,7 @@ module.exports = CSSProperty;
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInstrumentation = __webpack_require__(7);
 
@@ -10553,9 +10548,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(22);
+const Router = __webpack_require__(23);
 const server_1 = __webpack_require__(32);
-const return_1 = __webpack_require__(23);
+const return_1 = __webpack_require__(24);
 const router = Router();
 router.prefix('/base');
 router.get('/queryArticlesByworkId', function (ctx, next) {
@@ -10643,7 +10638,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // var router = require('koa-router')();
-const Router = __webpack_require__(22);
+const Router = __webpack_require__(23);
 const router = Router();
 router.get('/', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -10673,9 +10668,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(22);
+const Router = __webpack_require__(23);
 const login_1 = __webpack_require__(124);
-const return_1 = __webpack_require__(23);
+const return_1 = __webpack_require__(24);
 const router = Router();
 router.prefix('/login');
 router.get('/', function (ctx, next) {
@@ -10784,7 +10779,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const connection_1 = __webpack_require__(57);
 const base_1 = __webpack_require__(58);
 const bcrypt = __webpack_require__(125);
-const return_1 = __webpack_require__(23);
+const return_1 = __webpack_require__(24);
 class LoginServer extends base_1.default {
     constructor(Connection) {
         super(Connection);
@@ -10901,8 +10896,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(22);
-const return_1 = __webpack_require__(23);
+const Router = __webpack_require__(23);
+const return_1 = __webpack_require__(24);
 const server_1 = __webpack_require__(32);
 const router = Router();
 ////支持jsx语法
@@ -11033,17 +11028,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = __webpack_require__(32);
 const data_1 = __webpack_require__(59);
+const immutable_1 = __webpack_require__(15);
 /**
  * 传入userID
  */
 function default_1(userID) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
-            let initData = data_1.default;
             try {
                 //查询出文集列表
                 let workList = yield server_1.default.queryWorks(userID);
-                workList = data_1.default.writer.setIn(['workList'], workList);
+                //转换为immutable的格式
+                let list = [];
+                workList.forEach((item) => list.push(immutable_1.Map(item)));
+                workList = data_1.default.writer.setIn(['workList'], immutable_1.List.of(workList));
                 resolve({ writer: workList });
             }
             catch (e) {
@@ -11306,7 +11304,7 @@ module.exports = ARIADOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(15);
+var EventPropagators = __webpack_require__(16);
 var ExecutionEnvironment = __webpack_require__(5);
 var FallbackCompositionState = __webpack_require__(134);
 var SyntheticCompositionEvent = __webpack_require__(135);
@@ -11878,8 +11876,8 @@ module.exports = SyntheticInputEvent;
 
 
 
-var EventPluginHub = __webpack_require__(16);
-var EventPropagators = __webpack_require__(15);
+var EventPluginHub = __webpack_require__(17);
+var EventPropagators = __webpack_require__(16);
 var ExecutionEnvironment = __webpack_require__(5);
 var ReactDOMComponentTree = __webpack_require__(4);
 var ReactUpdates = __webpack_require__(10);
@@ -12959,7 +12957,7 @@ module.exports = DefaultEventPluginOrder;
 
 
 
-var EventPropagators = __webpack_require__(15);
+var EventPropagators = __webpack_require__(16);
 var ReactDOMComponentTree = __webpack_require__(4);
 var SyntheticMouseEvent = __webpack_require__(26);
 
@@ -13062,7 +13060,7 @@ module.exports = EnterLeaveEventPlugin;
 
 
 
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 
 var MUST_USE_PROPERTY = DOMProperty.injection.MUST_USE_PROPERTY;
 var HAS_BOOLEAN_VALUE = DOMProperty.injection.HAS_BOOLEAN_VALUE;
@@ -13338,7 +13336,7 @@ module.exports = ReactComponentBrowserEnvironment;
 
 var _prodInvariant = __webpack_require__(2);
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ExecutionEnvironment = __webpack_require__(5);
 
 var createNodesFromMarkup = __webpack_require__(151);
@@ -13753,11 +13751,11 @@ var _prodInvariant = __webpack_require__(2),
 
 var AutoFocusUtils = __webpack_require__(156);
 var CSSPropertyOperations = __webpack_require__(157);
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var DOMNamespaces = __webpack_require__(40);
-var DOMProperty = __webpack_require__(17);
+var DOMProperty = __webpack_require__(18);
 var DOMPropertyOperations = __webpack_require__(72);
-var EventPluginHub = __webpack_require__(16);
+var EventPluginHub = __webpack_require__(17);
 var EventPluginRegistry = __webpack_require__(33);
 var ReactBrowserEventEmitter = __webpack_require__(43);
 var ReactDOMComponentFlags = __webpack_require__(64);
@@ -15324,7 +15322,7 @@ module.exports = quoteAttributeValueForBrowser;
 
 
 
-var EventPluginHub = __webpack_require__(16);
+var EventPluginHub = __webpack_require__(17);
 
 function runEventQueueInBatch(events) {
   EventPluginHub.enqueueEvents(events);
@@ -18217,7 +18215,7 @@ module.exports = onlyChild;
 
 var _assign = __webpack_require__(3);
 
-var React = __webpack_require__(21);
+var React = __webpack_require__(22);
 var ReactDOMComponentTree = __webpack_require__(4);
 var ReactDOMSelect = __webpack_require__(81);
 
@@ -18514,7 +18512,7 @@ var ReactInstanceMap = __webpack_require__(47);
 var ReactInstrumentation = __webpack_require__(7);
 
 var ReactCurrentOwner = __webpack_require__(11);
-var ReactReconciler = __webpack_require__(18);
+var ReactReconciler = __webpack_require__(19);
 var ReactChildReconciler = __webpack_require__(186);
 
 var emptyFunction = __webpack_require__(6);
@@ -18958,7 +18956,7 @@ module.exports = ReactMultiChild;
 
 
 
-var ReactReconciler = __webpack_require__(18);
+var ReactReconciler = __webpack_require__(19);
 
 var instantiateReactComponent = __webpack_require__(82);
 var KeyEscapeUtils = __webpack_require__(49);
@@ -19119,14 +19117,14 @@ module.exports = ReactChildReconciler;
 var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(3);
 
-var React = __webpack_require__(21);
+var React = __webpack_require__(22);
 var ReactComponentEnvironment = __webpack_require__(46);
 var ReactCurrentOwner = __webpack_require__(11);
 var ReactErrorUtils = __webpack_require__(35);
 var ReactInstanceMap = __webpack_require__(47);
 var ReactInstrumentation = __webpack_require__(7);
 var ReactNodeTypes = __webpack_require__(188);
-var ReactReconciler = __webpack_require__(18);
+var ReactReconciler = __webpack_require__(19);
 
 if (process.env.NODE_ENV !== 'production') {
   var checkReactTypeSpec = __webpack_require__(189);
@@ -20024,7 +20022,7 @@ module.exports = ReactCompositeComponent;
 
 var _prodInvariant = __webpack_require__(2);
 
-var React = __webpack_require__(21);
+var React = __webpack_require__(22);
 
 var invariant = __webpack_require__(0);
 
@@ -20512,7 +20510,7 @@ module.exports = ReactServerUpdateQueue;
 
 var _assign = __webpack_require__(3);
 
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(4);
 
 var ReactDOMEmptyComponent = function (instantiate) {
@@ -20720,7 +20718,7 @@ var _prodInvariant = __webpack_require__(2),
     _assign = __webpack_require__(3);
 
 var DOMChildrenOperations = __webpack_require__(39);
-var DOMLazyTree = __webpack_require__(20);
+var DOMLazyTree = __webpack_require__(21);
 var ReactDOMComponentTree = __webpack_require__(4);
 
 var escapeTextContentForBrowser = __webpack_require__(27);
@@ -21087,8 +21085,8 @@ module.exports = getUnboundedScrollPosition;
 
 
 
-var DOMProperty = __webpack_require__(17);
-var EventPluginHub = __webpack_require__(16);
+var DOMProperty = __webpack_require__(18);
+var EventPluginHub = __webpack_require__(17);
 var EventPluginUtils = __webpack_require__(34);
 var ReactComponentEnvironment = __webpack_require__(46);
 var ReactEmptyComponent = __webpack_require__(84);
@@ -22017,7 +22015,7 @@ module.exports = SVGDOMPropertyConfig;
 
 
 
-var EventPropagators = __webpack_require__(15);
+var EventPropagators = __webpack_require__(16);
 var ExecutionEnvironment = __webpack_require__(5);
 var ReactDOMComponentTree = __webpack_require__(4);
 var ReactInputSelection = __webpack_require__(91);
@@ -22214,7 +22212,7 @@ module.exports = SelectEventPlugin;
 var _prodInvariant = __webpack_require__(2);
 
 var EventListener = __webpack_require__(90);
-var EventPropagators = __webpack_require__(15);
+var EventPropagators = __webpack_require__(16);
 var ReactDOMComponentTree = __webpack_require__(4);
 var SyntheticAnimationEvent = __webpack_require__(211);
 var SyntheticClipboardEvent = __webpack_require__(212);
@@ -22225,7 +22223,7 @@ var SyntheticMouseEvent = __webpack_require__(26);
 var SyntheticDragEvent = __webpack_require__(216);
 var SyntheticTouchEvent = __webpack_require__(217);
 var SyntheticTransitionEvent = __webpack_require__(218);
-var SyntheticUIEvent = __webpack_require__(19);
+var SyntheticUIEvent = __webpack_require__(20);
 var SyntheticWheelEvent = __webpack_require__(219);
 
 var emptyFunction = __webpack_require__(6);
@@ -22528,7 +22526,7 @@ module.exports = SyntheticClipboardEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(19);
+var SyntheticUIEvent = __webpack_require__(20);
 
 /**
  * @interface FocusEvent
@@ -22569,7 +22567,7 @@ module.exports = SyntheticFocusEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(19);
+var SyntheticUIEvent = __webpack_require__(20);
 
 var getEventCharCode = __webpack_require__(51);
 var getEventKey = __webpack_require__(215);
@@ -22816,7 +22814,7 @@ module.exports = SyntheticDragEvent;
 
 
 
-var SyntheticUIEvent = __webpack_require__(19);
+var SyntheticUIEvent = __webpack_require__(20);
 
 var getEventModifierState = __webpack_require__(38);
 
@@ -22967,12 +22965,12 @@ module.exports = SyntheticWheelEvent;
 
 var _prodInvariant = __webpack_require__(2);
 
-var React = __webpack_require__(21);
+var React = __webpack_require__(22);
 var ReactDOMContainerInfo = __webpack_require__(221);
 var ReactDefaultBatchingStrategy = __webpack_require__(89);
 var ReactInstrumentation = __webpack_require__(7);
 var ReactMarkupChecksum = __webpack_require__(222);
-var ReactReconciler = __webpack_require__(18);
+var ReactReconciler = __webpack_require__(19);
 var ReactServerBatchingStrategy = __webpack_require__(224);
 var ReactServerRenderingTransaction = __webpack_require__(87);
 var ReactUpdates = __webpack_require__(10);
@@ -23252,19 +23250,15 @@ const mapStateToProps = ({ writer }) => {
     };
 };
 class Home extends React.Component {
-    constructor() {
-        super(...arguments);
-        this.workItem = (item) => {
-            return (React.createElement("li", { key: item.id, className: "m-list-item" },
-                React.createElement("a", { className: "m-list-item-title" }, item.title)));
-        };
-    }
     render() {
         let { workList } = this.props;
         return (React.createElement("div", { className: "g-home" },
             React.createElement("div", { className: "m-header m-header-skin" },
                 React.createElement(react_router_dom_1.Link, { to: "/writer/writer" }, "\u5199\u6587\u7AE0")),
-            React.createElement("ul", { className: "m-list m-list-skin" }, workList.length && workList.map(this.workItem))));
+            React.createElement("ul", { className: "m-list m-list-skin" }, workList.size && workList.map((item) => {
+                return (React.createElement("li", { key: item.get('id'), className: "m-list-item" },
+                    React.createElement("a", { className: "m-list-item-title" }, item.get('title'))));
+            }))));
     }
 }
 exports.default = react_redux_1.connect(mapStateToProps)(Home);
@@ -23370,7 +23364,7 @@ var _index2 = _interopRequireDefault(_index);
 
 var _index3 = __webpack_require__(261);
 
-var _immutable = __webpack_require__(24);
+var _immutable = __webpack_require__(15);
 
 var immutable = _interopRequireWildcard(_immutable);
 
@@ -23401,7 +23395,7 @@ var reducer = function reducer() {
         // 创建新文集
         case _index3.ActionTypes.CREATE_NEW_WORK:
 
-            return newState.set('workList', workList.push(action.payload));
+            return newState.set('workList', workList.unshift(action.payload));
         // 改变当前文集
         case _index3.ActionTypes.CHANGE_ACTIVE_WORK:
 
@@ -23413,12 +23407,12 @@ var reducer = function reducer() {
             return newState.set('currentArticleID', action.payload.articleID);
         // 更新文章信息
         case _index3.ActionTypes.UPDATE_ARTICLE_INFO:
-
+            var res = null;
             (0, _keys2.default)(action.payload).forEach(function (key) {
-                newState = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
+                res = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
             });
 
-            return newState;
+            return res;
         // 新建文章
         case _index3.ActionTypes.CREATE_NEW_ARTICLE:
 
@@ -23838,7 +23832,7 @@ $export($export.S + $export.F * !__webpack_require__(31), 'Object', { defineProp
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-const immutable_1 = __webpack_require__(24);
+const immutable_1 = __webpack_require__(15);
 exports.setCurrentWorkInfo = function () {
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 };
@@ -23906,7 +23900,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.getter = exports.isList = exports.isMap = undefined;
 
-var _immutable = __webpack_require__(24);
+var _immutable = __webpack_require__(15);
 
 var isMap = exports.isMap = function isMap(map) {
     return map instanceof _immutable.Map;

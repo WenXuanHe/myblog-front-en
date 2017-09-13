@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StoreState } from '$redux/store/data'
+import { dataStates } from '$redux/store/data'
 import { connect, Dispatch } from 'react-redux'
 import * as cs from 'classnames'
 import {ActionTypes} from '$redux/actionType/index'
@@ -30,13 +30,13 @@ interface Props {
  * 从store中拿到的状态
  * @param param0 
  */
-const mapStateToProps = ({ writer }: StoreState) => {
-    let articleLists = writer.getIn(['articleLists']);
-    let currentWorkID = writer.getIn(['currentWorkID']);
+const mapStateToProps = (data: dataStates) => {
+    let articleLists = data.getIn(['writer', 'articleLists']);
+    let currentWorkID = data.getIn(['writer', 'currentWorkID']);
     return {
         articleInfos: articleLists ? articleLists.get(currentWorkID.toString()) : null,
         currentWorkID,
-        currentArticleID: writer.getIn(['currentArticleID'])
+        currentArticleID: data.getIn(['writer', 'currentArticleID'])
     }
 }
 
@@ -76,8 +76,8 @@ class ArticleList extends React.Component<Props, undefined> {
                 <div className='u-article-list'>
                     {
                         articleInfos && articleInfos.map((value) => {
-
                             let current = this.props.currentArticleID === value.get('id');
+                            this.styles['u-article-active'] = current;
                             return <Article styles={cs(this.styles)} onClick={this.changeActiveArticle} article={value}>
                                 {
                                     current && <ArticleDelete onClick={this.deleteArticle} id={value.get('id')} />

@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export const createNewWork =  function(title){
+export const createNewWork =  function(title:string){
     return axios.post('/writer/createNewWork', {
         title:title
     }).then(function(res){
@@ -8,7 +8,7 @@ export const createNewWork =  function(title){
     })
 }
 
-export const queryArticlesByworkId = function(workID){
+export const queryArticlesByworkId = function(workID:number|string){
 
     return axios.get('/base/queryArticlesByworkId', {
         params:{
@@ -20,7 +20,7 @@ export const queryArticlesByworkId = function(workID){
 
 }
 
-export const createNewArticle = function(workID){
+export const createNewArticle = function(workID:number|string){
 
     return axios.post('/writer/createNewArticle', {
         workID
@@ -29,7 +29,7 @@ export const createNewArticle = function(workID){
     })
 }
 
-export const deleteArticle = function(articleID){
+export const deleteArticle = function(articleID:number|string){
 
     return axios.post('/writer/deleteArticleById', {
         articleID
@@ -38,11 +38,9 @@ export const deleteArticle = function(articleID){
     })
 }
 
-export const updateArticleInfo = function({ title, articleID, content}){
+export const updateArticleInfo = function(params:{ title?:string, articleID:string|number, content?:string}){
 
-     return axios.post('/writer/updateArticleInfo', {
-        title, articleID, content
-    }).then(function(res){
+     return axios.post('/writer/updateArticleInfo', params).then(function(res){
         return res.data;
     })
 }
@@ -52,7 +50,7 @@ export const updateArticleInfo = function({ title, articleID, content}){
  * @param  {[type]} params [description]
  * @return {[type]}        promise
  */
-export const persistenceTimingInfo = function(params){
+export const persistenceTimingInfo = function(params:{connectTime:number, pageLoadTime:number, renderTime:number}){
 
      return axios.post('/base/persistenceTimingInfo', params);
 }

@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { getter } from '$utils/immutable-extend'
-import { StoreState } from '$redux/store/data'
+import { dataStates } from '$redux/store/data'
 import actions from '$actions/index'
 import {ActionTypes} from '$redux/actionType/index'
 import { connect, Dispatch } from 'react-redux'
@@ -11,7 +11,8 @@ import FileUpload from '../../upload/FileUpload'
 
 interface Props {
     title: string,
-    content:string
+    content:string,
+    currentArticleID:number|string,
     updateArticleInfo: (data:any) => void,
     updateTitle: (title:string) => void
 }
@@ -20,14 +21,15 @@ interface Props {
  * 从store中拿到的状态
  * @param param0 
  */
-const mapStateToProps = ({ writer }: StoreState) => {
-    let currentWorkID = writer.getIn(['currentWorkID']).toString();
-    let currentArticleID = writer.getIn(['currentArticleID']).toString();
-    let title = writer.getIn(['articleLists', currentWorkID, currentArticleID, 'title']);
-    let content =  writer.getIn(['articleLists', currentWorkID, currentArticleID, 'content'])
+const mapStateToProps = (data: dataStates) => {
+    let currentWorkID = data.getIn(['writer', 'currentWorkID']).toString();
+    let currentArticleID = data.getIn(['writer', 'currentArticleID']).toString();
+    let title = data.getIn(['writer', 'articleLists', currentWorkID, currentArticleID, 'title']);
+    let content =  data.getIn(['writer', 'articleLists', currentWorkID, currentArticleID, 'content'])
     return {
-        title: title,
-        content: content
+        title,
+        content,
+        currentArticleID
     }
 }
 
@@ -57,20 +59,23 @@ class Content extends React.Component<Props> {
     /**
      * 调用action更新数据
      */
-    update = (params) => {
-        this.props.updateArticleInfo({...params});
+    update = (params:{content?:string}={}) => {
+        this.props.updateArticleInfo({
+            ...params, 
+            articleID: this.props.currentArticleID,
+            title: this.props.title
+        });
     }
 
     //失去焦点更新数据到数据库
     updateOnBlur = () => {
-        this.update({ title: this.props.title });
+        this.update();
     }
 
     //点击提交存库
     submit = () => {
         this.update({
-            content: this.content,
-            title: this.props.title
+            content: this.content
         });
     }
 

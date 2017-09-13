@@ -4,7 +4,7 @@ import { ActionTypes } from '$redux/actionType/index'
 /**
  * 去数据库新建文集
  */
-export const fetchCreateNewWork = (title) => async (dispatch) => {
+export const fetchCreateNewWork = (title:string) => async (dispatch) => {
     
     try{
         let result = await apis.createNewWork(title);
@@ -23,7 +23,7 @@ export const fetchCreateNewWork = (title) => async (dispatch) => {
  * 改变文件，拉取当前文集下的所有文章
  * @param {*} workID 
  */
-export const fetchChangeActiveWork = (workID) => async (dispatch) => {
+export const fetchChangeActiveWork = (workID:string|number) => async (dispatch) => {
     try{
         let result = await apis.queryArticlesByworkId(workID);
         
@@ -41,7 +41,7 @@ export const fetchChangeActiveWork = (workID) => async (dispatch) => {
     }
 }
 
-export const fetchCreateNewArticle = (workID) => async (dispatch) => {
+export const fetchCreateNewArticle = (workID:string|number) => async (dispatch) => {
     try{
         let result = await apis.createNewArticle(workID);
         
@@ -56,7 +56,7 @@ export const fetchCreateNewArticle = (workID) => async (dispatch) => {
     }
 }
 
-export const deleteArticleById = (articleID) => async (dispatch) => {
+export const deleteArticleById = (articleID:string|number) => async (dispatch) => {
 
     try{
         let result = await apis.deleteArticle(articleID);
@@ -72,7 +72,7 @@ export const deleteArticleById = (articleID) => async (dispatch) => {
     }
 }
 
-export const updateArticleInfo = (params) => async (dispatch) => {
+export const updateArticleInfo = (params:{ title?:string, articleID:string|number, content?:string}) => async (dispatch) => {
 
     try{
         let result = await apis.updateArticleInfo(params);

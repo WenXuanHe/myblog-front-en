@@ -22,7 +22,7 @@ let reducer = (state = data.writer, action) => {
         // 创建新文集
         case ActionTypes.CREATE_NEW_WORK:
 
-            return newState.set('workList', workList.push(action.payload));
+            return newState.set('workList', workList.unshift(action.payload));
         // 改变当前文集
         case ActionTypes.CHANGE_ACTIVE_WORK:
 

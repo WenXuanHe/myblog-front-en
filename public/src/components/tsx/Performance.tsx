@@ -2,7 +2,6 @@ import * as React from 'react';
 import { Highchart } from './Highchart';
 import { getPersistenceTimingInfo } from '../../apis/index';
 
-export interface Props {};
 export interface States {
     connectTimes: number[],
     pageLoadTimes: number[],
@@ -10,7 +9,7 @@ export interface States {
     times: string[]
 };
 
-export class Performance extends React.Component<Props, States>{
+export class Performance extends React.Component<undefined, States>{
 
     componentDidMount(){
         var self = this;

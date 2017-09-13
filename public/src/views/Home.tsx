@@ -4,29 +4,21 @@
 // let mapStateToProps = require ('../redux/connect/mapStateToProps');
 
 import *  as React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import { StoreState } from '$redux/store/data'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { dataStates } from '$redux/store/data'
 
-interface Props{
-    workList:any
+interface Props {
+    workList: any
 }
 
-const mapStateToProps = ({ writer }:StoreState) => {
+const mapStateToProps = (data: dataStates) => {
     return {
-        workList: writer.getIn(['workList'])
+        workList: data.getIn(['writer','workList'])
     }
 }
 
 class Home extends React.Component<Props> {
-
-    workItem = (item) => {
-        return (
-            <li key={item.id} className="m-list-item">
-                <a className="m-list-item-title">{item.title}</a>
-            </li>
-        )
-    }
 
     render() {
         let { workList } = this.props
@@ -37,7 +29,13 @@ class Home extends React.Component<Props> {
                 </div>
                 <ul className="m-list m-list-skin">
                     {
-                        workList.length && workList.map(this.workItem)
+                        workList.size && workList.map((item) => {
+                            return (
+                                <li key={item.get('id')} className="m-list-item">
+                                    <a className="m-list-item-title">{item.get('title')}</a>
+                                </li>
+                            )
+                        })
                     }
                 </ul>
             </div>
