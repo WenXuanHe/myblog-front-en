@@ -1,4 +1,4 @@
-import actions from '$actions'
+import actions from '$actions/index'
 import actionType from '$redux/actionType'
 
 export  const writer = (dispatch, ownProps) => {

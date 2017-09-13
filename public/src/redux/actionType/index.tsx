@@ -1,6 +1,6 @@
-import KeyMirror from 'keymirror'
+import * as KeyMirror from 'keymirror'
 
-let  ActionTypes = KeyMirror({
+export let  ActionTypes = KeyMirror({
     CREATE_NEW_WORK: null,
     CHANGE_ACTIVE_WORK: null,
     CREATE_NEW_ARTICLE: null,
@@ -8,6 +8,4 @@ let  ActionTypes = KeyMirror({
     UPDATE_ARTICLE_INFO: null,
     UPDATE_TITLE:null,
     DELETE_ARTICLE: null
-}); 
-
-export default ActionTypes;
+});

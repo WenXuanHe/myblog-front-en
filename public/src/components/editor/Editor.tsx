@@ -1,18 +1,14 @@
 import * as React from "react"
-import wangEditor from 'wangeditor'
+import * as  wangEditor from 'wangeditor'
 import {simpleMenus, menus} from '../../config/editor'
 import { StoreState } from '$redux/store/data'
 import {connect} from 'react-redux'
-import _ from 'lodash'
 
 interface Props{
-    content: any
+    content: string,
+    config?:any,
+    simple?:boolean
 }
-
-interface States{
-    editor:any
-}
-
 
 const mapStateToProps = ({ writer }:StoreState) => {
     return {
@@ -21,13 +17,13 @@ const mapStateToProps = ({ writer }:StoreState) => {
 }
 
 
-class Editor extends React.Component<Props, States> {
+class Editor extends React.PureComponent<Props> {
+
+    editor:any;
 
     constructor(){
         super();
-        this.state = {
-            editor: null
-        }
+        this.editor = null;
     }
     styles = () => {
         return {
@@ -43,13 +39,11 @@ class Editor extends React.Component<Props, States> {
         )
     }
     componentDidMount () {
-        const props = this.props;
-        const elem = this.refs.editorElem;
-        let editor = new wangEditor(elem);
-        editor.$txt.html(props.content || '<p><br/></p>');
+        let editor = new wangEditor(this.refs.editorElem);
+        editor.txt.$txt.html(this.props.content || '<p><br/></p>');
         //配置编辑器
-        this.editorConfig(this.state.editor, props).create();
-        this.setState({editor});
+        this.editor = this.editorConfig(editor);
+        this.editor.create();
     }
 
     componentWillUnmount () {
@@ -60,15 +54,15 @@ class Editor extends React.Component<Props, States> {
     }
 
     //处理一些配置
-    editorConfig = (editor, props) =>{
-        let config = props.config || {};
-        config.menu = props.simple ? simpleMenus : menus;
-        _.assign(editor.config, config);
+    editorConfig = (editor) =>{
+        let config:{menu?:any} = {};
+        config.menu = this.props.simple ? simpleMenus : menus;
+        Object.assign(editor.config, config);
         return editor;
     }
 
     getEditContent = () =>{
-        return this.state.editor.$txt.html();
+        return this.editor.txt.$txt.html();
     }
 }
 

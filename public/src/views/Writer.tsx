@@ -34,9 +34,7 @@ class Writer extends React.Component<Props> {
                 <div className='col-4 m-article'>
                     <ArticleList/>
                 </div>
-                {
-                    this.props.contentVisible && <Content/>
-                }
+                <Content/>
             </div>
         )
     }

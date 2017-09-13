@@ -1,4 +1,4 @@
-import {persistenceTimingInfo} from '$apis'
+import {persistenceTimingInfo} from '$apis/index'
 import timing from '$utils/timing'
 
 export default () => {

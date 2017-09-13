@@ -2,15 +2,13 @@ import * as React from 'react'
 import { getter } from '$utils/immutable-extend'
 import { StoreState } from '$redux/store/data'
 import actions from '$actions/index'
-import actionType from '$redux/actionType'
+import {ActionTypes} from '$redux/actionType/index'
 import { connect, Dispatch } from 'react-redux'
 import FileEditor from '../../editor/FileEditor'
 import { Link } from 'react-router-dom'
 
 interface Props {
     title: string,
-    content: string,
-    currentArticleID: number,
     updateArticleInfo: (data:any) => void,
     UpdateTitle: (title:string) => void
 }
@@ -20,10 +18,11 @@ interface Props {
  * @param param0 
  */
 const mapStateToProps = ({ writer }: StoreState) => {
+    let currentWorkID = writer.getIn(['currentWorkID']).toString();
+    let currentArticleID = writer.getIn(['currentArticleID']).toString();
+    let title = writer.getIn(['articleLists', currentWorkID, currentArticleID, 'title']);
     return {
-        title: writer.getIn(['articleInfo', 'title']),
-        content: writer.getIn(['articleInfo', 'content']),
-        currentArticleID: writer.getIn(['currentArticleID']),
+        title
     }
 }
 
@@ -37,7 +36,7 @@ const mapDispatchToProps = (dispatch:Dispatch<any>) => {
         //同步更新题目
         UpdateTitle: (title:string) => {
             dispatch({
-                type: actionType.UPDATE_ARTICLE_INFO,
+                type: ActionTypes.UPDATE_ARTICLE_INFO,
                 payload: {title}
             })
         }
@@ -61,10 +60,9 @@ class Content extends React.Component<Props> {
      * content{* string}
      */
     fetchArticle = (params) => {
-        let { updateArticleInfo, currentArticleID } = this.props;
+        let { updateArticleInfo} = this.props;
         updateArticleInfo({
-            ...params,
-            articleID: currentArticleID
+            ...params
         });
     }
 
@@ -77,7 +75,6 @@ class Content extends React.Component<Props> {
 
     // todo，由Editor自己处理
     submitArticle = () => {
-
         this.fetchArticle({
             content: this.props.content,
             title: this.props.title

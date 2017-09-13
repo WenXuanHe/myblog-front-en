@@ -5,11 +5,12 @@
 // let { isMap, isList } = require('../../utils/immutable-extend');
 
 import data from '../store/data'
-import utils from '../../utils/index'
-import ActionTypes from '../actionType/index'
-import { Map, List} from 'immutable'
-import { isMap, isList } from '../../utils/immutable-extend'
+import utils from '$utils/index'
+import {ActionTypes} from '$redux/actionType/index'
+import * as immutable from 'immutable'
+import { isMap, isList } from '$utils/immutable-extend'
 
+let { Map, List} = immutable;
 let reducer = (state = data.writer, action) => {
 
     let newState = isMap(state) ? state: Map(state),

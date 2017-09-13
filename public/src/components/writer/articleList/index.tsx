@@ -1,8 +1,8 @@
 import * as React from 'react'
 import { StoreState } from '$redux/store/data'
 import { connect, Dispatch } from 'react-redux'
-import cs from 'classnames'
-import actionType from '$redux/actionType'
+import * as cs from 'classnames'
+import {ActionTypes} from '$redux/actionType/index'
 import Article from './Article'
 import ArticleDelete from './ArticleDelete'
 import actions from '$actions/index'
@@ -47,7 +47,7 @@ const articleMap = (dispatch: Dispatch<any>, ownProps) => {
 
         changeActiveArticle: (data) => {
             dispatch({
-                type: actionType.CHANGE_ACTIVE_ARTICLE,
+                type: ActionTypes.CHANGE_ACTIVE_ARTICLE,
                 payload: data
             })
         },
@@ -75,14 +75,12 @@ class ArticleList extends React.Component<Props, undefined> {
                 </div>
                 <div className='u-article-list'>
                     {
-                        articleInfos && Object.keys(articleInfos).map((key: string) => {
-                            let article = this.props.articleInfos.get(key);
-                            let current = this.props.currentArticleID === article.id;
-                            this.styles['u-article-active'] = current;
+                        articleInfos && articleInfos.map((value) => {
 
-                            return <Article styles={cs(this.styles)} onClick={this.changeActiveArticle} article={article}>
+                            let current = this.props.currentArticleID === value.get('id');
+                            return <Article styles={cs(this.styles)} onClick={this.changeActiveArticle} article={value}>
                                 {
-                                    current && <ArticleDelete onClick={this.deleteArticle} id={article.id} />
+                                    current && <ArticleDelete onClick={this.deleteArticle} id={value.get('id')} />
                                 }
                             </Article>
                         })

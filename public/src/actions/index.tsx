@@ -1,5 +1,6 @@
 import apis from  '../apis';
-let ActionTypes = require('../redux/actionType');
+import { ActionTypes } from '$redux/actionType/index'
+
 /**
  * 去数据库新建文集
  */

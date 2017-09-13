@@ -7,6 +7,7 @@ import Increace from './Increace'
 import Work from './Work'
 import actions from '$actions/index'
 
+
 interface Props {
     workList: Array<any>,
     currentWorkID: number,
