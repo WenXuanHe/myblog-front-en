@@ -20,7 +20,7 @@ module.exports =
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "10138b2583b310472192"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "915538642e390d972445"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -23370,40 +23370,49 @@ var _index2 = _interopRequireDefault(_index);
 
 var _index3 = __webpack_require__(261);
 
-var _index4 = _interopRequireDefault(_index3);
-
 var _immutable = __webpack_require__(24);
+
+var immutable = _interopRequireWildcard(_immutable);
 
 var _immutableExtend = __webpack_require__(263);
 
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var Map = immutable.Map,
+    List = immutable.List; // let data = require('../store/data');
+// let utils = require('../../utils/index');
+// let ActionTypes = require('../actionType/index');
+// let { Map, List} = require('immutable');
+// let { isMap, isList } = require('../../utils/immutable-extend');
 
 var reducer = function reducer() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : _data2.default.writer;
     var action = arguments[1];
 
 
-    var newState = (0, _immutableExtend.isMap)(state) ? state : (0, _immutable.Map)(state),
-        workList = (0, _immutable.List)(newState.get('workList')),
+    var newState = (0, _immutableExtend.isMap)(state) ? state : Map(state),
+        workList = List(newState.get('workList')),
         currentWorkID = newState.get('currentWorkID'),
         currentArticleID = newState.get('currentArticleID');
 
     switch (action.type) {
         // 创建新文集
-        case _index4.default.CREATE_NEW_WORK:
+        case _index3.ActionTypes.CREATE_NEW_WORK:
 
             return newState.set('workList', workList.push(action.payload));
         // 改变当前文集
-        case _index4.default.CHANGE_ACTIVE_WORK:
+        case _index3.ActionTypes.CHANGE_ACTIVE_WORK:
 
             var articleID = action.payload.articleList.length ? action.payload.articleList[0].id : 0;
 
-            return newState.set('articleLists', (0, _immutable.Map)((0, _defineProperty3.default)({}, action.payload.workID, (0, _immutable.Map)(_index2.default.arrayToHashByID(action.payload.articleList, 'id'))))).set('currentWorkID', +action.payload.workID).set('currentArticleID', articleID);
+            return newState.set('articleLists', Map((0, _defineProperty3.default)({}, action.payload.workID, Map(_index2.default.arrayToHashByID(action.payload.articleList, 'id'))))).set('currentWorkID', +action.payload.workID).set('currentArticleID', articleID);
         // 改变当前文章
-        case _index4.default.CHANGE_ACTIVE_ARTICLE:
+        case _index3.ActionTypes.CHANGE_ACTIVE_ARTICLE:
             return newState.set('currentArticleID', action.payload.articleID);
         // 更新文章信息
-        case _index4.default.UPDATE_ARTICLE_INFO:
+        case _index3.ActionTypes.UPDATE_ARTICLE_INFO:
 
             (0, _keys2.default)(action.payload).forEach(function (key) {
                 newState = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
@@ -23411,11 +23420,11 @@ var reducer = function reducer() {
 
             return newState;
         // 新建文章
-        case _index4.default.CREATE_NEW_ARTICLE:
+        case _index3.ActionTypes.CREATE_NEW_ARTICLE:
 
-            return newState.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], (0, _immutable.Map)(action.payload));
+            return newState.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], Map(action.payload));
 
-        case _index4.default.DELETE_ARTICLE:
+        case _index3.ActionTypes.DELETE_ARTICLE:
 
             var articleLists = newState.getIn(['articleLists', currentWorkID.toString()]).delete(action.payload.articleID.toString());
 
@@ -23424,11 +23433,7 @@ var reducer = function reducer() {
         default:
             return newState;
     }
-}; // let data = require('../store/data');
-// let utils = require('../../utils/index');
-// let ActionTypes = require('../actionType/index');
-// let { Map, List} = require('immutable');
-// let { isMap, isList } = require('../../utils/immutable-extend');
+};
 
 exports.default = reducer;
 
@@ -23832,56 +23837,37 @@ $export($export.S + $export.F * !__webpack_require__(31), 'Object', { defineProp
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _immutable = __webpack_require__(24);
-
-var setCurrentWorkInfo = function setCurrentWorkInfo() {
+Object.defineProperty(exports, "__esModule", { value: true });
+const immutable_1 = __webpack_require__(24);
+exports.setCurrentWorkInfo = function () {
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 };
-
-var setCurrentArticleInfo = function setCurrentArticleInfo() {
+exports.setCurrentArticleInfo = function () {
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 };
-
-var getCurrentWorkInfo = function getCurrentWorkInfo(workList) {
-    var workID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
+exports.getCurrentWorkInfo = function (workList, workID = 0) {
     workID = +workID;
-    return workList.find(function (item) {
-        return item.id === workID;
-    });
+    return workList.find((item) => item.id === workID);
 };
-
-var getCurrentArticleInfo = function getCurrentArticleInfo(articleList) {
-    var articleID = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 0;
-
+exports.getCurrentArticleInfo = function (articleList, articleID = 0) {
     articleID = +articleID;
-    return articleList.find(function (item) {
-        return item.id === articleID;
-    });
+    return articleList.find((item) => item.id === articleID);
 };
-
-var arrayToHashByID = function arrayToHashByID(arr) {
-    var id = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 'id';
-
+exports.arrayToHashByID = function (arr, id = 'id') {
     var info = {};
-    arr.forEach(function (item) {
-        info[item[id]] = (0, _immutable.Map)(item);
+    arr.forEach((item) => {
+        info[item[id]] = immutable_1.Map(item);
     });
     return info;
 };
-
 exports.default = {
-    setCurrentWorkInfo: setCurrentWorkInfo,
-    setCurrentArticleInfo: setCurrentArticleInfo,
-    getCurrentWorkInfo: getCurrentWorkInfo,
-    getCurrentArticleInfo: getCurrentArticleInfo,
-    arrayToHashByID: arrayToHashByID
+    setCurrentWorkInfo: exports.setCurrentWorkInfo,
+    setCurrentArticleInfo: exports.setCurrentArticleInfo,
+    getCurrentWorkInfo: exports.getCurrentWorkInfo,
+    getCurrentArticleInfo: exports.getCurrentArticleInfo,
+    arrayToHashByID: exports.arrayToHashByID
 };
+
 
 /***/ }),
 /* 261 */
@@ -23889,18 +23875,9 @@ exports.default = {
 
 "use strict";
 
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _keymirror = __webpack_require__(262);
-
-var _keymirror2 = _interopRequireDefault(_keymirror);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ActionTypes = (0, _keymirror2.default)({
+Object.defineProperty(exports, "__esModule", { value: true });
+const KeyMirror = __webpack_require__(262);
+exports.ActionTypes = KeyMirror({
     CREATE_NEW_WORK: null,
     CHANGE_ACTIVE_WORK: null,
     CREATE_NEW_ARTICLE: null,
@@ -23910,7 +23887,6 @@ var ActionTypes = (0, _keymirror2.default)({
     DELETE_ARTICLE: null
 });
 
-exports.default = ActionTypes;
 
 /***/ }),
 /* 262 */

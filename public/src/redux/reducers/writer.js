@@ -38,12 +38,12 @@ let reducer = (state = data.writer, action) => {
             return newState.set('currentArticleID', action.payload.articleID);
         // 更新文章信息
         case ActionTypes.UPDATE_ARTICLE_INFO:
-
+            let res = null;
             Object.keys(action.payload).forEach(function(key){
-                newState = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
+                res = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
             });
 
-            return newState;
+            return res;
         // 新建文章
         case ActionTypes.CREATE_NEW_ARTICLE:
 

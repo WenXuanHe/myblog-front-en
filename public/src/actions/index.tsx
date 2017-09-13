@@ -82,7 +82,7 @@ export const updateArticleInfo = (params) => async (dispatch) => {
                 payload:params
             });
         }else{
-            alert(result.msg);
+            // alert(result.msg);
         }
        
     

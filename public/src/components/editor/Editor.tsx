@@ -24,13 +24,13 @@ class Editor extends React.PureComponent<Props> {
 
     render () {
         return (
-            <div className="u-editor" ref="editorElem" contentEditable={true} onChange={this.getEditContent}>{this.props.content}</div>
+            <div className="u-editor" ref="editorElem" contentEditable={true} onKeyUp={this.getEditContent}>{this.props.content}</div>
         )
     }
 
     componentDidMount () {
         let editor = new wangEditor(this.refs.editorElem);
-        editor.txt.$txt.html(this.props.content || '<p><br/></p>');
+        editor.txt.$txt.html(this.props.content);
         //配置编辑器
         this.editor = this.editorConfig(editor);
         this.editor.create();

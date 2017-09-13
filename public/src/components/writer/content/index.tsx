@@ -75,8 +75,8 @@ class Content extends React.Component<Props> {
     }
 
     // 同步title到store
-    changeTitle = () => {
-        this.props.updateTitle(this.props.title);
+    changeTitle = (title) => {
+        this.props.updateTitle(title);
     }
 
     //从子组件中拿到内容
