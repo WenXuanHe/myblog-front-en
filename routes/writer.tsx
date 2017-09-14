@@ -106,6 +106,20 @@ router.post('/deleteArticleById', async function (ctx, next) {
   } catch (e) {
     return ctx.body = getReturnPattern(false, '删除文章失败', e);
   }
-})
+});
+
+router.post('/deleteWorkById', async function (ctx, next) {
+  
+    try {
+      let { workID } = ctx.request.body;
+      await sqlServer.deleteWorkById(workID);
+      return ctx.body = getReturnPattern(true, '删除成功', {
+        workID
+      });
+  
+    } catch (e) {
+      return ctx.body = getReturnPattern(false, '删除文集失败', e);
+    }
+  })
 
 export default router;

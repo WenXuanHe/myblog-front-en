@@ -1,9 +1,3 @@
-// let data = require('../store/data');
-// let utils = require('../../utils/index');
-// let ActionTypes = require('../actionType/index');
-// let { Map, List} = require('immutable');
-// let { isMap, isList } = require('../../utils/immutable-extend');
-
 import data from '../store/data'
 import utils from '$utils/index'
 import {ActionTypes} from '$redux/actionType/index'
@@ -11,18 +5,26 @@ import * as immutable from 'immutable'
 import { isMap, isList } from '$utils/immutable-extend'
 
 let { Map, List} = immutable;
+let findIndex = (data:immutable.List<immutable.Map<string, {}>>, id:number) => {
+    let index = -1;
+    data.forEach((item, i) => {
+        if(item.get('id') === id){
+            return index = i;
+        }
+    });
+    return index;
+}
+
 let reducer = (state = data.writer, action) => {
 
-    if(!(state instanceof Map)) state = Map(state);
-    let workList = List(state.get('workList')),
-        currentWorkID = state.get('currentWorkID'),
-        currentArticleID = state.get('currentArticleID');
+    let workList = state.get('workList'), 
+    currentWorkID = state.get('currentWorkID').toString(), 
+    currentArticleID = state.get('currentArticleID').toString();
 
     switch (action.type) {
         // 创建新文集
         case ActionTypes.CREATE_NEW_WORK:
-
-            return state.set('workList', workList.unshift(action.payload));
+            return state.set('workList', workList.unshift(Map(action.payload)));
         // 改变当前文集
         case ActionTypes.CHANGE_ACTIVE_WORK:
 
@@ -31,7 +33,7 @@ let reducer = (state = data.writer, action) => {
             return state.set('articleLists', Map({
                     [action.payload.workID]: Map(utils.arrayToHashByID(action.payload.articleList, 'id'))
                 }))
-                .set('currentWorkID', +action.payload.workID)
+                .set('currentWorkID', action.payload.workID)
                 .set('currentArticleID', articleID);
         // 改变当前文章
         case ActionTypes.CHANGE_ACTIVE_ARTICLE:
@@ -40,21 +42,21 @@ let reducer = (state = data.writer, action) => {
         case ActionTypes.UPDATE_ARTICLE_INFO:
             let res = null;
             Object.keys(action.payload).forEach(function(key){
-                res = state.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
+                res = state.setIn(['articleLists', currentWorkID, currentArticleID, key], action.payload[key]);
             });
 
             return res;
         // 新建文章
         case ActionTypes.CREATE_NEW_ARTICLE:
 
-            return state.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], Map(action.payload));
-
+            return state.setIn(['articleLists', currentWorkID, action.payload.id.toString()], Map(action.payload));
         case ActionTypes.DELETE_ARTICLE:
 
-            let articleLists = state.getIn(['articleLists', currentWorkID.toString()]).delete(action.payload.articleID.toString())
-
-            return state.setIn(['articleLists', currentWorkID.toString()], articleLists);
-
+            let articleLists = state.getIn(['articleLists', currentWorkID]).delete(action.payload.articleID.toString())
+            return state.setIn(['articleLists', currentWorkID], articleLists);
+        case ActionTypes.DELETE_WORK:
+            workList = workList.delete(findIndex(workList, action.payload.workID));
+            return state.set('workList', workList);
         default:
             return state;
     }

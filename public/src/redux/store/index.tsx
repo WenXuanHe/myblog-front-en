@@ -11,7 +11,7 @@ import thunk from 'redux-thunk'
 // let thunk = require('redux-thunk').default;
 // Reducer->传入一个state  ， 生成一个新的state
 // 调用方式  createStore(reducer);
-import reducer from '../reducers'
+import reducer from '../reducers/index'
 import  { storeType } from './data'
 // let reducer = require('../reducers');
 ////为ssr做准备

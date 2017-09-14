@@ -16,6 +16,7 @@ module.exports = {
         './bin/www'
     ],
     output: {
+        path: path.resolve(__dirname, 'bin/'),
         filename: 'server.js',
         libraryTarget: 'commonjs2'
     },

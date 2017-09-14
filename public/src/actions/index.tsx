@@ -72,6 +72,22 @@ export const deleteArticleById = (articleID:string|number) => async (dispatch) =
     }
 }
 
+export const deleteCurrentWorkById = (workID:string|number) => async (dispatch) => {
+    
+        try{
+            let result = await apis.deleteCurrentWork(workID);
+            
+            dispatch({
+                type: ActionTypes.DELETE_WORK,
+                payload:result
+            });
+        
+        }catch(e){
+    
+             throw new Error(e);
+        }
+    }
+
 export const updateArticleInfo = (params:{ title?:string, articleID:string|number, content?:string}) => async (dispatch) => {
 
     try{
@@ -98,5 +114,6 @@ export default{
     fetchChangeActiveWork,
     fetchCreateNewArticle,
     deleteArticleById,
-    updateArticleInfo
+    updateArticleInfo,
+    deleteCurrentWorkById
 }

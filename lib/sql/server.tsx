@@ -60,6 +60,22 @@ class SqlServer extends Base{
         return await this.query(decodeURIComponent(sql));
     }
 
+    async deleteWorkById(id:string|number){
+
+        let sql = this.constructCondition({
+            type:'UPDATE',
+            tblName:'works',
+            updateField:{
+                isDelete: 1,
+            },
+            condition:{
+                id
+            }
+        });
+
+        return await this.query(decodeURIComponent(sql));
+    }
+
     async deleteArticleById(id:string|number){
 
         let sql = this.constructCondition({

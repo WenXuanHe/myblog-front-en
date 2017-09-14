@@ -8,12 +8,12 @@ import * as render from 'koa-swig'
 import * as co from 'co'
 import * as path from 'path'
 import * as session from "koa-session2"
-import getExpires from "./lib/session/expires"
-import Store from "./lib/session/Store"
-import base from './routes/base'
-import index from './routes/index'
-import login from './routes/login'
-import writer from './routes/writer'
+import getExpires from "../lib/session/expires"
+import Store from "../lib/session/Store"
+import base from '../routes/base'
+import index from '../routes/index'
+import login from '../routes/login'
+import writer from '../routes/writer'
 
 const app = new Koa();
 const bodyparser = createBodyparser();
@@ -21,7 +21,7 @@ const bodyparser = createBodyparser();
 onerror(app);
 
 app.context.render = co.wrap(render({
-    root: path.join(__dirname, '/views'),
+    root: path.resolve(__dirname, '../', 'views'),
     autoescape: true,
     cache: 'memory',
     ext: 'html',
@@ -31,9 +31,9 @@ app.context.render = co.wrap(render({
 app.use(bodyparser);
 app.use(json());
 app.use(logger());
-app.use(require('koa-static')(__dirname + '/public'));
+app.use(require('koa-static')(path.resolve(__dirname, '../', 'public')));
 
-app.use(views(__dirname + '/views', {
+app.use(views(path.resolve(__dirname, '../', 'views'), {
   extension: 'html'
 }));
 

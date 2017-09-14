@@ -1,18 +1,18 @@
-import { Map, List } from 'immutable'
+import * as Immutable from 'immutable'
 
 type WriterType = Map<string, {
-    workList: null,
-    articleLists: null,
-    currentArticleID: 0,
-    currentWorkID: 0,
-}>
+    workList: any,
+    articleLists: any,
+    currentArticleID: number,
+    currentWorkID: number,
+}>;
 
 export type storeType = {
-    writer: WriterType
+    writer: any
 }
 
-const storeStates = {
-    writer: Map({
+const storeStates:storeType = {
+    writer: Immutable.fromJS({
         workList: null,
         articleLists: null,
         currentArticleID: 0,

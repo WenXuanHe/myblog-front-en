@@ -38,6 +38,15 @@ export const deleteArticle = function(articleID:number|string){
     })
 }
 
+export const deleteCurrentWork = function(workID:number|string){
+    
+    return axios.post('/writer/deleteWorkById', {
+        workID
+    }).then(function(res){
+        return res.data.result;
+    })
+}
+
 export const updateArticleInfo = function(params:{ title?:string, articleID:string|number, content?:string}){
 
      return axios.post('/writer/updateArticleInfo', params).then(function(res){
@@ -71,6 +80,7 @@ export default{
     queryArticlesByworkId,
     createNewArticle,
     deleteArticle,
+    deleteCurrentWork,
     updateArticleInfo,
     persistenceTimingInfo,
     getPersistenceTimingInfo

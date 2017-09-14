@@ -7,5 +7,6 @@ export let  ActionTypes = KeyMirror({
     CHANGE_ACTIVE_ARTICLE: null,
     UPDATE_ARTICLE_INFO: null,
     UPDATE_TITLE:null,
-    DELETE_ARTICLE: null
+    DELETE_ARTICLE: null,
+    DELETE_WORK: null
 });

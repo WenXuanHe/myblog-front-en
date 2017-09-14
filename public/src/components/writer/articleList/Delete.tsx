@@ -9,8 +9,9 @@ interface Props{
 
 class ArticleDelete extends React.PureComponent<Props> {
 
-    delete = () => {
+    delete = (e) => {
         this.props.onClick(this.props.id);
+        e.stopPropagation();
     }
 
     render() {

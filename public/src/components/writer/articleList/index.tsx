@@ -4,7 +4,7 @@ import { connect, Dispatch } from 'react-redux'
 import * as cs from 'classnames'
 import {ActionTypes} from '$redux/actionType/index'
 import Article from './Article'
-import ArticleDelete from './ArticleDelete'
+import Delete from './Delete'
 import actions from '$actions/index'
 
 type changeActiveArticleType = {
@@ -80,7 +80,7 @@ class ArticleList extends React.Component<Props, undefined> {
                             this.styles['u-article-active'] = current;
                             return <Article key={key} styles={cs(this.styles)} onClick={this.changeActiveArticle} article={value}>
                                 {
-                                    current && <ArticleDelete onClick={this.deleteArticle} id={value.get('id')} />
+                                    current && <Delete onClick={this.deleteArticle} id={value.get('id')} />
                                 }
                             </Article>
                         })

@@ -1,4 +1,4 @@
-import app from '../app'
+import app from './app'
 import * as CreateDebug from 'debug'
 import * as http from 'http'
 var debug = CreateDebug('demo:server');

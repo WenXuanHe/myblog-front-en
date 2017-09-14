@@ -6,18 +6,20 @@ import MyButton from '../../buttons'
 import Increace from './Increace'
 import Work from './Work'
 import actions from '$actions/index'
-
+import Delete from '../articleList/Delete'
 
 interface Props {
     workList: Array<any>,
     currentWorkID: number,
-    createNewWork: (title: string) => void
-    changeActiveWork: (workID: number) => void
+    createNewWork: (title: string) => void,
+    changeActiveWork: (workID: number) => void,
+    deleteCurrentWork: (workID: number) => void
 }
 
 interface States {
     increacing: boolean
 }
+
 /**
  * 从store中拿到的状态
  * @param param0 
@@ -32,7 +34,8 @@ const mapStateToProps = ({writer}: storeType) => {
 const workMap = (dispatch: Dispatch<any>, ownProps) => {
     return {
         createNewWork: (title: string) => { dispatch(actions.fetchCreateNewWork(title)) },
-        changeActiveWork: (workID: number) => { dispatch(actions.fetchChangeActiveWork(workID)) }
+        changeActiveWork: (workID: number) => { dispatch(actions.fetchChangeActiveWork(workID)) },
+        deleteCurrentWork: (workID: number) => { dispatch(actions.deleteCurrentWorkById(workID)) },
     }
 }
 
@@ -74,8 +77,12 @@ class WorkList extends React.Component<Props, States>{
                 }
                 {
                     workList && workList.map((item) => {
-                        this.styles['u-work-active'] = +this.props.currentWorkID === item.id;
-                        return <Work key={item.id} styles={cs(this.styles)} work={item} onClick={this.changeActiveWork} />
+                        this.styles['u-work-active'] = this.props.currentWorkID === item.get('id');
+                        return <Work key={item.get('id')}  id={item.get('id')} styles={cs(this.styles)} title={item.get('title')} onClick={this.changeActiveWork} >
+                            {
+                                this.styles['u-work-active'] && <Delete onClick={this.deleteCurrentWork} id={item.get('id')} />
+                            }
+                        </Work>
                     })
                 }
             </div>
@@ -84,11 +91,15 @@ class WorkList extends React.Component<Props, States>{
 
     componentDidMount() {
         // 首次渲染后就发起第一次请求
-        this.changeActiveWork(+this.props.currentWorkID);
+        this.changeActiveWork(this.props.currentWorkID);
     }
 
     setNewWorkName = (name) => {
         this.newWorkName = name;
+    }
+
+    deleteCurrentWork = () =>{
+        this.props.deleteCurrentWork(this.props.currentWorkID);
     }
 
     /**
@@ -97,7 +108,8 @@ class WorkList extends React.Component<Props, States>{
      * @return {[type]}  articles
      */
     changeActiveWork = (workID) => {
-        this.props.changeActiveWork(workID);
+        
+        (this.props.currentWorkID !== workID) && this.props.changeActiveWork(workID);
     }
 
     createWork = () => {
