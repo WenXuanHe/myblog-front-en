@@ -1,6 +1,6 @@
 
 import sqlServer from '../lib/sql/server'
-import data from '../public/src/redux/store/data'
+import States from '../public/src/redux/store/data'
 import {List, Map} from 'immutable'
 
 /**
@@ -14,8 +14,8 @@ export default function (userID:number|string) {
             //查询出文集列表
             let workList = await sqlServer.queryWorks(userID);
             //转换为immutable的格式
-            let NewData = data.setIn(['writer', 'workList'], List(workList.Map(item => Map(item))));
-            resolve(NewData);
+            let NewData = States.writer.setIn(['workList'], List(workList.map(item => Map(item))));
+            resolve({writer: NewData});
         } catch (e) {
             reject(e);
         }

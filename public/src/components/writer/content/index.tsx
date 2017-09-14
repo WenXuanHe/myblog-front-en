@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { getter } from '$utils/immutable-extend'
-import { dataStates } from '$redux/store/data'
+import { storeType } from '$redux/store/data'
 import actions from '$actions/index'
 import {ActionTypes} from '$redux/actionType/index'
 import { connect, Dispatch } from 'react-redux'
@@ -21,11 +21,11 @@ interface Props {
  * 从store中拿到的状态
  * @param param0 
  */
-const mapStateToProps = (data: dataStates) => {
-    let currentWorkID = data.getIn(['writer', 'currentWorkID']).toString();
-    let currentArticleID = data.getIn(['writer', 'currentArticleID']).toString();
-    let title = data.getIn(['writer', 'articleLists', currentWorkID, currentArticleID, 'title']);
-    let content =  data.getIn(['writer', 'articleLists', currentWorkID, currentArticleID, 'content'])
+const mapStateToProps = ({writer}: storeType) => {
+    let currentWorkID = writer.getIn(['currentWorkID']).toString();
+    let currentArticleID = writer.getIn(['currentArticleID']).toString();
+    let title = writer.getIn(['articleLists', currentWorkID, currentArticleID, 'title']);
+    let content =  writer.getIn(['articleLists', currentWorkID, currentArticleID, 'content'])
     return {
         title,
         content,

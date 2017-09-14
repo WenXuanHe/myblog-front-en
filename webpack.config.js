@@ -124,7 +124,8 @@ module.exports = {
 
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
-            $: 'jquery'
+            $: 'jquery',
+            Immutable:'immutable'
         }),
         new ExtractTextPlugin("styles/[name].css"),
 

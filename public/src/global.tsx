@@ -6,27 +6,29 @@ import './styles/index.scss'
 import {List, Map} from 'immutable'
 
 //把 _INITIAL_STATE_ 转换为immutable的形式
-function changeToImmutable(data){
+// function changeToImmutable(data){
 
-    if(Object.prototype.toString.call(data) === "[object Object]"){
-        data = Map(data);
-        data = data.map((value, key) => {
-            data.set(key, changeToImmutable(value));
-        });
+//     if(Object.prototype.toString.call(data) === "[object Object]"){
+//         data = Map(data);
+//         data = data.map((value, key) => {
+//             data.set(key, changeToImmutable(value));
+//         });
 
-        return data;
+//         return data;
           
-    }else if(Object.prototype.toString.call(data) === "[object Array]"){
+//     }else if(Object.prototype.toString.call(data) === "[object Array]"){
 
-        data = List(data).map(item => {
-            return changeToImmutable(item);
-        });
+//         data = List(data).map(item => {
+//             return changeToImmutable(item);
+//         });
 
-        return data;
-    }
+//         return data;
+//     }else{
+//         return data;
+//     }
 
     
-}
+// }
 
-window['_INITIAL_STATE_'] = changeToImmutable(changeToImmutable);
+// window['_INITIAL_STATE_'] = changeToImmutable(changeToImmutable);
 

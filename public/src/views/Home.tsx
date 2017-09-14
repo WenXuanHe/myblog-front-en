@@ -6,15 +6,15 @@
 import *  as React from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { dataStates } from '$redux/store/data'
+import { storeType } from '$redux/store/data'
 
 interface Props {
     workList: any
 }
 
-const mapStateToProps = (data: dataStates) => {
+const mapStateToProps = ({writer}: storeType) => {
     return {
-        workList: data.getIn(['writer','workList'])
+        workList: writer.getIn(['workList'])
     }
 }
 

@@ -1,27 +1,23 @@
 import { Map, List } from 'immutable'
 
-export type dataStates = Map<string, {
-    workList: any;
-    articleLists: any;
-    currentArticleID: number;
-    currentWorkID: number;
+type WriterType = Map<string, {
+    workList: null,
+    articleLists: null,
+    currentArticleID: 0,
+    currentWorkID: 0,
 }>
 
-interface StoreState{
-    data:dataStates
+export type storeType = {
+    writer: WriterType
 }
 
-const States:StoreState = {
-    data:Map({ writer: {
+const storeStates = {
+    writer: Map({
         workList: null,
-        articleLists:null,
-        currentArticleID:0,
-        currentWorkID:0,
-    }
-})
-    
+        articleLists: null,
+        currentArticleID: 0,
+        currentWorkID: 0,
+    })
 }
 
-
-
-export default States.data;
+export default storeStates;

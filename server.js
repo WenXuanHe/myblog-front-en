@@ -20,7 +20,7 @@ module.exports =
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "3b385e23e874b5c92cef"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "b8c3dae1927cfb3c37d8"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7006,14 +7006,7 @@ exports.default = Base;
 
 Object.defineProperty(exports, "__esModule", { value: true });
 const immutable_1 = __webpack_require__(15);
-// interface IModel{
-//     workList: List<any>,
-//     articleLists:Map<string, {}>,
-//     currentArticleID: number,
-//     currentWorkID: number,
-//     contentVisible: boolean
-// }
-const data = {
+const storeStates = {
     writer: immutable_1.Map({
         workList: null,
         articleLists: null,
@@ -7021,7 +7014,7 @@ const data = {
         currentWorkID: 0,
     })
 };
-exports.default = data;
+exports.default = storeStates;
 
 
 /***/ }),
@@ -11039,10 +11032,8 @@ function default_1(userID) {
                 //查询出文集列表
                 let workList = yield server_1.default.queryWorks(userID);
                 //转换为immutable的格式
-                let list = [];
-                workList.forEach((item) => list.push(immutable_1.Map(item)));
-                workList = data_1.default.writer.setIn(['workList'], immutable_1.List.of(workList));
-                resolve({ writer: workList });
+                let NewData = data_1.default.writer.setIn(['workList'], immutable_1.List(workList.map(item => immutable_1.Map(item))));
+                resolve({ writer: NewData });
             }
             catch (e) {
                 reject(e);
@@ -23386,46 +23377,46 @@ var reducer = function reducer() {
     var action = arguments[1];
 
 
-    var newState = (0, _immutableExtend.isMap)(state) ? state : Map(state),
-        workList = List(newState.get('workList')),
-        currentWorkID = newState.get('currentWorkID'),
-        currentArticleID = newState.get('currentArticleID');
+    if (!(state instanceof Map)) state = Map(state);
+    var workList = List(state.get('workList')),
+        currentWorkID = state.get('currentWorkID'),
+        currentArticleID = state.get('currentArticleID');
 
     switch (action.type) {
         // 创建新文集
         case _index3.ActionTypes.CREATE_NEW_WORK:
 
-            return newState.set('workList', workList.unshift(action.payload));
+            return state.set('workList', workList.unshift(action.payload));
         // 改变当前文集
         case _index3.ActionTypes.CHANGE_ACTIVE_WORK:
 
             var articleID = action.payload.articleList.length ? action.payload.articleList[0].id : 0;
 
-            return newState.set('articleLists', Map((0, _defineProperty3.default)({}, action.payload.workID, Map(_index2.default.arrayToHashByID(action.payload.articleList, 'id'))))).set('currentWorkID', +action.payload.workID).set('currentArticleID', articleID);
+            return state.set('articleLists', Map((0, _defineProperty3.default)({}, action.payload.workID, Map(_index2.default.arrayToHashByID(action.payload.articleList, 'id'))))).set('currentWorkID', +action.payload.workID).set('currentArticleID', articleID);
         // 改变当前文章
         case _index3.ActionTypes.CHANGE_ACTIVE_ARTICLE:
-            return newState.set('currentArticleID', action.payload.articleID);
+            return state.set('currentArticleID', action.payload.articleID);
         // 更新文章信息
         case _index3.ActionTypes.UPDATE_ARTICLE_INFO:
             var res = null;
             (0, _keys2.default)(action.payload).forEach(function (key) {
-                res = newState.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
+                res = state.setIn(['articleLists', currentWorkID.toString(), currentArticleID.toString(), key], action.payload[key]);
             });
 
             return res;
         // 新建文章
         case _index3.ActionTypes.CREATE_NEW_ARTICLE:
 
-            return newState.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], Map(action.payload));
+            return state.setIn(['articleLists', currentWorkID.toString(), action.payload.id.toString()], Map(action.payload));
 
         case _index3.ActionTypes.DELETE_ARTICLE:
 
-            var articleLists = newState.getIn(['articleLists', currentWorkID.toString()]).delete(action.payload.articleID.toString());
+            var articleLists = state.getIn(['articleLists', currentWorkID.toString()]).delete(action.payload.articleID.toString());
 
-            return newState.setIn(['articleLists', currentWorkID.toString()], articleLists);
+            return state.setIn(['articleLists', currentWorkID.toString()], articleLists);
 
         default:
-            return newState;
+            return state;
     }
 };
 

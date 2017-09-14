@@ -4,7 +4,6 @@ import ArticleList from '$components/writer/articleList'
 import Content from '$components/writer/content'
 // import PureRenderMixin from 'react-addons-pure-render-mixin';
 import persistence from '$helper/persistence'
-import { dataStates } from '$redux/store/data'
 
 class Writer extends React.PureComponent {
 

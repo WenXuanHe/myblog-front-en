@@ -12,7 +12,7 @@ import thunk from 'redux-thunk'
 // Reducer->传入一个state  ， 生成一个新的state
 // 调用方式  createStore(reducer);
 import reducer from '../reducers'
-import  { dataStates } from './data'
+import  { storeType } from './data'
 // let reducer = require('../reducers');
 ////为ssr做准备
 // const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
@@ -27,7 +27,7 @@ import  { dataStates } from './data'
 // )
 // export default store
 // module.exports = store;
-let create = (initialState:dataStates) => {
+let create = (initialState:storeType) => {
   const store = createStore(
     reducer,
     initialState,

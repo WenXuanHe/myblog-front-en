@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { dataStates } from '$redux/store/data'
+import { storeType } from '$redux/store/data'
 import { connect, Dispatch } from 'react-redux'
 import * as cs from 'classnames'
 import MyButton from '../../buttons'
@@ -22,10 +22,10 @@ interface States {
  * 从store中拿到的状态
  * @param param0 
  */
-const mapStateToProps = (data: dataStates) => {
+const mapStateToProps = ({writer}: storeType) => {
     return {
-        workList: data.getIn(['writer', 'workList']),
-        currentWorkID: data.getIn(['writer', 'currentWorkID'])
+        workList: writer.getIn(['workList']),
+        currentWorkID: writer.getIn(['currentWorkID'])
     }
 }
 
