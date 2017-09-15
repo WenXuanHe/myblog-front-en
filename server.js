@@ -20,7 +20,7 @@ module.exports =
 /******/
 /******/
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "53caffdc22f853770714"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "7cce3267c130c3f33b80"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -10667,8 +10667,9 @@ const app = new Koa();
 const bodyparser = createBodyparser();
 // error handler
 onerror(app);
+console.log("__dirname", __dirname);
 app.context.render = co.wrap(render({
-    root: path.resolve(__dirname, '../', 'views'),
+    root: path.resolve(__dirname, 'views'),
     autoescape: true,
     cache: 'memory',
     ext: 'html',
@@ -10678,8 +10679,8 @@ app.context.render = co.wrap(render({
 app.use(bodyparser);
 app.use(json());
 app.use(logger());
-app.use(__webpack_require__(286)(path.resolve(__dirname, '../', 'public')));
-app.use(views(path.resolve(__dirname, '../', 'views'), {
+app.use(__webpack_require__(286)(path.resolve(__dirname, 'public')));
+app.use(views(path.resolve(__dirname, 'views'), {
     extension: 'html'
 }));
 // logger
@@ -23666,8 +23667,8 @@ const data_1 = __webpack_require__(68);
 const writerImpl_1 = __webpack_require__(248);
 let reducer = (state = data_1.default.writer, action) => {
     let workList = state.get('workList'), currentWorkID = state.get('currentWorkID').toString(), currentArticleID = state.get('currentArticleID').toString();
-    return typeof writerImpl_1.default[action.type] === 'function' ?
-        writerImpl_1.default[action.type](state, action, { workList, currentWorkID, currentArticleID }) : state;
+    return typeof writerImpl_1.deal[action.type] === 'function' ?
+        writerImpl_1.deal[action.type](state, action, { workList, currentWorkID, currentArticleID }) : state;
     // switch (action.type) {
     //     // 创建新文集
     //     case ActionTypes.CREATE_NEW_WORK:
@@ -23715,6 +23716,7 @@ exports.default = reducer;
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.deal = undefined;
 
 var _slicedToArray2 = __webpack_require__(249);
 
@@ -23736,7 +23738,7 @@ var _immutable = __webpack_require__(30);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var deal = (_deal = {}, (0, _defineProperty3.default)(_deal, _index3.ActionTypes.CREATE_NEW_WORK, function (state, action, _ref) {
+var deal = exports.deal = (_deal = {}, (0, _defineProperty3.default)(_deal, _index3.ActionTypes.CREATE_NEW_WORK, function (state, action, _ref) {
     var workList = _ref.workList;
 
     return state.set('workList', workList.unshift((0, _immutable.Map)(action.payload)));
@@ -23776,12 +23778,10 @@ var deal = (_deal = {}, (0, _defineProperty3.default)(_deal, _index3.ActionTypes
 
 
     var key = workList.findKey(function (value) {
-        value.get('id') === action.payload.workID;
+        return value.get('id') === action.payload.workID;
     });
     return state.set('workList', workList.delete(key));
 }), _deal);
-
-exports.default = deal;
 
 /***/ }),
 /* 249 */

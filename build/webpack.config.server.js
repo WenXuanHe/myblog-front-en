@@ -13,10 +13,10 @@ fs.readdirSync('node_modules')
 module.exports = {
     entry: [
         'webpack/hot/poll?1000',
-        './bin/www'
+        '../bin/www'
     ],
     output: {
-        path: path.resolve(__dirname, 'bin/'),
+        // path: path.resolve(__dirname, 'bin/'),
         filename: 'server.js',
         libraryTarget: 'commonjs2'
     },
@@ -42,7 +42,7 @@ module.exports = {
                 }
             }],
             exclude: [
-                path.resolve(__dirname, "node_modules"),
+                path.resolve(__dirname, "../", "node_modules"),
             ]
         },{
             test: /\.tsx?$/,
@@ -55,15 +55,15 @@ module.exports = {
     resolve: {
         extensions: ['.js', '.tsx', 'ts'],
         alias: {
-            $redux: path.resolve(__dirname, 'public/src/redux'),
-            $apis: path.resolve(__dirname, 'public/src/apis'),
-            $components: path.resolve(__dirname, 'public/src/components'),
-            $routes: path.resolve(__dirname, 'public/src/routes'),
-            $styles: path.resolve(__dirname, 'public/src/styles'),
-            $helper: path.resolve(__dirname, 'public/src/helper'),
-            $utils: path.resolve(__dirname, 'public/src/utils'),
-            $actions: path.resolve(__dirname, 'public/src/actions'),
-            $views: path.resolve(__dirname, 'public/src/views'),
+            $redux: path.resolve(__dirname, "../", 'public/src/redux'),
+            $apis: path.resolve(__dirname, "../", 'public/src/apis'),
+            $components: path.resolve(__dirname, "../", 'public/src/components'),
+            $routes: path.resolve(__dirname, "../", 'public/src/routes'),
+            $styles: path.resolve(__dirname, "../", 'public/src/styles'),
+            $helper: path.resolve(__dirname, "../", 'public/src/helper'),
+            $utils: path.resolve(__dirname, "../", 'public/src/utils'),
+            $actions: path.resolve(__dirname, "../", 'public/src/actions'),
+            $views: path.resolve(__dirname, "../", 'public/src/views'),
         }
     },
     plugins: [

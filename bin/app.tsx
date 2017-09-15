@@ -19,9 +19,9 @@ const app = new Koa();
 const bodyparser = createBodyparser();
 // error handler
 onerror(app);
-
+console.log("__dirname", __dirname);
 app.context.render = co.wrap(render({
-    root: path.resolve(__dirname, '../', 'views'),
+    root: path.resolve(__dirname, 'views'),
     autoescape: true,
     cache: 'memory',
     ext: 'html',
@@ -31,9 +31,9 @@ app.context.render = co.wrap(render({
 app.use(bodyparser);
 app.use(json());
 app.use(logger());
-app.use(require('koa-static')(path.resolve(__dirname, '../', 'public')));
+app.use(require('koa-static')(path.resolve(__dirname, 'public')));
 
-app.use(views(path.resolve(__dirname, '../', 'views'), {
+app.use(views(path.resolve(__dirname, 'views'), {
   extension: 'html'
 }));
 

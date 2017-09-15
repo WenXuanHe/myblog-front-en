@@ -5,9 +5,9 @@
   "scripts": {
     "start": "node bin/server",
     "pm2": "pm2 start bin/server -i 4",
-    "dev": "webpack --color --watch",
-    "build-s": "webpack --color --config webpack.config.server.js",
-    "test": "karma start --single-run --browsers ChromeHeadless karma.conf.js"
+    "dev": "webpack --color --watch --config ./build/webpack.config.js",
+    "build-s": "webpack --color --config ./build/webpack.config.server.js",
+    "test": "karma start --single-run --browsers ChromeHeadless ./build/karma.conf.js"
   },
   "dependencies": {
     "axios": "^0.16.2",
