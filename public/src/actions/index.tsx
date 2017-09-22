@@ -1,5 +1,6 @@
 import apis from  '../apis';
 import { ActionTypes } from '$redux/actionType/index'
+import {getOutHistory, memoryHistory, deleteArticleInCache, updateArticleCached} from '../cache/index'
 
 /**
  * 去数据库新建文集
@@ -25,13 +26,19 @@ export const fetchCreateNewWork = (title:string) => async (dispatch) => {
  */
 export const fetchChangeActiveWork = (workID:string|number) => async (dispatch) => {
     try{
-        let result = await apis.queryArticlesByworkId(workID);
+        //判断缓存中是否存在
+        let articleList = await getOutHistory(`articleList:${workID}`);
+
+        if(!articleList){
+            articleList = await apis.queryArticlesByworkId(workID);
+            memoryHistory({type:`articleList:${workID}`}, articleList);
+        }
         
         dispatch({
             type: ActionTypes.CHANGE_ACTIVE_WORK,
             payload:{
-                workID:workID,
-                articleList:result
+                workID,
+                articleList
             }
         });
     
@@ -44,7 +51,11 @@ export const fetchChangeActiveWork = (workID:string|number) => async (dispatch) 
 export const fetchCreateNewArticle = (workID:string|number) => async (dispatch) => {
     try{
         let result = await apis.createNewArticle(workID);
-        
+        memoryHistory({
+            type: `articleList:${workID}`, 
+            saveInHash:true
+        }, result);
+
         dispatch({
             type: ActionTypes.CREATE_NEW_ARTICLE,
             payload:result
@@ -56,11 +67,11 @@ export const fetchCreateNewArticle = (workID:string|number) => async (dispatch) 
     }
 }
 
-export const deleteArticleById = (articleID:string|number) => async (dispatch) => {
+export const deleteArticleById = (workID:string|number, articleID:string|number) => async (dispatch) => {
 
     try{
         let result = await apis.deleteArticle(articleID);
-        
+        deleteArticleInCache(`articleList:${workID}`, articleID);
         dispatch({
             type: ActionTypes.DELETE_ARTICLE,
             payload:result
@@ -76,7 +87,7 @@ export const deleteCurrentWorkById = (workID:string|number) => async (dispatch) 
     
         try{
             let result = await apis.deleteCurrentWork(workID);
-            
+            deleteArticleInCache(`articleList:${workID}`);
             dispatch({
                 type: ActionTypes.DELETE_WORK,
                 payload:result
@@ -88,10 +99,11 @@ export const deleteCurrentWorkById = (workID:string|number) => async (dispatch) 
         }
     }
 
-export const updateArticleInfo = (params:{ title?:string, articleID:string|number, content?:string}) => async (dispatch) => {
+export const updateArticleInfo = (params:{ title?:string, currentWorkID:string|number, articleID:string|number, content?:string}) => async (dispatch) => {
 
     try{
         let result = await apis.updateArticleInfo(params);
+        updateArticleCached(`articleList:${params.currentWorkID}`, params.articleID, params);
         if(result.status){
              dispatch({
                 type: ActionTypes.UPDATE_ARTICLE_INFO,

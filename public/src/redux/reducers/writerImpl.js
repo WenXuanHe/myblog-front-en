@@ -2,7 +2,7 @@ import utils from '$utils/index'
 import {ActionTypes} from '$redux/actionType/index'
 import {Map, List} from 'immutable'
 
-export let deal = {
+export const deal = {
     //创建新文集
     [ActionTypes.CREATE_NEW_WORK]:function(state, action, {workList}){
         return state.set('workList', workList.unshift(Map(action.payload)));

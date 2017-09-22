@@ -22,7 +22,7 @@ interface Props {
     currentArticleID: number,
     currentWorkID: number,
     createNewArticle: (workID: number) => void,
-    deleteArticleById: (articleID: number) => void,
+    deleteArticleById: (workID: number, articleID: number) => void,
     changeActiveArticle: (data: changeActiveArticleType) => void
 }
 
@@ -43,7 +43,7 @@ const mapStateToProps = ({writer}: storeType) => {
 const articleMap = (dispatch: Dispatch<any>, ownProps) => {
     return {
         createNewArticle: (workID) => { dispatch(actions.fetchCreateNewArticle(workID)) },
-        deleteArticleById: (articleID) => { dispatch(actions.deleteArticleById(articleID)) },
+        deleteArticleById: (workID, articleID) => { dispatch(actions.deleteArticleById(workID, articleID)) },
 
         changeActiveArticle: (data) => {
             dispatch({
@@ -95,7 +95,7 @@ class ArticleList extends React.Component<Props, undefined> {
     }
 
     deleteArticle = (articleID: number) => {
-        this.props.deleteArticleById(articleID);
+        this.props.deleteArticleById(this.props.currentWorkID, articleID);
     }
 
     changeActiveArticle = (articleID: number) => {

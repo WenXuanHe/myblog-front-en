@@ -12,6 +12,7 @@ import FileUpload from '../../upload/FileUpload'
 interface Props {
     title: string,
     content:string,
+    currentWorkID: number|string,
     currentArticleID:number|string,
     updateArticleInfo: (data:any) => void,
     updateTitle: (title:string) => void
@@ -29,6 +30,7 @@ const mapStateToProps = ({writer}: storeType) => {
     return {
         title,
         content,
+        currentWorkID,
         currentArticleID
     }
 }
@@ -63,6 +65,7 @@ class Content extends React.Component<Props> {
         this.props.updateArticleInfo({
             ...params, 
             articleID: this.props.currentArticleID,
+            currentWorkID: this.props.currentWorkID,
             title: this.props.title
         });
     }
