@@ -39,7 +39,7 @@ class SqlServer extends Base{
 
     /**
      * 通过id来更新article
-     * @param {*{id, title, content}} param0 
+     * @param {*{id, title, content}} param0
      */
     async updateArticleById({id, title='', content=''}:{id:string|number, title:string, content:string}){
         let simpleContent = content.slice(0, 50);
@@ -94,11 +94,11 @@ class SqlServer extends Base{
 
     /**
      * 查询某文集下所有的文章
-     * 
+     *
      * @param {string} workID-文集的id
      */
     async queryArticlesByworkId(workID:string|number){
-        
+
         let selectSql = this.constructCondition({
             type:'QUERY',
             field:['*'],
@@ -113,7 +113,7 @@ class SqlServer extends Base{
     }
     /**
      * 查询该用户的所有文章
-     * @param {*用户ID} userID 
+     * @param {*用户ID} userID
      */
     async queryArticlesByUserId(userID:string|number, otherwise:string=''){
         let selectSql = this.constructCondition({
@@ -129,7 +129,7 @@ class SqlServer extends Base{
         return await this.query(decodeURIComponent(selectSql));
     }
 
-    
+
     /**
      * 查询出所有文集
      * @param {string} userId-用户id
@@ -145,13 +145,13 @@ class SqlServer extends Base{
                 isDelete: 0
             }
         });
-        
+
         return await this.query(selectWorks);
     }
 
     /**
-     * 
-     * @param {*object} param0 
+     *
+     * @param {*object} param0
      */
     async persistenceTimingInfo({connectTime, pageLoadTime, renderTime }:{connectTime:number, pageLoadTime:number, renderTime:number}){
         let sql = this.constructCondition({

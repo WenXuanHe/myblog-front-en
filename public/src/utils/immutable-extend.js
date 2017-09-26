@@ -1,16 +1,14 @@
-import { Map, List } from 'immutable'
+import { Map, List } from "immutable";
 
-export let isMap = (map) => map instanceof Map;
+export const isMap = map => map instanceof Map;
 
-export let isList = (list) => list instanceof List;
+export const isList = list => list instanceof List;
 
-export let getter = (state, prop) => {
-
-    return isMap(state) ? state.getIn([prop.toString()]) : state ? state[prop]: null;
-} 
+export const getter = (state, prop) =>
+	isMap(state) ? state.getIn([prop.toString()]) : state ? state[prop] : null;
 
 export default {
-    isMap,
-    isList,
-    getter
+	isMap,
+	isList,
+	getter,
 };
