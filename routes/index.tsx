@@ -7,7 +7,7 @@ router.get('/', async function (ctx, next) {
     ctx.redirect('/writer');
   }else{
     ctx.redirect('/login');
-  }
-});
+  }     
+});     
 
 export default router;
