@@ -8,7 +8,6 @@ router.get('/', async function (ctx, next) {
   }else{
 
     ctx.redirect('/login');
-    
   }     
 });     
 
