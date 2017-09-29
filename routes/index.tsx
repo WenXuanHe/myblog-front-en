@@ -10,6 +10,8 @@ router.get('/', async function (ctx, next) {
     ctx.redirect('/login');
   }     
 
+
+
   
 });     
 
