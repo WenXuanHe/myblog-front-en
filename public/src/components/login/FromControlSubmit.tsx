@@ -10,12 +10,12 @@ export interface FromControlSubmitProps {
 }
 
 /**
- * 
+ *
  * @param props interface FromControlSubmitProps
  */
 export const FromControlSubmit = (props: FromControlSubmitProps): any => {
 
-    let { login, loginFunc, registorFunc, switchLoginFunc } = props;
+    let { login, loginFunc, registorFunc, switchLoginFunc} = props;
 
     return (
         <div className="u-submit form-control">

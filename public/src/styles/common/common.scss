@@ -61,3 +61,16 @@ button, input, select, textarea,.btn {
 .b-white{
     background: #ffffff;
 }
+
+.position-center{
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    margin: auto;
+}
+
+.hide{
+    display: none;
+}

@@ -1,13 +1,20 @@
 {% extends './templates/layout.html' %}
 {% block title %} 博客 {% endblock %}
 {% block head %}
+    <link rel="stylesheet" href="/src/styles/common/animate.css" />
     <link href="/dist/styles/login.css" rel="stylesheet">
 {% endblock %}
 
 {% block content %}
-    <div id="app">
-
+    <div id="app" class="position-center animated zoomIn hide"> </div>
+    <div class="content">
+        <!-- The canvas where ThreeJs renders the WebGL -->
+        <canvas id="scene"></canvas>
     </div>
+    <!-- <script type="text/javascript" src="/src/utils/three/three.min.js"></script> -->
+    <script src="https://cdn.bootcss.com/three.js/r80/three.js"></script>
+    <script type="text/javascript" src="/src/utils/three/TweenMax.min.js"></script>
+    <script type="text/javascript" src="/src/utils/three/tunnel.js"></script>
     <script type="text/javascript" src="/dist/vendors.js"></script><script type="text/javascript" src="/dist/login.js"></script>
 
 {% endblock %}

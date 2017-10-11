@@ -1,8 +1,8 @@
 @import './common/common.scss';
 
-body, .m-login::before{
-    background:url('../img/tiger.jpg') 0/cover fixed;
-}
+// body, .m-login::before{
+//     background:url('../img/tiger.jpg') 0/cover fixed;
+// }
 .m-login-bc{
     background: rgba(255, 255, 255, 0.25) border-box;
     box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.3) inset, 0 0.5em 1em rgba(0, 0, 0, 0.6);
@@ -54,7 +54,7 @@ body, .m-login::before{
     margin-left: 2em;
 }
 .switch-registor{
-    color: #dbd8d8;
+    color: #ffffff;
     text-decoration: underline;
     line-height: 34px;
     font-size: 12px;

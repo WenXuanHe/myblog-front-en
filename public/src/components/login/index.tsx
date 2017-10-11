@@ -8,7 +8,6 @@ import { FromControlSubmit } from './FromControlSubmit';
 import { judgeRepeat, loginService, registorService} from '$apis/login';
 
 let boundle = boundleFunc(2000);
-
 interface LoginStates{
     userName:string,
     password: string,
@@ -19,7 +18,6 @@ interface LoginStates{
         className: string
     }
 }
-
 
 class Login extends React.Component<undefined, LoginStates>{
 
@@ -35,14 +33,20 @@ class Login extends React.Component<undefined, LoginStates>{
                 className:''
             }
         };
-
+        let self = this;
+        window.addEventListener('keydown', function (e) {
+            switch(e.keyCode){
+                case 13:
+                    self.state.login ? self.login() : self.registor();
+            }
+        })
     }
 
     render(){
         return (
             <div className="m-login m-login-bc">
                 <FromControlUserName judgeRepeat={this.judgeRepeat} tip={this.state.tip} userName={this.state.userName} that={this}/>
-                <FromControlPassword password={this.state.password} onChange={this.passwordChange} />
+                <FromControlPassword password={this.state.password} onChange={this.passwordChange}/>
                 <FromControlSubmit login={this.state.login} loginFunc={this.login} switchLoginFunc={this.switch} registorFunc={this.registor}/>
             </div>
         )
@@ -59,7 +63,7 @@ class Login extends React.Component<undefined, LoginStates>{
      * 判断是否存在改账号
      */
     judgeRepeatThoughtRedis = (userName:string) => {
-        
+
         judgeRepeat(userName).then(({isRepeat})=>{
             this.setState({
                 tip:{
@@ -120,6 +124,10 @@ class Login extends React.Component<undefined, LoginStates>{
 
     login = () => {
         let {userName, password} = this.state;
+        if(!userName || !password){
+            alert('用户名或密码不能为空');
+            return;
+        }
         loginService(userName, password).then(this.cb);
     }
 }
