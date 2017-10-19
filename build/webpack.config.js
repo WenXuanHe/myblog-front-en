@@ -54,7 +54,9 @@ module.exports = {
                 loader: 'babel-loader',
                 options: {
                     presets: [
-                        "es2015",
+                        ["es2015",{
+                            'modules': false  //  允许tree shaking
+                        }],
                         "stage-0",
                         "react"
                     ],
@@ -144,7 +146,9 @@ module.exports = {
         new TsConfigPathsPlugin({
             configFileName: "tsconfig.json",
             compiler: "typescript"
-        })
+        }),
+        //  scope hoisting
+        new webpack.optimize.ModuleConcatenationPlugin()
     ],
     devtool: 'source-map'
 }
