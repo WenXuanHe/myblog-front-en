@@ -1,0 +1,17 @@
+// 动态监控文件的上传 0秒热启动
+// 能够负载均衡 CPU
+// restart个数
+// pm2 start pm2.json
+// pm2 log
+{
+   "apps": [
+       {
+        "name": "myblog node service",
+        "script": "server.js",
+        "log_date_format": "YYYY-MM-DD HH:mm:ss",
+        "watch": true,
+        "instances": "max",  // node代码占满cpu
+        "exec_mode": "cluster"  //主线程的形式
+       }
+   ] 
+}
