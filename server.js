@@ -21,7 +21,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "218d5037e3c2ce404b3b"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "1356de845a95c7211a36"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -3798,16 +3798,14 @@ module.exports = require("koa-router");
 
 /***/ }),
 /* 29 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = (status, msg, result = {}) => {
+/* harmony default export */ __webpack_exports__["a"] = ((status, msg, result = {}) => {
     return {
         status, result, msg
     };
-};
+});
 
 
 /***/ }),
@@ -4344,10 +4342,13 @@ module.exports = function (it, key) {
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__connection__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment__ = __webpack_require__(138);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_moment___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_moment__);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -4356,11 +4357,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __webpack_require__(66);
-const base_1 = __webpack_require__(67);
-const moment = __webpack_require__(138);
-class SqlServer extends base_1.default {
+
+
+
+class SqlServer extends __WEBPACK_IMPORTED_MODULE_1__base__["a" /* default */] {
     constructor(Connection) {
         super(Connection);
     }
@@ -4373,7 +4373,7 @@ class SqlServer extends base_1.default {
                 type: 'INSERT',
                 tblName: 'works',
                 field: ['title', 'userID', 'lastModified', 'isDelete'],
-                condition: [`'${title}'`, `'${userID}'`, `'${moment(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
+                condition: [`'${title}'`, `'${userID}'`, `'${__WEBPACK_IMPORTED_MODULE_2_moment__(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
             });
             return yield this.insert(sql);
         });
@@ -4389,7 +4389,7 @@ class SqlServer extends base_1.default {
                 type: 'INSERT',
                 tblName: 'articles',
                 field: ['workID', 'userID', 'lastModified', 'isDelete'],
-                condition: [`'${workID}'`, `'${userID}'`, `'${moment(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
+                condition: [`'${workID}'`, `'${userID}'`, `'${__WEBPACK_IMPORTED_MODULE_2_moment__(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
             });
             return yield this.insert(sql);
         });
@@ -4408,7 +4408,7 @@ class SqlServer extends base_1.default {
                     title: `'${title}'`,
                     simpleContent: `'${simpleContent}'`,
                     content: `'${content}'`,
-                    lastModified: `'${moment(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`
+                    lastModified: `'${__WEBPACK_IMPORTED_MODULE_2_moment__(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`
                 },
                 condition: {
                     id
@@ -4514,13 +4514,13 @@ class SqlServer extends base_1.default {
                 type: 'INSERT',
                 tblName: 'timing',
                 field: ['connectTime', '	pageLoadTime', 'renderTime', 'lastModified', 'isDelete'],
-                condition: [`'${connectTime}'`, `'${pageLoadTime}'`, `'${renderTime}'`, `'${moment(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
+                condition: [`'${connectTime}'`, `'${pageLoadTime}'`, `'${renderTime}'`, `'${__WEBPACK_IMPORTED_MODULE_2_moment__(new Date()).format("YYYY-MM-DD HH:mm:ss")}'`, 0]
             });
             return yield this.insert(sql);
         });
     }
 }
-exports.default = new SqlServer(connection_1.default);
+/* harmony default export */ __webpack_exports__["a"] = (new SqlServer(__WEBPACK_IMPORTED_MODULE_0__connection__["a" /* default */]));
 
 
 /***/ }),
@@ -6929,14 +6929,14 @@ module.exports = require("koa-session2");
 
 /***/ }),
 /* 66 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql__ = __webpack_require__(136);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_mysql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_mysql__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const mysql = __webpack_require__(136);
-exports.default = () => {
-    let connection = mysql.createConnection({
+/* harmony default export */ __webpack_exports__["a"] = (() => {
+    let connection = __WEBPACK_IMPORTED_MODULE_0_mysql__["createConnection"]({
         host: 'localhost',
         user: 'root',
         password: '',
@@ -6955,17 +6955,17 @@ exports.default = () => {
         .catch(function (err) {
         console.error('error connecting: ' + err.stack);
     });
-};
+});
 
 
 /***/ }),
 /* 67 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_querystring__ = __webpack_require__(137);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_querystring___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_querystring__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const queryString = __webpack_require__(137);
 class Base {
     constructor(Connection) {
         this.Connection = Connection;
@@ -6994,8 +6994,8 @@ class Base {
      */
     constructCondition({ type, tblName, field, condition, updateField, sort = 'lastModified DESC', otherwise = '' }) {
         let result = '';
-        let con = queryString.stringify(condition, " AND ", "=");
-        updateField = queryString.stringify(updateField, ",", "=");
+        let con = __WEBPACK_IMPORTED_MODULE_0_querystring__["stringify"](condition, " AND ", "=");
+        updateField = __WEBPACK_IMPORTED_MODULE_0_querystring__["stringify"](updateField, ",", "=");
         switch (type) {
             case 'QUERY':
                 result = `SELECT ${field.toString()} FROM ${tblName} WHERE ${con} ${otherwise} ORDER BY ${sort}`;
@@ -7042,26 +7042,26 @@ class Base {
         });
     }
 }
-exports.default = Base;
+/* harmony default export */ __webpack_exports__["a"] = (Base);
 
 
 /***/ }),
 /* 68 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const Immutable = __webpack_require__(30);
 const storeStates = {
-    writer: Immutable.fromJS({
+    writer: __WEBPACK_IMPORTED_MODULE_0_immutable__["fromJS"]({
         workList: null,
         articleLists: null,
         currentArticleID: 0,
         currentWorkID: 0,
     })
 };
-exports.default = storeStates;
+/* harmony default export */ __webpack_exports__["a"] = (storeStates);
 
 
 /***/ }),
@@ -10411,15 +10411,19 @@ module.exports = function(updatedModules, renewedModules) {
 
 /***/ }),
 /* 121 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__app__ = __webpack_require__(122);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_debug__ = __webpack_require__(287);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_debug___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_debug__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http__ = __webpack_require__(288);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_http___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_http__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const app_1 = __webpack_require__(122);
-const CreateDebug = __webpack_require__(287);
-const http = __webpack_require__(288);
-var debug = CreateDebug('demo:server');
+
+
+var debug = __WEBPACK_IMPORTED_MODULE_1_debug__('demo:server');
 /**
  * Get port from environment and store in Express.
  */
@@ -10428,7 +10432,7 @@ var port = normalizePort(process.env.PORT || '3000');
 /**
  * Create HTTP server.
  */
-var server = http.createServer(app_1.default.callback());
+var server = __WEBPACK_IMPORTED_MODULE_2_http__["createServer"](__WEBPACK_IMPORTED_MODULE_0__app__["a" /* default */].callback());
 /**
  * Listen on provided port, on all network interfaces.
  */
@@ -10489,10 +10493,35 @@ function onListening() {
 
 /***/ }),
 /* 122 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa__ = __webpack_require__(123);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_views__ = __webpack_require__(124);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_views___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_views__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_json__ = __webpack_require__(125);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_koa_json___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_koa_json__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_onerror__ = __webpack_require__(126);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_koa_onerror___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_koa_onerror__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_bodyparser__ = __webpack_require__(127);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_koa_bodyparser___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_koa_bodyparser__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_logger__ = __webpack_require__(128);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_koa_logger___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_koa_logger__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_koa_swig__ = __webpack_require__(129);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_koa_swig___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_koa_swig__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_co__ = __webpack_require__(130);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_co___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_co__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_path__ = __webpack_require__(131);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_path___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_path__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_koa_session2__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_koa_session2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_koa_session2__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__lib_session_expires__ = __webpack_require__(132);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__lib_session_Store__ = __webpack_require__(133);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__routes_base__ = __webpack_require__(135);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__routes_index__ = __webpack_require__(139);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__routes_login__ = __webpack_require__(140);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__routes_writer__ = __webpack_require__(143);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10501,30 +10530,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Koa = __webpack_require__(123);
-const views = __webpack_require__(124);
-const json = __webpack_require__(125);
-const onerror = __webpack_require__(126);
-const createBodyparser = __webpack_require__(127);
-const logger = __webpack_require__(128);
-const render = __webpack_require__(129);
-const co = __webpack_require__(130);
-const path = __webpack_require__(131);
-const session = __webpack_require__(65);
-const expires_1 = __webpack_require__(132);
-const Store_1 = __webpack_require__(133);
-const base_1 = __webpack_require__(135);
-const index_1 = __webpack_require__(139);
-const login_1 = __webpack_require__(140);
-const writer_1 = __webpack_require__(143);
-const app = new Koa();
-const bodyparser = createBodyparser();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+const app = new __WEBPACK_IMPORTED_MODULE_0_koa__();
+const bodyparser = __WEBPACK_IMPORTED_MODULE_4_koa_bodyparser__();
 // error handler
-onerror(app);
+__WEBPACK_IMPORTED_MODULE_3_koa_onerror__(app);
 console.log("__dirname", __dirname);
-app.context.render = co.wrap(render({
-    root: path.resolve(__dirname, 'views'),
+app.context.render = __WEBPACK_IMPORTED_MODULE_7_co__["wrap"](__WEBPACK_IMPORTED_MODULE_6_koa_swig__({
+    root: __WEBPACK_IMPORTED_MODULE_8_path__["resolve"](__dirname, 'views'),
     autoescape: true,
     cache: 'memory',
     ext: 'html',
@@ -10532,10 +10560,10 @@ app.context.render = co.wrap(render({
 }));
 // middlewares
 app.use(bodyparser);
-app.use(json());
-app.use(logger());
-app.use(__webpack_require__(286)(path.resolve(__dirname, 'public')));
-app.use(views(path.resolve(__dirname, 'views'), {
+app.use(__WEBPACK_IMPORTED_MODULE_2_koa_json__());
+app.use(__WEBPACK_IMPORTED_MODULE_5_koa_logger__());
+app.use(__webpack_require__(286)(__WEBPACK_IMPORTED_MODULE_8_path__["resolve"](__dirname, 'public')));
+app.use(__WEBPACK_IMPORTED_MODULE_1_koa_views__(__WEBPACK_IMPORTED_MODULE_8_path__["resolve"](__dirname, 'views'), {
     extension: 'html'
 }));
 // logger
@@ -10547,10 +10575,10 @@ app.use((ctx, next) => __awaiter(this, void 0, void 0, function* () {
     console.log(`${ctx.method} ${ctx.url} - ${ms}ms`);
 }));
 // session模块
-app.use(session({
+app.use(__WEBPACK_IMPORTED_MODULE_9_koa_session2__({
     key: "SESSIONID",
-    store: new Store_1.default(),
-    expires: expires_1.default(300, 'h')
+    store: new __WEBPACK_IMPORTED_MODULE_11__lib_session_Store__["a" /* default */](),
+    expires: Object(__WEBPACK_IMPORTED_MODULE_10__lib_session_expires__["a" /* default */])(300, 'h')
 }));
 //验证用户是否过期
 app.use(function (ctx, next) {
@@ -10565,12 +10593,12 @@ app.use(function (ctx, next) {
     });
 });
 // routes
-app.use(base_1.default.routes(), base_1.default.allowedMethods());
-app.use(index_1.default.routes(), index_1.default.allowedMethods());
-app.use(login_1.default.routes(), login_1.default.allowedMethods());
-app.use(writer_1.default.routes(), writer_1.default.allowedMethods());
+app.use(__WEBPACK_IMPORTED_MODULE_12__routes_base__["a" /* default */].routes(), __WEBPACK_IMPORTED_MODULE_12__routes_base__["a" /* default */].allowedMethods());
+app.use(__WEBPACK_IMPORTED_MODULE_13__routes_index__["a" /* default */].routes(), __WEBPACK_IMPORTED_MODULE_13__routes_index__["a" /* default */].allowedMethods());
+app.use(__WEBPACK_IMPORTED_MODULE_14__routes_login__["a" /* default */].routes(), __WEBPACK_IMPORTED_MODULE_14__routes_login__["a" /* default */].allowedMethods());
+app.use(__WEBPACK_IMPORTED_MODULE_15__routes_writer__["a" /* default */].routes(), __WEBPACK_IMPORTED_MODULE_15__routes_writer__["a" /* default */].allowedMethods());
 console.log("PID", process.pid);
-exports.default = app;
+/* harmony default export */ __webpack_exports__["a"] = (app);
 
 
 /***/ }),
@@ -10629,12 +10657,10 @@ module.exports = require("path");
 
 /***/ }),
 /* 132 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-function default_1(duraing, format = 'm') {
+/* harmony default export */ __webpack_exports__["a"] = (function (duraing, format = 'm') {
     //以一分钟为最低间隔时间
     let base = 60 * 1000;
     let date = new Date();
@@ -10645,16 +10671,18 @@ function default_1(duraing, format = 'm') {
     };
     date.setTime(date.getTime() + duraing * translate[format]);
     return date;
-}
-exports.default = default_1;
+});
 
 
 /***/ }),
 /* 133 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ioredis__ = __webpack_require__(134);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ioredis___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_ioredis__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_session2__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_koa_session2___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_koa_session2__);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10663,13 +10691,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Redis = __webpack_require__(134);
-const koa_session2_1 = __webpack_require__(65);
-class RedisStore extends koa_session2_1.Store {
+
+
+class RedisStore extends __WEBPACK_IMPORTED_MODULE_1_koa_session2__["Store"] {
     constructor() {
         super();
-        this.redis = new Redis();
+        this.redis = new __WEBPACK_IMPORTED_MODULE_0_ioredis__();
     }
     get(sid) {
         return __awaiter(this, void 0, void 0, function* () {
@@ -10694,7 +10721,7 @@ class RedisStore extends koa_session2_1.Store {
         });
     }
 }
-exports.default = RedisStore;
+/* harmony default export */ __webpack_exports__["a"] = (RedisStore);
 
 
 /***/ }),
@@ -10705,10 +10732,13 @@ module.exports = require("ioredis");
 
 /***/ }),
 /* 135 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_server__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_model_return__ = __webpack_require__(29);
 /**
  * 开放基础接口
  */
@@ -10720,21 +10750,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(28);
-const server_1 = __webpack_require__(39);
-const return_1 = __webpack_require__(29);
-const router = Router();
+
+
+
+const router = __WEBPACK_IMPORTED_MODULE_0_koa_router__();
 router.prefix('/base');
 router.get('/queryArticlesByworkId', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let { workID } = ctx.query;
         try {
-            let articleList = yield server_1.default.queryArticlesByworkId(workID);
-            return ctx.body = return_1.default(true, '', articleList);
+            let articleList = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_server__["a" /* default */].queryArticlesByworkId(workID);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '', articleList);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, e);
         }
     });
 });
@@ -10742,11 +10771,11 @@ router.get('/queryWorks', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let { userId } = ctx.query;
         try {
-            let works = yield server_1.default.queryWorks(userId);
-            return ctx.body = return_1.default(true, '', works);
+            let works = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_server__["a" /* default */].queryWorks(userId);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '', works);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, e);
         }
     });
 });
@@ -10754,11 +10783,11 @@ router.get('/queryArticlesByUserId', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let { userId } = ctx.query;
         try {
-            let articleList = yield server_1.default.queryArticlesByUserId(userId);
-            return ctx.body = return_1.default(true, '', articleList);
+            let articleList = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_server__["a" /* default */].queryArticlesByUserId(userId);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '', articleList);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '查询失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, '查询失败', e);
         }
     });
 });
@@ -10766,15 +10795,15 @@ router.post('/persistenceTimingInfo', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let { connectTime, pageLoadTime, renderTime } = ctx.request.body;
         try {
-            let result = yield server_1.default.persistenceTimingInfo({ connectTime, pageLoadTime, renderTime });
-            return ctx.body = return_1.default(true, '持久化页面渲染信息成功', result);
+            let result = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_server__["a" /* default */].persistenceTimingInfo({ connectTime, pageLoadTime, renderTime });
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '持久化页面渲染信息成功', result);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '持久化页面渲染信息失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, '持久化页面渲染信息失败', e);
         }
     });
 });
-exports.default = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 
 /***/ }),
@@ -10797,10 +10826,11 @@ module.exports = require("moment");
 
 /***/ }),
 /* 139 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10809,10 +10839,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
 // var router = require('koa-router')();
-const Router = __webpack_require__(28);
-const router = Router();
+
+const router = __WEBPACK_IMPORTED_MODULE_0_koa_router__();
 router.get('/', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         if (ctx.session.sessionInfo) {
@@ -10823,15 +10852,18 @@ router.get('/', function (ctx, next) {
         }
     });
 });
-exports.default = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 
 /***/ }),
 /* 140 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__ = __webpack_require__(141);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_model_return__ = __webpack_require__(29);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10840,11 +10872,10 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(28);
-const login_1 = __webpack_require__(141);
-const return_1 = __webpack_require__(29);
-const router = Router();
+
+
+
+const router = __WEBPACK_IMPORTED_MODULE_0_koa_router__();
 router.prefix('/login');
 router.get('/', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -10863,12 +10894,12 @@ router.post('/registorRequest', function (ctx, next) {
         try {
             let { userName, password } = ctx.request.body, result;
             //先判断姓名是否重复
-            let res = yield login_1.default.judgeExitByName(userName, 'count(*) as count');
+            let res = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__["a" /* default */].judgeExitByName(userName, 'count(*) as count');
             let isRepeat = res[0];
             if (!isRepeat.count) {
-                let { hash, salt } = yield login_1.default.hashPassword(password);
+                let { hash, salt } = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__["a" /* default */].hashPassword(password);
                 //存mysql数据库
-                let userID = yield login_1.default.registor(userName, hash, salt);
+                let userID = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__["a" /* default */].registor(userName, hash, salt);
                 if (userID) {
                     ctx.session.sessionInfo = {
                         userName,
@@ -10877,15 +10908,15 @@ router.post('/registorRequest', function (ctx, next) {
                         hash,
                     };
                 }
-                result = return_1.default(true, '注册成功');
+                result = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '注册成功');
             }
             else {
-                result = return_1.default(false, '该账户名已存在,请重新输入');
+                result = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, '该账户名已存在,请重新输入');
             }
             ctx.body = result;
         }
         catch (e) {
-            ctx.body = return_1.default(false, '注册用户失败', e);
+            ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, '注册用户失败', e);
         }
     });
 });
@@ -10893,7 +10924,7 @@ router.post('/loginRequest', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let { userName, password } = ctx.request.body;
-            let res = yield login_1.default.login(userName, password);
+            let res = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__["a" /* default */].login(userName, password);
             if (res.status) {
                 //登录成功
                 let { salt, hash } = res.result;
@@ -10907,7 +10938,7 @@ router.post('/loginRequest', function (ctx, next) {
             ctx.body = res;
         }
         catch (e) {
-            ctx.body = return_1.default(false, e);
+            ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, e);
         }
     });
 });
@@ -10916,30 +10947,34 @@ router.post('/judgeRepeat', function (ctx, next) {
         try {
             //GET请求在this.query里，POST在this.request.body里
             let { userName } = ctx.request.body;
-            let result = yield login_1.default.judgeExitByName(userName, 'count(*) as count');
+            let result = yield __WEBPACK_IMPORTED_MODULE_1__lib_sql_login__["a" /* default */].judgeExitByName(userName, 'count(*) as count');
             let isRepeat = result[0];
             //未重复
             if (!isRepeat.count) {
-                ctx.body = return_1.default(true, '', { isRepeat: false });
+                ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '', { isRepeat: false });
             }
             else {
-                ctx.body = return_1.default(true, '', { isRepeat: true });
+                ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(true, '', { isRepeat: true });
             }
         }
         catch (ex) {
-            ctx.body = return_1.default(false, ex);
+            ctx.body = Object(__WEBPACK_IMPORTED_MODULE_2__lib_model_return__["a" /* default */])(false, ex);
         }
     });
 });
-exports.default = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 
 /***/ }),
 /* 141 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__connection__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__base__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bcryptjs__ = __webpack_require__(142);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_bcryptjs___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_bcryptjs__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__model_return__ = __webpack_require__(29);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -10948,23 +10983,22 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const connection_1 = __webpack_require__(66);
-const base_1 = __webpack_require__(67);
-const bcrypt = __webpack_require__(142);
-const return_1 = __webpack_require__(29);
-class LoginServer extends base_1.default {
+
+
+
+
+class LoginServer extends __WEBPACK_IMPORTED_MODULE_1__base__["a" /* default */] {
     constructor(Connection) {
         super(Connection);
     }
     hashPassword(password) {
         return new Promise(function (resolve, reject) {
             let result = {};
-            bcrypt.genSalt(10, function (err, salt) {
+            __WEBPACK_IMPORTED_MODULE_2_bcryptjs__["genSalt"](10, function (err, salt) {
                 if (err)
                     return reject(err);
                 result.salt = salt;
-                bcrypt.hash(password, salt, function (err, hash) {
+                __WEBPACK_IMPORTED_MODULE_2_bcryptjs__["hash"](password, salt, function (err, hash) {
                     if (err)
                         return reject(err);
                     result.hash = hash;
@@ -11008,19 +11042,19 @@ class LoginServer extends base_1.default {
             let user, hash;
             let users = yield this.judgeExitByName(userName);
             if (users.length === 0) {
-                return return_1.default(false, '该账号还未注册');
+                return Object(__WEBPACK_IMPORTED_MODULE_3__model_return__["a" /* default */])(false, '该账号还未注册');
             }
             user = users[0];
-            hash = bcrypt.hashSync(password, user.salt);
+            hash = __WEBPACK_IMPORTED_MODULE_2_bcryptjs__["hashSync"](password, user.salt);
             if (user.hash === hash) {
-                return return_1.default(true, '', {
+                return Object(__WEBPACK_IMPORTED_MODULE_3__model_return__["a" /* default */])(true, '', {
                     salt: user.salt,
                     hash: hash,
                     userID: user.id
                 });
             }
             else {
-                return return_1.default(false, '账号密码错误');
+                return Object(__WEBPACK_IMPORTED_MODULE_3__model_return__["a" /* default */])(false, '账号密码错误');
             }
         });
     }
@@ -11045,7 +11079,7 @@ class LoginServer extends base_1.default {
         });
     }
 }
-exports.default = new LoginServer(connection_1.default);
+/* harmony default export */ __webpack_exports__["a"] = (new LoginServer(__WEBPACK_IMPORTED_MODULE_0__connection__["a" /* default */]));
 
 
 /***/ }),
@@ -11056,10 +11090,15 @@ module.exports = require("bcryptjs");
 
 /***/ }),
 /* 143 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router__ = __webpack_require__(28);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_koa_router___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_koa_router__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__lib_model_return__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__helper_severRenderInitData__ = __webpack_require__(144);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__helper_serverRenderByReact__ = __webpack_require__(145);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -11068,15 +11107,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const Router = __webpack_require__(28);
-const return_1 = __webpack_require__(29);
-const server_1 = __webpack_require__(39);
-const router = Router();
+
+
+
+const router = __WEBPACK_IMPORTED_MODULE_0_koa_router__();
 ////支持jsx语法
 // require('node-jsx').install();
-const severRenderInitData_1 = __webpack_require__(144);
-const serverRenderByReact_1 = __webpack_require__(145);
+
+
 router.prefix('/writer');
 router.get('/', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
@@ -11090,10 +11128,10 @@ router.get('/writer', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         let initData;
         try {
-            initData = yield severRenderInitData_1.default(ctx.session.sessionInfo.userID);
+            initData = yield Object(__WEBPACK_IMPORTED_MODULE_3__helper_severRenderInitData__["a" /* default */])(ctx.session.sessionInfo.userID);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, "查询文集列表失败", e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, "查询文集列表失败", e);
         }
         yield ctx.render('index', {
             initialData: JSON.stringify(initData)
@@ -11106,15 +11144,15 @@ router.get('/writer', function (ctx, next) {
 router.get('/index', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
-            let initData = yield severRenderInitData_1.default(ctx.session.sessionInfo.userID);
-            let html = serverRenderByReact_1.default(ctx.req.url, initData);
+            let initData = yield Object(__WEBPACK_IMPORTED_MODULE_3__helper_severRenderInitData__["a" /* default */])(ctx.session.sessionInfo.userID);
+            let html = Object(__WEBPACK_IMPORTED_MODULE_4__helper_serverRenderByReact__["a" /* default */])(ctx.req.url, initData);
             yield ctx.render('index', {
                 initialHTML: html,
                 initialData: JSON.stringify(initData)
             });
         }
         catch (e) {
-            return ctx.body = return_1.default(false, "查询文集列表失败", e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, "查询文集列表失败", e);
         }
     });
 });
@@ -11123,8 +11161,8 @@ router.post('/createNewWork', function (ctx, next) {
         try {
             let { title } = ctx.request.body;
             let { userID } = ctx.session.sessionInfo;
-            let workID = yield server_1.default.createNewWork({ title, userID });
-            return ctx.body = return_1.default(true, '新增成功', {
+            let workID = yield __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__["a" /* default */].createNewWork({ title, userID });
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(true, '新增成功', {
                 title,
                 userID,
                 id: workID,
@@ -11132,7 +11170,7 @@ router.post('/createNewWork', function (ctx, next) {
             });
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '新增文集失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, '新增文集失败', e);
         }
     });
 });
@@ -11141,8 +11179,8 @@ router.post('/createNewArticle', function (ctx, next) {
         try {
             let { workID } = ctx.request.body;
             let { userID } = ctx.session.sessionInfo;
-            let articleID = yield server_1.default.createNewArticle({ workID, userID });
-            return ctx.body = return_1.default(true, '新增成功', {
+            let articleID = yield __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__["a" /* default */].createNewArticle({ workID, userID });
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(true, '新增成功', {
                 workID,
                 userID,
                 id: articleID,
@@ -11151,7 +11189,7 @@ router.post('/createNewArticle', function (ctx, next) {
             });
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '新增文章失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, '新增文章失败', e);
         }
     });
 });
@@ -11159,11 +11197,11 @@ router.post('/updateArticleInfo', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let { articleID, title, content } = ctx.request.body;
-            let articleInfo = yield server_1.default.updateArticleById({ id: articleID, title, content });
-            return ctx.body = return_1.default(true, '更新成功', articleInfo);
+            let articleInfo = yield __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__["a" /* default */].updateArticleById({ id: articleID, title, content });
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(true, '更新成功', articleInfo);
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '更新文章失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, '更新文章失败', e);
         }
     });
 });
@@ -11171,13 +11209,13 @@ router.post('/deleteArticleById', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let { articleID } = ctx.request.body;
-            yield server_1.default.deleteArticleById(articleID);
-            return ctx.body = return_1.default(true, '删除成功', {
+            yield __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__["a" /* default */].deleteArticleById(articleID);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(true, '删除成功', {
                 articleID
             });
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '删除文章失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, '删除文章失败', e);
         }
     });
 });
@@ -11185,25 +11223,28 @@ router.post('/deleteWorkById', function (ctx, next) {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             let { workID } = ctx.request.body;
-            yield server_1.default.deleteWorkById(workID);
-            return ctx.body = return_1.default(true, '删除成功', {
+            yield __WEBPACK_IMPORTED_MODULE_2__lib_sql_server__["a" /* default */].deleteWorkById(workID);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(true, '删除成功', {
                 workID
             });
         }
         catch (e) {
-            return ctx.body = return_1.default(false, '删除文集失败', e);
+            return ctx.body = Object(__WEBPACK_IMPORTED_MODULE_1__lib_model_return__["a" /* default */])(false, '删除文集失败', e);
         }
     });
 });
-exports.default = router;
+/* harmony default export */ __webpack_exports__["a"] = (router);
 
 
 /***/ }),
 /* 144 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__lib_sql_server__ = __webpack_require__(39);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__public_src_redux_store_data__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_immutable__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_immutable__);
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -11212,21 +11253,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-const server_1 = __webpack_require__(39);
-const data_1 = __webpack_require__(68);
-const immutable_1 = __webpack_require__(30);
+
+
+
 /**
  * 传入userID
  */
-function default_1(userID) {
+/* harmony default export */ __webpack_exports__["a"] = (function (userID) {
     return new Promise(function (resolve, reject) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
                 //查询出文集列表
-                let workList = yield server_1.default.queryWorks(userID);
+                let workList = yield __WEBPACK_IMPORTED_MODULE_0__lib_sql_server__["a" /* default */].queryWorks(userID);
                 //转换为immutable的格式
-                let NewData = data_1.default.writer.setIn(['workList'], immutable_1.List(workList.map(item => immutable_1.Map(item))));
+                let NewData = __WEBPACK_IMPORTED_MODULE_1__public_src_redux_store_data__["a" /* default */].writer.setIn(['workList'], Object(__WEBPACK_IMPORTED_MODULE_2_immutable__["List"])(workList.map(item => Object(__WEBPACK_IMPORTED_MODULE_2_immutable__["Map"])(item))));
                 resolve({ writer: NewData });
             }
             catch (e) {
@@ -11234,31 +11274,37 @@ function default_1(userID) {
             }
         });
     });
-}
-exports.default = default_1;
+});
 
 
 /***/ }),
 /* 145 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom_server__ = __webpack_require__(146);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_dom_server___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_dom_server__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__views_Home__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__public_src_redux_store_index__ = __webpack_require__(244);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react_router_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react_router_dom__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(69);
-const ReactDOMServer = __webpack_require__(146);
-const react_redux_1 = __webpack_require__(102);
-const Home_1 = __webpack_require__(243);
-const index_1 = __webpack_require__(244);
-const react_router_dom_1 = __webpack_require__(103);
-function default_1(url, initData) {
-    let store = index_1.default(initData);
-    let html = ReactDOMServer.renderToString(React.createElement(react_redux_1.Provider, { store: store },
-        React.createElement(react_router_dom_1.StaticRouter, { location: url },
-            React.createElement(Home_1.default, null))));
+
+
+
+
+
+/* harmony default export */ __webpack_exports__["a"] = (function (url, initData) {
+    let store = Object(__WEBPACK_IMPORTED_MODULE_4__public_src_redux_store_index__["a" /* default */])(initData);
+    let html = __WEBPACK_IMPORTED_MODULE_1_react_dom_server__["renderToString"](__WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2_react_redux__["Provider"], { store: store },
+        __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_5_react_router_dom__["StaticRouter"], { location: url },
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_3__views_Home__["a" /* default */], null))));
     return html;
-}
-exports.default = default_1;
+});
 
 
 /***/ }),
@@ -23262,59 +23308,66 @@ module.exports = '15.6.2';
 
 /***/ }),
 /* 243 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_router_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_react_router_dom__);
 // let React = require('react')
 // let connect = require('react-redux').connect
 // let { Link  } = require('react-router-dom')
 // let mapStateToProps = require ('../redux/connect/mapStateToProps');
-Object.defineProperty(exports, "__esModule", { value: true });
-const React = __webpack_require__(69);
-const react_redux_1 = __webpack_require__(102);
-const react_router_dom_1 = __webpack_require__(103);
+
+
+
 const mapStateToProps = ({ writer }) => {
     return {
         workList: writer.getIn(['workList'])
     };
 };
-class Home extends React.Component {
+class Home extends __WEBPACK_IMPORTED_MODULE_0_react__["Component"] {
     render() {
         let { workList } = this.props;
-        return (React.createElement("div", { className: "g-home" },
-            React.createElement("div", { className: "m-header m-header-skin" },
-                React.createElement(react_router_dom_1.Link, { to: "/writer/writer" }, "\u5199\u6587\u7AE0")),
-            React.createElement("ul", { className: "m-list m-list-skin" }, workList.size && workList.map((item) => {
-                return (React.createElement("li", { key: item.get('id'), className: "m-list-item" },
-                    React.createElement("a", { className: "m-list-item-title" }, item.get('title'))));
+        return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: "g-home" },
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("div", { className: "m-header m-header-skin" },
+                __WEBPACK_IMPORTED_MODULE_0_react__["createElement"](__WEBPACK_IMPORTED_MODULE_2_react_router_dom__["Link"], { to: "/writer/writer" }, "\u5199\u6587\u7AE0")),
+            __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("ul", { className: "m-list m-list-skin" }, workList.size && workList.map((item) => {
+                return (__WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("li", { key: item.get('id'), className: "m-list-item" },
+                    __WEBPACK_IMPORTED_MODULE_0_react__["createElement"]("a", { className: "m-list-item-title" }, item.get('title'))));
             }))));
     }
 }
-exports.default = react_redux_1.connect(mapStateToProps)(Home);
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_1_react_redux__["connect"])(mapStateToProps)(Home));
 
 
 /***/ }),
 /* 244 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_thunk__ = __webpack_require__(245);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_redux_thunk___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_redux_thunk__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__reducers_index__ = __webpack_require__(246);
 /**
  * createStore 生成store
  * applyMiddleware  应用中间件，异步改变状态
  * compose
  * redux-thunk 改造store.dispatch，使后者可以接受函数作为参数
  */
-const redux_1 = __webpack_require__(104);
+
 // let {createStore, applyMiddleware} = require('redux');
 //允许store.dispatch传递函数
-const redux_thunk_1 = __webpack_require__(245);
+
 // let thunk = require('redux-thunk').default;
 // Reducer->传入一个state  ， 生成一个新的state
 // 调用方式  createStore(reducer);
-const index_1 = __webpack_require__(246);
+
 // let reducer = require('../reducers');
 ////为ssr做准备
 // const initialState = (typeof window !== 'undefined') ? (window['_INITIAL_STATE_'] || {}) : process._INITIAL_STATE_;
@@ -23330,10 +23383,10 @@ const index_1 = __webpack_require__(246);
 // export default store
 // module.exports = store;
 let create = (initialState) => {
-    const store = redux_1.createStore(index_1.default, initialState, redux_1.applyMiddleware(redux_thunk_1.default));
+    const store = Object(__WEBPACK_IMPORTED_MODULE_0_redux__["createStore"])(__WEBPACK_IMPORTED_MODULE_2__reducers_index__["a" /* default */], initialState, Object(__WEBPACK_IMPORTED_MODULE_0_redux__["applyMiddleware"])(__WEBPACK_IMPORTED_MODULE_1_redux_thunk___default.a));
     return store;
 };
-exports.default = create;
+/* harmony default export */ __webpack_exports__["a"] = (create);
 
 
 /***/ }),
@@ -23344,32 +23397,34 @@ module.exports = require("redux-thunk");
 
 /***/ }),
 /* 246 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_redux___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_redux__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writer__ = __webpack_require__(247);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const redux_1 = __webpack_require__(104);
-const writer_1 = __webpack_require__(247);
-exports.default = redux_1.combineReducers({
-    writer: writer_1.default
-});
+
+/* harmony default export */ __webpack_exports__["a"] = (Object(__WEBPACK_IMPORTED_MODULE_0_redux__["combineReducers"])({
+    writer: __WEBPACK_IMPORTED_MODULE_1__writer__["a" /* default */]
+}));
 
 
 /***/ }),
 /* 247 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__store_data__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writerImpl__ = __webpack_require__(248);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__writerImpl___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__writerImpl__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const data_1 = __webpack_require__(68);
-const writerImpl_1 = __webpack_require__(248);
-let reducer = (state = data_1.default.writer, action) => {
+
+let reducer = (state = __WEBPACK_IMPORTED_MODULE_0__store_data__["a" /* default */].writer, action) => {
     let workList = state.get('workList'), currentWorkID = state.get('currentWorkID').toString(), currentArticleID = state.get('currentArticleID').toString();
-    return writerImpl_1.deal[action.type] && writerImpl_1.deal[action.type](state, action, { workList, currentWorkID, currentArticleID }) || state;
+    return __WEBPACK_IMPORTED_MODULE_1__writerImpl__["deal"][action.type] && __WEBPACK_IMPORTED_MODULE_1__writerImpl__["deal"][action.type](state, action, { workList, currentWorkID, currentArticleID }) || state;
 };
-exports.default = reducer;
+/* harmony default export */ __webpack_exports__["a"] = (reducer);
 
 
 /***/ }),
@@ -24016,51 +24071,64 @@ $export($export.S + $export.F * !__webpack_require__(27), 'Object', { defineProp
 
 /***/ }),
 /* 283 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable__ = __webpack_require__(30);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_immutable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_immutable__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const immutable_1 = __webpack_require__(30);
-exports.setCurrentWorkInfo = function () {
+const setCurrentWorkInfo = function () {
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 };
-exports.setCurrentArticleInfo = function () {
+/* harmony export (immutable) */ __webpack_exports__["setCurrentWorkInfo"] = setCurrentWorkInfo;
+
+const setCurrentArticleInfo = function () {
     //todo 做成存到localstoage里面，后面直接取缓存的数据
 };
-exports.getCurrentWorkInfo = function (workList, workID = 0) {
+/* harmony export (immutable) */ __webpack_exports__["setCurrentArticleInfo"] = setCurrentArticleInfo;
+
+const getCurrentWorkInfo = function (workList, workID = 0) {
     workID = +workID;
     return workList.find((item) => item.id === workID);
 };
-exports.getCurrentArticleInfo = function (articleList, articleID = 0) {
+/* harmony export (immutable) */ __webpack_exports__["getCurrentWorkInfo"] = getCurrentWorkInfo;
+
+const getCurrentArticleInfo = function (articleList, articleID = 0) {
     articleID = +articleID;
     return articleList.find((item) => item.id === articleID);
 };
-exports.arrayToHashByID = function (arr, id = 'id') {
+/* harmony export (immutable) */ __webpack_exports__["getCurrentArticleInfo"] = getCurrentArticleInfo;
+
+const arrayToHashByID = function (arr, id = 'id') {
     var info = {};
     arr.forEach((item) => {
-        info[item[id]] = immutable_1.Map(item);
+        info[item[id]] = Object(__WEBPACK_IMPORTED_MODULE_0_immutable__["Map"])(item);
     });
     return info;
 };
-exports.default = {
-    setCurrentWorkInfo: exports.setCurrentWorkInfo,
-    setCurrentArticleInfo: exports.setCurrentArticleInfo,
-    getCurrentWorkInfo: exports.getCurrentWorkInfo,
-    getCurrentArticleInfo: exports.getCurrentArticleInfo,
-    arrayToHashByID: exports.arrayToHashByID
-};
+/* harmony export (immutable) */ __webpack_exports__["arrayToHashByID"] = arrayToHashByID;
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    setCurrentWorkInfo,
+    setCurrentArticleInfo,
+    getCurrentWorkInfo,
+    getCurrentArticleInfo,
+    arrayToHashByID
+});
 
 
 /***/ }),
 /* 284 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ActionTypes", function() { return ActionTypes; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_keymirror__ = __webpack_require__(285);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_keymirror___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_keymirror__);
 
-Object.defineProperty(exports, "__esModule", { value: true });
-const KeyMirror = __webpack_require__(285);
-exports.ActionTypes = KeyMirror({
+let ActionTypes = __WEBPACK_IMPORTED_MODULE_0_keymirror__({
     CREATE_NEW_WORK: null,
     CHANGE_ACTIVE_WORK: null,
     CREATE_NEW_ARTICLE: null,
