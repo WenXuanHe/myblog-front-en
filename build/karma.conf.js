@@ -9,10 +9,18 @@ module.exports = function (config) {
       'test/unit/*.js'
     ],
 
+    reporters: ['progress', 'coverage'],
+
     preprocessors: {
       // add webpack as preprocessor
-      'public/src/**/*.js': ['webpack', 'sourcemap'],
-      'test/unit/*.js': ['webpack', 'sourcemap']
+      'public/src/**/*.js': ['webpack', 'sourcemap', 'coverage'],
+      'test/unit/*.js': ['webpack', 'sourcemap', 'coverage']
+    },
+
+    // optionally, configure the reporter 
+    coverageReporter: {
+      type : 'html',
+      dir : 'coverage/'
     },
 
     webpack: { //kind of a copy of your webpack config
