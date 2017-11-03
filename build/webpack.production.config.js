@@ -31,7 +31,6 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, '../', "public/src/index.tsx"),
         login: path.resolve(__dirname, '../', "public/src/login.tsx"),
-        transform: path.resolve(__dirname, '../', "public/src/transform.js"),
         vendors: [
             'react',
             'react-dom',
@@ -133,33 +132,35 @@ module.exports = {
         }
     },
     plugins: [
+        // 压缩配置
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+            warnings: false
+            }
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendors",
             filename: "vendors.js",
         }),
         htmlWebpackPluginIndex,
         htmlWebpackPluginLogin,
-
         //将模块暴露到全局去
         new webpack.ProvidePlugin({
             $: 'jquery',
             Immutable:'immutable'
         }),
         new ExtractTextPlugin("styles/[name].css"),
-
         new TsConfigPathsPlugin({
             configFileName: "tsconfig.json",
             compiler: "typescript"
         }),
         //  scope hoisting
         new webpack.optimize.ModuleConcatenationPlugin(),
-
         new webpack.DefinePlugin({
             __VERSION__: JSON.stringify(version),
             __DEV__: env === 'development',
             __PROD__: env === 'production',
             __WHY_DID_YOU_UPDATE__: true  //是否检测不必要的组件重渲染
           }),
-    ],
-    devtool: 'source-map'
+    ]
 }
