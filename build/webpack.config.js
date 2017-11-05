@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
 
@@ -74,17 +75,17 @@ module.exports = {
             test: /\.tsx?$/,
             use: ['awesome-typescript-loader']
         },
-        // {
-        //     test: /public\\src\\views(\\.*).tsx$/,
-        //     use: [{
-        //         loader: 'bundle-loader',
-        //         options: {
-        //             lazy: true
-        //         }
-        //     },
-        //     'awesome-typescript-loader'
-        //     ]
-        // },
+        {
+            test: /public\\src\\views(\\.*).tsx$/,
+            use: [{
+                loader: 'bundle-loader',
+                options: {
+                    lazy: true
+                }
+            },
+            'awesome-typescript-loader'
+            ]
+        },
         {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             use: [{
@@ -133,6 +134,12 @@ module.exports = {
         }
     },
     plugins: [
+        new CleanWebpackPlugin(['dist'],　 //匹配删除的文件
+        {
+            root: path.resolve(__dirname, '../', 'public'),//根目录
+            verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
+            dry:      false        　　　　　　　　　　//启用删除文件
+        }),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendors",
             filename: "vendors.js",

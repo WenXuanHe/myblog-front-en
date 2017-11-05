@@ -6,8 +6,7 @@
 // let { BrowserRouter , Route , Redirect, Switch, StaticRouter} = require('react-router-dom');
 // let Bundle = require('../components/Bundle.js');
 // let Home = require('../components/Home.js');
-// let Writer =  require('bundle-loader?lazy&name=writer!../components/Writer.js');
-// let NoMatch =  require('bundle-loader?lazy&name=noMatch!../components/NoMatch.js');
+
 // // //BrowserRouter
 // let Router = BrowserRouter ;
 
@@ -15,15 +14,9 @@ import * as React from 'react'
 import { BrowserRouter as Router , Route , Redirect, Switch, StaticRouter} from 'react-router-dom'
 import Bundle from '../components/Bundle'
 import Home from '$views/Home'
-import Writer from '$views/Writer'
-import NoMatch from '$views/NoMatch'
 import storeData from '../redux/store/data'
-
-// function lazyLoadComponent(lazyModule) {  
-//   return (location, cb) => {
-//       lazyModule(module => cb(null, module.default));
-//   }
-// }
+let Writer =  require('bundle-loader?lazy&name=writer!$views/Writer');
+let NoMatch =  require('bundle-loader?lazy&name=noMatch!$views/NoMatch');
 
 const initialState = window['_INITIAL_STATE_'] || storeData;
 

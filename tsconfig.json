@@ -1,13 +1,14 @@
 {
     "compilerOptions": {
-        "outDir": "./dist/",
+        "outDir": "./public/dist/",
         "sourceMap": true,
         "noImplicitAny": false,
         "moduleResolution": "node",
         // "module": "commonjs",
-        "target": "es2015",
+        "target": "ES5",
         "lib": ["es6", "dom"],
         "jsx": "react",
+        // 设置为true时js文件也会被编译
         "allowJs": true,
         "experimentalDecorators": true,
         "baseUrl": "./",
@@ -27,6 +28,7 @@
     //     "public/src/**/*.tsx"
     // ],
     "exclude": [
-        "node_modules"
+        "node_modules",
+        "bundle-loader?lazy!../views/Writer"
     ]
 }

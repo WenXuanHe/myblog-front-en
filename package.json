@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node server",
     "pm2": "pm2 start server -i 4",
-    "dev": "webpack --color --watch --config ./build/webpack.config.js",
+    "dev": "NODE_ENV=development webpack --color --watch --config ./build/webpack.config.js",
+    "build": "NODE_ENV=production webpack --display-optimization-bailout --color --config ./build/webpack.production.config.js",
     "build-s": "webpack --color --config ./build/webpack.config.server.js",
     "test": "karma start --single-run --browsers ChromeHeadless ./build/karma.conf.js",
     "eslint": "eslint public/src",

@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
 
@@ -43,10 +44,9 @@ module.exports = {
     },
     output: {
         path: path.resolve(__dirname, '../', 'public/dist/'),
-        filename: "[name].js",
-        sourceMapFilename: '[file].map',
+        filename: "[name].[hash:6].js",
         //配置按需加载[chunkhash:5]
-        chunkFilename: '[name].chunk.js',
+        chunkFilename: '[name].[chunkhash:5].js',
         //给自动引用的生成文件加路径
         publicPath: '/dist/'
     },
@@ -73,17 +73,17 @@ module.exports = {
             test: /\.tsx?$/,
             use: ['awesome-typescript-loader']
         },
-        // {
-        //     test: /public\\src\\views(\\.*).tsx$/,
-        //     use: [{
-        //         loader: 'bundle-loader',
-        //         options: {
-        //             lazy: true
-        //         }
-        //     },
-        //     'awesome-typescript-loader'
-        //     ]
-        // },
+        {
+            test: /public\\src\\views(\\.*).tsx$/,
+            use: [{
+                loader: 'bundle-loader',
+                options: {
+                    lazy: true
+                }
+            },
+            'awesome-typescript-loader'
+            ]
+        },
         {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             use: [{
@@ -132,15 +132,21 @@ module.exports = {
         }
     },
     plugins: [
-        // 压缩配置
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-            warnings: false
-            }
+        new CleanWebpackPlugin(['dist'],　 //匹配删除的文件
+        {
+            root: path.resolve(__dirname, '../', 'public'),//根目录
+            verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
+            dry:      false        　　　　　　　　　　//启用删除文件
         }),
+        // 压缩配置
+        new webpack.optimize.UglifyJsPlugin(
+            {
+                sourceMap: true
+            }
+        ),
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendors",
-            filename: "vendors.js",
+            filename: "vendors.[hash:6].js",
         }),
         htmlWebpackPluginIndex,
         htmlWebpackPluginLogin,
@@ -157,6 +163,9 @@ module.exports = {
         //  scope hoisting
         new webpack.optimize.ModuleConcatenationPlugin(),
         new webpack.DefinePlugin({
+            'process.env': {
+                 'NODE_ENV': JSON.stringify('production')
+            },
             __VERSION__: JSON.stringify(version),
             __DEV__: env === 'development',
             __PROD__: env === 'production',
