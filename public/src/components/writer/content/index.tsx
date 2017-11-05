@@ -1,5 +1,4 @@
 import * as React from 'react'
-import { getter } from '$utils/immutable-extend'
 import { storeType } from '$redux/store/data'
 import actions from '$actions/index'
 import {ActionTypes} from '$redux/actionType/index'

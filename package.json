@@ -22,6 +22,7 @@
     "keymirror": "^0.1.1",
     "koa": "^2.2.0",
     "koa-bodyparser": "^3.2.0",
+    "koa-compress": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-errorhandler": "^0.1.1",
     "koa-json": "^2.0.2",
@@ -48,7 +49,8 @@
     "redis": "^2.7.1",
     "redux": "^3.6.0",
     "redux-thunk": "^2.2.0",
-    "wangeditor": "^2.1.23"
+    "wangeditor": "^2.1.23",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@std/esm": "^0.5.1",

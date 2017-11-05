@@ -39,7 +39,12 @@ module.exports = {
             'react-router',
             'redux',
             'redux-thunk',
-            'lodash'
+            'lodash',
+            'immutable',
+            'classnames',
+            'keymirror',
+            'wangeditor',
+            'react-router-dom'
         ]
     },
     output: {

@@ -8,6 +8,8 @@ import * as render from 'koa-swig'
 import * as co from 'co'
 import * as path from 'path'
 import * as session from "koa-session2"
+import * as compress from 'koa-compress'
+import * as zlib from 'zlib'
 import getExpires from "../lib/session/expires"
 import Store from "../lib/session/Store"
 import base from '../routes/base'
@@ -19,7 +21,14 @@ const app = new Koa();
 const bodyparser = createBodyparser();
 // error handler
 onerror(app);
-console.log("__dirname", __dirname);
+// 开启gzip压缩
+app.use(compress({
+  filter: function (content_type) {
+  	return /text/i.test(content_type)
+  },
+  threshold: 2048,
+  flush: zlib.Z_SYNC_FLUSH
+}))
 app.context.render = co.wrap(render({
     root: path.resolve(__dirname, 'views'),
     autoescape: true,
@@ -69,4 +78,17 @@ app.use(index.routes(), index.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
 app.use(writer.routes(), writer.allowedMethods());
 console.log("PID", process.pid);
+
+
+
+function shouldCompress (req, res) {
+  if (req.headers['x-no-compression']) {
+    // don't compress responses with this request header
+    return false
+  }
+ 
+  // fallback to standard filter function
+  return compression.filter(req, res)
+}
+
 export default app;
