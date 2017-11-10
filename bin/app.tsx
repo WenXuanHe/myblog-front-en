@@ -7,7 +7,7 @@ import * as logger from 'koa-logger'
 import * as render from 'koa-swig'
 import * as co from 'co'
 import * as path from 'path'
-import * as session from "koa-session2"
+import session from "koa-session2"
 import * as compress from 'koa-compress'
 import * as zlib from 'zlib'
 import getExpires from "../lib/session/expires"
@@ -78,17 +78,5 @@ app.use(index.routes(), index.allowedMethods());
 app.use(login.routes(), login.allowedMethods());
 app.use(writer.routes(), writer.allowedMethods());
 console.log("PID", process.pid);
-
-
-
-function shouldCompress (req, res) {
-  if (req.headers['x-no-compression']) {
-    // don't compress responses with this request header
-    return false
-  }
- 
-  // fallback to standard filter function
-  return compression.filter(req, res)
-}
 
 export default app;
