@@ -2,15 +2,15 @@ import * as React from 'react'
 import WorkList from '$components/writer/workList'
 import ArticleList from '$components/writer/articleList'
 import Content from '$components/writer/content'
-// import PureRenderMixin from 'react-addons-pure-render-mixin';
+import PureRenderMixin from 'react-addons-pure-render-mixin';
 import persistence from '$helper/persistence'
 
 class Writer extends React.PureComponent {
 
-    // constructor(){
-    //     super(...arguments);
-    //     // this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
-    // }
+    constructor(){
+        super();
+        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    }
 
     render() {
         return (

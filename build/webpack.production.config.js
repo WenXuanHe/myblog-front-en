@@ -5,6 +5,8 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 let injectAssetsIntoHtmlPath = path.resolve(__dirname, '../', './views/templates/injectAssetsIntoHtml');
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
@@ -39,11 +41,10 @@ module.exports = {
             'react-router',
             'redux',
             'redux-thunk',
-            'lodash',
             'immutable',
             'classnames',
             'keymirror',
-            'wangeditor',
+            // 'wangeditor',
             'react-router-dom'
         ]
     },
@@ -68,7 +69,7 @@ module.exports = {
                         "stage-0",
                         "react"
                     ],
-                    plugins: ['transform-runtime', "transform-decorators-legacy"]
+                    plugins: ['transform-runtime', "transform-decorators-legacy", 'lodash']
                 }
             }],
             include: [path.resolve(__dirname, '../', 'public/src')],
@@ -136,13 +137,20 @@ module.exports = {
             $views: path.resolve(__dirname, '../', 'public/src/views'),
         }
     },
+    externals: {
+        wangeditor: 'wangeditor'
+    },
     plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerPort: 4455
+        }),
         new CleanWebpackPlugin(['dist'],　 //匹配删除的文件
         {
             root: path.resolve(__dirname, '../', 'public'),//根目录
             verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
             dry:      false        　　　　　　　　　　//启用删除文件
         }),
+        new LodashModuleReplacementPlugin,
         // 压缩配置
         new webpack.optimize.UglifyJsPlugin(
             {
@@ -156,10 +164,10 @@ module.exports = {
         htmlWebpackPluginIndex,
         htmlWebpackPluginLogin,
         //将模块暴露到全局去
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            Immutable:'immutable'
-        }),
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     Immutable:'immutable'
+        // }),
         new ExtractTextPlugin("styles/[name].css"),
         new TsConfigPathsPlugin({
             configFileName: "tsconfig.json",

@@ -5,6 +5,7 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let injectAssetsIntoHtmlPath = path.resolve(__dirname, '../', './views/templates/injectAssetsIntoHtml');
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
@@ -153,10 +154,10 @@ module.exports = {
         htmlWebpackPluginLogin,
 
         //将模块暴露到全局去
-        new webpack.ProvidePlugin({
-            $: 'jquery',
-            Immutable:'immutable'
-        }),
+        // new webpack.ProvidePlugin({
+        //     $: 'jquery',
+        //     Immutable:'immutable'
+        // }),
         new ExtractTextPlugin("styles/[name].css"),
 
         new TsConfigPathsPlugin({
