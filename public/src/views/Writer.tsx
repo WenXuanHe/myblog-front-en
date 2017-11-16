@@ -2,14 +2,12 @@ import * as React from 'react'
 import WorkList from '$components/writer/workList'
 import ArticleList from '$components/writer/articleList'
 import Content from '$components/writer/content'
-import PureRenderMixin from 'react-addons-pure-render-mixin';
 import persistence from '$helper/persistence'
 
 class Writer extends React.PureComponent {
 
-    constructor(){
-        super();
-        this.shouldComponentUpdate = PureRenderMixin.shouldComponentUpdate.bind(this);
+    constructor(props){
+        super(props);
     }
 
     render() {

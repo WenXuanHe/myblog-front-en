@@ -5,8 +5,8 @@ const { TsConfigPathsPlugin } = require('awesome-typescript-loader');
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
-var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
+var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 let injectAssetsIntoHtmlPath = path.resolve(__dirname, '../', './views/templates/injectAssetsIntoHtml');
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
@@ -22,7 +22,7 @@ let htmlWebpackPluginLogin = new HtmlWebpackPlugin({
     template: path.resolve(__dirname, '../', 'views/templates/login.html'),
     chunks: ['vendors', 'login'], //入口文件所依赖的js文件
     inject: 'define' //js文件插入到body最后一行
-}); 
+});
 
 htmlWebpackPluginIndex = require(injectAssetsIntoHtmlPath)(htmlWebpackPluginIndex);
 htmlWebpackPluginLogin = require(injectAssetsIntoHtmlPath)(htmlWebpackPluginLogin);
@@ -74,22 +74,22 @@ module.exports = {
             }],
             include: [path.resolve(__dirname, '../', 'public/src')],
             exclude: /(node_modules|bower_components)/
-        }, 
+        },
         {
             test: /\.tsx?$/,
             use: ['awesome-typescript-loader']
         },
-        {
-            test: /public\\src\\views(\\.*).tsx$/,
-            use: [{
-                loader: 'bundle-loader',
-                options: {
-                    lazy: true
-                }
-            },
-            'awesome-typescript-loader'
-            ]
-        },
+        // {
+        //     test: /public\\src\\views(\\.*).tsx$/,
+        //     use: [{
+        //         loader: 'bundle-loader',
+        //         options: {
+        //             lazy: true
+        //         }
+        //     },
+        //     'awesome-typescript-loader'
+        //     ]
+        // },
         {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
             use: [{
@@ -103,13 +103,13 @@ module.exports = {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
                 use: [
-                    "css-loader", 
+                    "css-loader",
                     {
                         loader: "postcss-loader",
                         options:{
                             config: {
                                 path: path.resolve(__dirname, "../", "build/postcss.config.js")
-                            } 
+                            }
                         }
                     }
                 ],

@@ -3,8 +3,8 @@ import './styles/common/common.scss'
 import './styles/writer.scss'
 import './styles/index.scss'
 import {List, Map} from 'immutable'
-import isObject from 'lodash/isObject'
-import isArray from 'lodash/isArray'
+import * as  isObject from 'lodash/isObject'
+import * as isArray from 'lodash/isArray'
 
 //把 _INITIAL_STATE_ 转换为immutable的形式
 function changeToImmutable(data){
@@ -24,7 +24,7 @@ function changeToImmutable(data){
             });
         }
     }
-    
+
     return data;
 }
 

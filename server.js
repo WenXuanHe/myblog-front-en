@@ -21,7 +21,7 @@ module.exports =
 /******/ 	
 /******/ 	
 /******/ 	var hotApplyOnUpdate = true;
-/******/ 	var hotCurrentHash = "fa44804fcfdeaa7721d9"; // eslint-disable-line no-unused-vars
+/******/ 	var hotCurrentHash = "77b8913575f7c527bc21"; // eslint-disable-line no-unused-vars
 /******/ 	var hotRequestTimeout = 10000;
 /******/ 	var hotCurrentModuleData = {};
 /******/ 	var hotCurrentChildModule; // eslint-disable-line no-unused-vars
@@ -7163,9 +7163,9 @@ exports.default = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Immutable = __webpack_require__(30);
+var immutable_1 = __webpack_require__(30);
 var storeStates = {
-    writer: Immutable.fromJS({
+    writer: immutable_1.fromJS({
         workList: null,
         articleLists: null,
         currentArticleID: 0,

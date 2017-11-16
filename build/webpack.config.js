@@ -6,6 +6,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const path = require("path");
 const routeComponentRegex = /public\/src\/views\/([^\/]+).tsx$/;
 var BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+var LodashModuleReplacementPlugin = require('lodash-webpack-plugin');
 
 let injectAssetsIntoHtmlPath = path.resolve(__dirname, '../', './views/templates/injectAssetsIntoHtml');
 let htmlWebpackPluginIndex = new HtmlWebpackPlugin({
@@ -21,7 +22,7 @@ let htmlWebpackPluginLogin = new HtmlWebpackPlugin({
     template: path.resolve(__dirname, '../', 'views/templates/login.html'),
     chunks: ['vendors', 'login'], //入口文件所依赖的js文件
     inject: 'define' //js文件插入到body最后一行
-}); 
+});
 
 htmlWebpackPluginIndex = require(injectAssetsIntoHtmlPath)(htmlWebpackPluginIndex);
 htmlWebpackPluginLogin = require(injectAssetsIntoHtmlPath)(htmlWebpackPluginLogin);
@@ -33,7 +34,6 @@ module.exports = {
     entry: {
         index: path.resolve(__dirname, '../', "public/src/index.tsx"),
         login: path.resolve(__dirname, '../', "public/src/login.tsx"),
-        transform: path.resolve(__dirname, '../', "public/src/transform.js"),
         vendors: [
             'react',
             'react-dom',
@@ -45,16 +45,14 @@ module.exports = {
             'immutable',
             'classnames',
             'keymirror',
-            'wangeditor',
             'react-router-dom'
         ]
     },
     output: {
         path: path.resolve(__dirname, '../', 'public/dist/'),
         filename: "[name].js",
-        sourceMapFilename: '[file].map',
         //配置按需加载[chunkhash:5]
-        chunkFilename: '[name].chunk.js',
+        chunkFilename: '[name].trunk.js',
         //给自动引用的生成文件加路径
         publicPath: '/dist/'
     },
@@ -76,21 +74,10 @@ module.exports = {
             }],
             include: [path.resolve(__dirname, '../', 'public/src')],
             exclude: /(node_modules|bower_components)/
-        }, 
+        },
         {
             test: /\.tsx?$/,
             use: ['awesome-typescript-loader']
-        },
-        {
-            test: /public\\src\\views(\\.*).tsx$/,
-            use: [{
-                loader: 'bundle-loader',
-                options: {
-                    lazy: true
-                }
-            },
-            'awesome-typescript-loader'
-            ]
         },
         {
             test: /\.(gif|jpg|png|woff|svg|eot|ttf)\??.*$/,
@@ -105,13 +92,13 @@ module.exports = {
             test: /\.css$/,
             use: ExtractTextPlugin.extract({
                 use: [
-                    "css-loader", 
+                    "css-loader",
                     {
                         loader: "postcss-loader",
                         options:{
                             config: {
                                 path: path.resolve(__dirname, "../", "build/postcss.config.js")
-                            } 
+                            }
                         }
                     }
                 ],
@@ -139,13 +126,20 @@ module.exports = {
             $views: path.resolve(__dirname, '../', 'public/src/views'),
         }
     },
+    externals: {
+        wangeditor: 'wangEditor'
+    },
     plugins: [
+        new BundleAnalyzerPlugin({
+            analyzerPort: 4455
+        }),
         new CleanWebpackPlugin(['dist'],　 //匹配删除的文件
         {
             root: path.resolve(__dirname, '../', 'public'),//根目录
             verbose:  true,        　　　　　　　　　　//开启在控制台输出信息
             dry:      false        　　　　　　　　　　//启用删除文件
         }),
+        new LodashModuleReplacementPlugin,
         new webpack.optimize.CommonsChunkPlugin({
             name: "vendors",
             filename: "vendors.js",
