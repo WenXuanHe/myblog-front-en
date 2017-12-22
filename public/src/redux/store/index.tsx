@@ -8,6 +8,9 @@ import {createStore, applyMiddleware} from 'redux'
 // let {createStore, applyMiddleware} = require('redux');
 //允许store.dispatch传递函数
 import thunk from 'redux-thunk'
+import createSagaMiddleware from 'redux-saga'
+import rootSaga from '../saga';
+
 // let thunk = require('redux-thunk').default;
 // Reducer->传入一个state  ， 生成一个新的state
 // 调用方式  createStore(reducer);
@@ -27,12 +30,14 @@ import  { storeType } from './data'
 // )
 // export default store
 // module.exports = store;
+const sagaMiddleware = createSagaMiddleware();
+sagaMiddleware.run(rootSaga);
 let create = (initialState:storeType) => {
   const store = createStore(
     reducer,
     initialState,
     applyMiddleware(
-      thunk
+        sagaMiddleware
     )
   );
   return store;
